@@ -50,8 +50,13 @@ export const Splitter = (props: ISplitterProps) => {
         const rootdiv = layout.getRootDiv();
         outlineDiv.current = layout.getCurrentDocument()!.createElement("div");
         outlineDiv.current.style.position = "absolute";
-        outlineDiv.current.className = layout.getClassName(CLASSES.FLEXLAYOUT__SPLITTER_DRAG);
-        outlineDiv.current.style.cursor = node.getOrientation() === Orientation.HORZ ? "ns-resize" : "ew-resize";
+        outlineDiv.current.className = layout.getClassName(
+            CLASSES.FLEXLAYOUT__SPLITTER_DRAG
+        );
+        outlineDiv.current.style.cursor =
+            node.getOrientation() === Orientation.HORZ
+                ? "ns-resize"
+                : "ew-resize";
         const r = node.getRect();
         if (node.getOrientation() === Orientation.VERT && r.width < 2) {
             r.width = 2;
@@ -89,9 +94,11 @@ export const Splitter = (props: ISplitterProps) => {
 
         if (outlineDiv) {
             if (node.getOrientation() === Orientation.HORZ) {
-                outlineDiv.current!.style.top = getBoundPosition(pos.y - 4) + "px";
+                outlineDiv.current!.style.top =
+                    getBoundPosition(pos.y - 4) + "px";
             } else {
-                outlineDiv.current!.style.left = getBoundPosition(pos.x - 4) + "px";
+                outlineDiv.current!.style.left =
+                    getBoundPosition(pos.x - 4) + "px";
             }
         }
 
@@ -112,7 +119,12 @@ export const Splitter = (props: ISplitterProps) => {
 
         if (parentNode instanceof BorderNode) {
             const pos = (parentNode as BorderNode)._calculateSplit(node, value);
-            layout.doAction(Actions.adjustBorderSplit((node.getParent() as Node).getId(), pos));
+            layout.doAction(
+                Actions.adjustBorderSplit(
+                    (node.getParent() as Node).getId(),
+                    pos
+                )
+            );
         } else {
             const splitSpec = parentNode._calculateSplit(node, value);
             if (splitSpec !== undefined) {
@@ -146,9 +158,15 @@ export const Splitter = (props: ISplitterProps) => {
     const cm = layout.getClassName;
     let r = node.getRect();
     const style = r.styleWithPosition({
-        cursor: node.getOrientation() === Orientation.HORZ ? "ns-resize" : "ew-resize",
+        cursor:
+            node.getOrientation() === Orientation.HORZ
+                ? "ns-resize"
+                : "ew-resize",
     });
-    let className = cm(CLASSES.FLEXLAYOUT__SPLITTER) + " " + cm(CLASSES.FLEXLAYOUT__SPLITTER_ + node.getOrientation().getName());
+    let className =
+        cm(CLASSES.FLEXLAYOUT__SPLITTER) +
+        " " +
+        cm(CLASSES.FLEXLAYOUT__SPLITTER_ + node.getOrientation().getName());
 
     if (parentNode instanceof BorderNode) {
         className += " " + cm(CLASSES.FLEXLAYOUT__SPLITTER_BORDER);
@@ -160,13 +178,15 @@ export const Splitter = (props: ISplitterProps) => {
 
     const extra = node.getModel().getSplitterExtra();
     if (extra === 0) {
-        return (<div
-            style={style}
-            data-layout-path={path}
-            className={className}
-            onTouchStart={onMouseDown}
-            onMouseDown={onMouseDown}>
-        </div>);
+        return (
+            <div
+                style={style}
+                data-layout-path={path}
+                className={className}
+                onTouchStart={onMouseDown}
+                onMouseDown={onMouseDown}
+            ></div>
+        );
     } else {
         // add extended transparent div for hit testing
         // extends forward only, so as not to interfere with scrollbars
@@ -179,23 +199,23 @@ export const Splitter = (props: ISplitterProps) => {
             r2.height += extra;
         }
         const style2 = r2.styleWithPosition({
-            cursor: node.getOrientation() === Orientation.HORZ ? "ns-resize" : "ew-resize"
+            cursor:
+                node.getOrientation() === Orientation.HORZ
+                    ? "ns-resize"
+                    : "ew-resize",
         });
 
         const className2 = cm(CLASSES.FLEXLAYOUT__SPLITTER_EXTRA);
 
         return (
-            <div
-                style={style}
-                data-layout-path={path}
-                className={className}>
+            <div style={style} data-layout-path={path} className={className}>
                 <div
                     style={style2}
                     className={className2}
                     onTouchStart={onMouseDown}
-                    onMouseDown={onMouseDown}>
-                </div>
-            </div>);
+                    onMouseDown={onMouseDown}
+                ></div>
+            </div>
+        );
     }
-
 };

@@ -21,7 +21,11 @@ export const FloatingWindowTab = (props: IFloatingWindowTabProps) => {
 
     return (
         <div className={cm(CLASSES.FLEXLAYOUT__FLOATING_WINDOW_TAB)}>
-            <ErrorBoundary message={props.layout.i18nName(I18nLabel.Error_rendering_component)}>
+            <ErrorBoundary
+                message={props.layout.i18nName(
+                    I18nLabel.Error_rendering_component
+                )}
+            >
                 <Fragment>{child}</Fragment>
             </ErrorBoundary>
         </div>
