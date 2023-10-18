@@ -2,7 +2,7 @@
     "name": "@aptre/flex-layout",
     "author": "Caplin Systems Ltd",
     "description": "A multi-tab docking layout manager",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "license": "ISC",
     "repository": {
         "type": "git",
@@ -22,11 +22,11 @@
         "reactjs",
         "react-dom"
     ],
-    "main": "./dist/index.js",
-    "module": "./dist/index.js",
+    "main": "./dist/index.mjs",
+    "module": "./dist/index.mjs",
     "types": "./declarations/index.d.ts",
     "exports": {
-        ".": "./dist/index.js"
+        ".": "./dist/index.mjs"
     },
     "files": [
         "README.md",
@@ -40,7 +40,7 @@
     "scripts": {
         "build": "npm run build:style && npm run build:doc && npm run build:lib",
         "build:min": "npm run build:style && npm run build:doc && npm run build:lib:min",
-        "build:lib": "esbuild --bundle --external:react --external:react-dom --format=esm --target=es2022 --platform=browser --outfile=./dist/index.js ./src/index.ts",
+        "build:lib": "rimraf ./dist && esbuild --bundle --external:react --external:react-dom --format=esm --target=es2022 --platform=browser --outfile=./dist/index.mjs ./src/index.ts",
         "build:lib:min": "npm run build:lib -- --minify",
         "build:doc": "typedoc --out typedoc --exclude \"**/examples/**/*.tsx\" --excludeInternal --disableSources --excludePrivate --excludeProtected --readme none ./src",
         "build:style": "sass style/underline.scss style/underline.css && sass style/gray.scss style/gray.css && sass style/light.scss style/light.css && sass style/dark.scss style/dark.css",
@@ -66,6 +66,7 @@
         "react": "^18.0.0",
         "react-dom": "^18.0.0",
         "react-scripts": "5.0.1",
+        "rimraf": "^5.0.5",
         "sass": "^1.50.0",
         "typedoc": "^0.25.0",
         "typescript": "^5.0.0"
