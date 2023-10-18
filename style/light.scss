@@ -122,11 +122,11 @@ $font-family: Roboto, Arial, sans-serif !default;
 }
 
 @mixin close_button_hovered_mixin {
-    background-color:var(--color-3);
+    background-color: var(--color-3);
 }
 
 @mixin toolbar_button_hovered_mixin {
-    background-color:var(--color-2);
+    background-color: var(--color-2);
 }
 
 @mixin border_mixin {

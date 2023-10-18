@@ -101,7 +101,7 @@ export class TabSetNode extends Node implements IDraggable, IDropTarget {
     }
 
     getAttrMinWidth() {
-        return (this.getAttr("minWidth") as number);
+        return this.getAttr("minWidth") as number;
     }
 
     getAttrMinHeight() {
@@ -125,7 +125,7 @@ export class TabSetNode extends Node implements IDraggable, IDropTarget {
         }
     }
     getAttrMaxWidth() {
-        return (this.getAttr("maxWidth") as number);
+        return this.getAttr("maxWidth") as number;
     }
 
     getAttrMaxHeight() {
@@ -148,7 +148,6 @@ export class TabSetNode extends Node implements IDraggable, IDropTarget {
             return this.getMaxHeight();
         }
     }
-
 
     /**
      * Returns the config attribute that can be used to store node specific data that
@@ -216,8 +215,6 @@ export class TabSetNode extends Node implements IDraggable, IDropTarget {
     getTabLocation() {
         return this.getAttr("tabLocation") as string;
     }
-
-
 
     toJson(): IJsonTabSetNode {
         const json: any = {};
@@ -334,7 +331,7 @@ export class TabSetNode extends Node implements IDraggable, IDropTarget {
                     child = this.children[i] as TabNode;
                     r = child.getTabRect()!;
                     if (r.y !== yy) {
-                        yy = r.y
+                        yy = r.y;
                         p = this.tabStripRect.x;
                     }
                     childCenter = r.x + r.width / 2;
@@ -444,10 +441,9 @@ export class TabSetNode extends Node implements IDraggable, IDropTarget {
                 // console.log("added child at end");
                 dragParent = moveNode;
             } else if (dragNode instanceof RowNode) {
-                const parent = (this.getParent()! as RowNode);
+                const parent = this.getParent()! as RowNode;
                 // need to turn round if same orientation unless docking oposite direction
-                if (dragNode.getOrientation() === parent.getOrientation() &&
-                    (location.getOrientation() === parent.getOrientation() || location === DockLocation.CENTER)) {
+                if (dragNode.getOrientation() === parent.getOrientation() && (location.getOrientation() === parent.getOrientation() || location === DockLocation.CENTER)) {
                     const node = new RowNode(this.model, this.getWindowId(), {});
                     node.addChild(dragNode);
                     moveNode = node;
@@ -504,76 +500,36 @@ export class TabSetNode extends Node implements IDraggable, IDropTarget {
     private static createAttributeDefinitions(): AttributeDefinitions {
         const attributeDefinitions = new AttributeDefinitions();
         attributeDefinitions.add("type", TabSetNode.TYPE, true).setType(Attribute.STRING).setFixed();
-        attributeDefinitions.add("id", undefined).setType(Attribute.STRING).setDescription(
-            `the unique id of the tab set, if left undefined a uuid will be assigned`
-        );
-        attributeDefinitions.add("weight", 100).setType(Attribute.NUMBER).setDescription(
-            `relative weight for sizing of this tabset in parent row`
-        );
-        attributeDefinitions.add("selected", 0).setType(Attribute.NUMBER).setDescription(
-            `index of selected/visible tab in tabset`
-        );
+        attributeDefinitions.add("id", undefined).setType(Attribute.STRING).setDescription(`the unique id of the tab set, if left undefined a uuid will be assigned`);
+        attributeDefinitions.add("weight", 100).setType(Attribute.NUMBER).setDescription(`relative weight for sizing of this tabset in parent row`);
+        attributeDefinitions.add("selected", 0).setType(Attribute.NUMBER).setDescription(`index of selected/visible tab in tabset`);
         attributeDefinitions.add("name", undefined).setType(Attribute.STRING);
-        attributeDefinitions.add("config", undefined).setType("any").setDescription(
-            `a place to hold json config used in your own code`
-        );
+        attributeDefinitions.add("config", undefined).setType("any").setDescription(`a place to hold json config used in your own code`);
 
-        attributeDefinitions.addInherited("enableDeleteWhenEmpty", "tabSetEnableDeleteWhenEmpty").setDescription(
-            `whether to delete this tabset when is has no tabs`
-        );
-        attributeDefinitions.addInherited("enableDrop", "tabSetEnableDrop").setDescription(
-            `allow user to drag tabs into this tabset`
-        );
-        attributeDefinitions.addInherited("enableDrag", "tabSetEnableDrag").setDescription(
-            `allow user to drag tabs out this tabset`
-        );
-        attributeDefinitions.addInherited("enableDivide", "tabSetEnableDivide").setDescription(
-            `allow user to drag tabs to region of this tabset, splitting into new tabset`
-        );
-        attributeDefinitions.addInherited("enableMaximize", "tabSetEnableMaximize").setDescription(
-            `allow user to maximize tabset to fill view via maximize button`
-        );
-        attributeDefinitions.addInherited("enableClose", "tabSetEnableClose").setDescription(
-            `allow user to close tabset via a close button`
-        );
-        attributeDefinitions.addInherited("enableSingleTabStretch", "tabSetEnableSingleTabStretch").setDescription(
-            `if the tabset has only a single tab then stretch the single tab to fill area and display in a header style`
-        );
+        attributeDefinitions.addInherited("enableDeleteWhenEmpty", "tabSetEnableDeleteWhenEmpty").setDescription(`whether to delete this tabset when is has no tabs`);
+        attributeDefinitions.addInherited("enableDrop", "tabSetEnableDrop").setDescription(`allow user to drag tabs into this tabset`);
+        attributeDefinitions.addInherited("enableDrag", "tabSetEnableDrag").setDescription(`allow user to drag tabs out this tabset`);
+        attributeDefinitions.addInherited("enableDivide", "tabSetEnableDivide").setDescription(`allow user to drag tabs to region of this tabset, splitting into new tabset`);
+        attributeDefinitions.addInherited("enableMaximize", "tabSetEnableMaximize").setDescription(`allow user to maximize tabset to fill view via maximize button`);
+        attributeDefinitions.addInherited("enableClose", "tabSetEnableClose").setDescription(`allow user to close tabset via a close button`);
+        attributeDefinitions
+            .addInherited("enableSingleTabStretch", "tabSetEnableSingleTabStretch")
+            .setDescription(`if the tabset has only a single tab then stretch the single tab to fill area and display in a header style`);
 
-        attributeDefinitions.addInherited("classNameTabStrip", "tabSetClassNameTabStrip").setDescription(
-            `a class name to apply to the tab strip`
-        );
-        attributeDefinitions.addInherited("enableTabStrip", "tabSetEnableTabStrip").setDescription(
-            `enable tab strip and allow multiple tabs in this tabset`
-        );
-        attributeDefinitions.addInherited("minWidth", "tabSetMinWidth").setDescription(
-            `minimum width (in px) for this tabset`
-        );
-        attributeDefinitions.addInherited("minHeight", "tabSetMinHeight").setDescription(
-            `minimum height (in px) for this tabset`
-        );
-        attributeDefinitions.addInherited("maxWidth", "tabSetMaxWidth").setDescription(
-            `maximum width (in px) for this tabset`
-        );
-        attributeDefinitions.addInherited("maxHeight", "tabSetMaxHeight").setDescription(
-            `maximum height (in px) for this tabset`
-        );
+        attributeDefinitions.addInherited("classNameTabStrip", "tabSetClassNameTabStrip").setDescription(`a class name to apply to the tab strip`);
+        attributeDefinitions.addInherited("enableTabStrip", "tabSetEnableTabStrip").setDescription(`enable tab strip and allow multiple tabs in this tabset`);
+        attributeDefinitions.addInherited("minWidth", "tabSetMinWidth").setDescription(`minimum width (in px) for this tabset`);
+        attributeDefinitions.addInherited("minHeight", "tabSetMinHeight").setDescription(`minimum height (in px) for this tabset`);
+        attributeDefinitions.addInherited("maxWidth", "tabSetMaxWidth").setDescription(`maximum width (in px) for this tabset`);
+        attributeDefinitions.addInherited("maxHeight", "tabSetMaxHeight").setDescription(`maximum height (in px) for this tabset`);
 
-        attributeDefinitions.addInherited("enableTabWrap", "tabSetEnableTabWrap").setDescription(
-            `show tabs in location top or bottom`
-        );
-        attributeDefinitions.addInherited("tabLocation", "tabSetTabLocation").setDescription(
-            `the location of the tabs either top or bottom`
-        );
-        attributeDefinitions.addInherited("autoSelectTab", "tabSetAutoSelectTab").setType(Attribute.BOOLEAN).setDescription(
-            `whether to select new/moved tabs in tabset`
-        );
-        attributeDefinitions.addInherited("enableActiveIcon", "tabSetEnableActiveIcon").setType(Attribute.BOOLEAN).setDescription(
-            `whether the active icon (*) should be displayed when the tabset is active`
-        );
+        attributeDefinitions.addInherited("enableTabWrap", "tabSetEnableTabWrap").setDescription(`show tabs in location top or bottom`);
+        attributeDefinitions.addInherited("tabLocation", "tabSetTabLocation").setDescription(`the location of the tabs either top or bottom`);
+        attributeDefinitions.addInherited("autoSelectTab", "tabSetAutoSelectTab").setType(Attribute.BOOLEAN).setDescription(`whether to select new/moved tabs in tabset`);
+        attributeDefinitions
+            .addInherited("enableActiveIcon", "tabSetEnableActiveIcon")
+            .setType(Attribute.BOOLEAN)
+            .setDescription(`whether the active icon (*) should be displayed when the tabset is active`);
         return attributeDefinitions;
     }
-
 }
-
-

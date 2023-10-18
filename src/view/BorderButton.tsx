@@ -40,7 +40,7 @@ export const BorderButton = (props: IBorderButtonProps) => {
     const onAuxMouseClick = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         if (isAuxMouseEvent(event)) {
             layout.auxMouseClick(node, event);
-        } 
+        }
     };
 
     const onContextMenu = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -107,10 +107,10 @@ export const BorderButton = (props: IBorderButtonProps) => {
     };
 
     const onTextBoxKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.code === 'Escape') {
+        if (event.code === "Escape") {
             // esc
             layout.setEditingTab(undefined);
-        } else if (event.code === 'Enter') {
+        } else if (event.code === "Enter") {
             // enter
             layout.setEditingTab(undefined);
             layout.doAction(Actions.renameTab(node.getId(), (event.target as HTMLInputElement).value));
@@ -141,15 +141,9 @@ export const BorderButton = (props: IBorderButtonProps) => {
 
     const renderState = getRenderStateEx(layout, node, iconAngle);
 
-    let content = renderState.content ? (
-        <div className={cm(CLASSES.FLEXLAYOUT__BORDER_BUTTON_CONTENT)}>
-            {renderState.content}
-        </div>) : null;
+    let content = renderState.content ? <div className={cm(CLASSES.FLEXLAYOUT__BORDER_BUTTON_CONTENT)}>{renderState.content}</div> : null;
 
-    const leading = renderState.leading ? (
-        <div className={cm(CLASSES.FLEXLAYOUT__BORDER_BUTTON_LEADING)}>
-            {renderState.leading}
-        </div>) : null;
+    const leading = renderState.leading ? <div className={cm(CLASSES.FLEXLAYOUT__BORDER_BUTTON_LEADING)}>{renderState.leading}</div> : null;
 
     if (layout.getEditingTab() === node) {
         content = (
@@ -175,9 +169,10 @@ export const BorderButton = (props: IBorderButtonProps) => {
                 title={closeTitle}
                 className={cm(CLASSES.FLEXLAYOUT__BORDER_BUTTON_TRAILING)}
                 onPointerDown={onClosePointerDown}
-                onClick={onClose}>
-                {(typeof icons.close === "function") ? icons.close(node) : icons.close}
-            </div>
+                onClick={onClose}
+            >
+                {typeof icons.close === "function" ? icons.close(node) : icons.close}
+            </div>,
         );
     }
 

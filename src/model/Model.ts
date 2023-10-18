@@ -132,12 +132,12 @@ export class Model {
                 if (node instanceof TabSetNode) {
                     const isMaximized = node.isMaximized();
                     const oldLayoutWindow = this.windows.get(node.getWindowId())!;
-                    const windowId = randomUUID()
+                    const windowId = randomUUID();
                     const layoutWindow = new LayoutWindow(windowId, oldLayoutWindow.toScreenRectFunction(node.getRect()));
                     const json = {
                         type: "row",
-                        children: []
-                    }
+                        children: [],
+                    };
                     const row = RowNode.fromJson(json, this, layoutWindow);
                     layoutWindow.root = row;
                     this.windows.set(windowId, layoutWindow);
@@ -153,11 +153,11 @@ export class Model {
             case Actions.POPOUT_TAB: {
                 const node = this.idMap.get(action.data.node);
                 if (node instanceof TabNode) {
-                    const windowId = randomUUID()
+                    const windowId = randomUUID();
                     let r = Rect.empty();
                     if (node.getParent() instanceof TabSetNode) {
                         r = node.getParent()!.getRect();
-                    } else  {
+                    } else {
                         r = (node.getParent() as BorderNode).getContentRect();
                     }
                     const oldLayoutWindow = this.windows.get(node.getWindowId())!;
@@ -165,10 +165,8 @@ export class Model {
                     const tabsetId = randomUUID();
                     const json = {
                         type: "row",
-                        children: [
-                            { type: "tabset", id: tabsetId }
-                        ]
-                    }
+                        children: [{ type: "tabset", id: tabsetId }],
+                    };
                     const row = RowNode.fromJson(json, this, layoutWindow);
                     layoutWindow.root = row;
                     this.windows.set(windowId, layoutWindow);
@@ -187,7 +185,7 @@ export class Model {
                         if (node instanceof RowNode) {
                             node.setWindowId(Model.MAIN_WINDOW_ID);
                         }
-                    })
+                    });
 
                     // this.getFirstTabSet().drop(window?.root!,DockLocation.CENTER, -1);
 
@@ -301,8 +299,6 @@ export class Model {
         return returnVal;
     }
 
-
-
     /**
      * Get the currently active tabset node
      */
@@ -387,17 +383,16 @@ export class Model {
         const child = node.getChildren()[0];
         if (child instanceof TabSetNode) {
             return child;
-        }
-        else {
+        } else {
             return this.getFirstTabSet(child);
         }
     }
 
     /**
- * Loads the model from the given json object
- * @param json the json model to load
- * @returns {Model} a new Model object
- */
+     * Loads the model from the given json object
+     * @param json the json model to load
+     * @returns {Model} a new Model object
+     */
     static fromJson(json: IJsonModel) {
         const model = new Model();
         Model.attributeDefinitions.fromJson(json.global, model.attributes);
@@ -406,7 +401,7 @@ export class Model {
             model.borders = BorderSet.fromJson(json.borders, model);
         }
         if (json.popouts) {
-            let i= 0;
+            let i = 0;
             let top = 100;
             let left = 100;
             for (const windowId in json.popouts) {
@@ -415,7 +410,7 @@ export class Model {
                 model.windows.set(windowId, layoutWindow);
                 // offscreen windows will reload cascaded (since cannot reposition)
                 if (!isOnScreen(layoutWindow.rect)) {
-                    layoutWindow.rect = new Rect(top + i*50, left+ i*50, 600, 400);
+                    layoutWindow.rect = new Rect(top + i * 50, left + i * 50, 600, 400);
                     i++;
                 }
             }
@@ -450,7 +445,7 @@ export class Model {
             global,
             borders: this.borders.toJson(),
             layout: this.rootWindow.root!.toJson(),
-            popouts: windows
+            popouts: windows,
         };
     }
 
@@ -482,18 +477,18 @@ export class Model {
      * set callback called when a new TabSet is created.
      * The tabNode can be undefined if it's the auto created first tabset in the root row (when the last
      * tab is deleted, the root tabset can be recreated)
-     * @param onCreateTabSet 
+     * @param onCreateTabSet
      */
     setOnCreateTabSet(onCreateTabSet: (tabNode?: TabNode) => ITabSetAttributes) {
         this.onCreateTabSet = onCreateTabSet;
     }
-    
-    addChangeListener(listener: ((action: Action) => void)) {
+
+    addChangeListener(listener: (action: Action) => void) {
         this.changeListeners.push(listener);
     }
 
-    removeChangeListener(listener: ((action: Action) => void)) {
-        const pos = this.changeListeners.findIndex(l => l === listener);
+    removeChangeListener(listener: (action: Action) => void) {
+        const pos = this.changeListeners.findIndex((l) => l === listener);
         if (pos !== -1) {
             this.changeListeners.splice(pos, 1);
         }
@@ -539,7 +534,7 @@ export class Model {
     }
 
     /** @internal */
-    setMaximizedTabset(tabsetNode: (TabSetNode | undefined), windowId: string) {
+    setMaximizedTabset(tabsetNode: TabSetNode | undefined, windowId: string) {
         const window = this.windows.get(windowId);
         if (window) {
             if (tabsetNode) {
@@ -555,7 +550,7 @@ export class Model {
         // regenerate idMap to stop it building up
         this.idMap.clear();
         this.visitNodes((node) => {
-            this.idMap.set(node.getId(), node)
+            this.idMap.set(node.getId(), node);
             // if (node instanceof RowNode) {
             //     node.normalizeWeights();
             // }
@@ -598,7 +593,7 @@ export class Model {
 
     /** @internal */
     nextUniqueId() {
-        return '#' + randomUUID();
+        return "#" + randomUUID();
     }
 
     /** @internal */
@@ -635,26 +630,20 @@ export class Model {
     private static createAttributeDefinitions(): AttributeDefinitions {
         const attributeDefinitions = new AttributeDefinitions();
 
-        attributeDefinitions.add("enableEdgeDock", true).setType(Attribute.BOOLEAN).setDescription(
-            `enable docking to the edges of the layout, this will show the edge indicators`
-        );
-        attributeDefinitions.add("rootOrientationVertical", false).setType(Attribute.BOOLEAN).setDescription(
-            `the top level 'row' will layout horizontally by default, set this option true to make it layout vertically`
-        );
-        attributeDefinitions.add("enableRotateBorderIcons", true).setType(Attribute.BOOLEAN).setDescription(
-            `boolean indicating if tab icons should rotate with the text in the left and right borders`
-        );
+        attributeDefinitions.add("enableEdgeDock", true).setType(Attribute.BOOLEAN).setDescription(`enable docking to the edges of the layout, this will show the edge indicators`);
+        attributeDefinitions
+            .add("rootOrientationVertical", false)
+            .setType(Attribute.BOOLEAN)
+            .setDescription(`the top level 'row' will layout horizontally by default, set this option true to make it layout vertically`);
+        attributeDefinitions
+            .add("enableRotateBorderIcons", true)
+            .setType(Attribute.BOOLEAN)
+            .setDescription(`boolean indicating if tab icons should rotate with the text in the left and right borders`);
 
         // splitter
-        attributeDefinitions.add("splitterSize", 8).setType(Attribute.NUMBER).setDescription(
-            `width in pixels of all splitters between tabsets/borders`
-        );
-        attributeDefinitions.add("splitterExtra", 0).setType(Attribute.NUMBER).setDescription(
-            `additional width in pixels of the splitter hit test area`
-        );
-        attributeDefinitions.add("splitterEnableHandle", false).setType(Attribute.BOOLEAN).setDescription(
-            `enable a small centralized handle on all splitters`
-        );
+        attributeDefinitions.add("splitterSize", 8).setType(Attribute.NUMBER).setDescription(`width in pixels of all splitters between tabsets/borders`);
+        attributeDefinitions.add("splitterExtra", 0).setType(Attribute.NUMBER).setDescription(`additional width in pixels of the splitter hit test area`);
+        attributeDefinitions.add("splitterEnableHandle", false).setType(Attribute.BOOLEAN).setDescription(`enable a small centralized handle on all splitters`);
 
         // tab
         attributeDefinitions.add("tabEnableClose", true).setType(Attribute.BOOLEAN);
@@ -708,4 +697,3 @@ export class Model {
         return attributeDefinitions;
     }
 }
-

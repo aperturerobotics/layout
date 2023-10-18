@@ -11,7 +11,7 @@ export class Attribute {
     pairedType?: string;
     defaultValue: any;
     alwaysWriteJson?: boolean;
-    type?: string; 
+    type?: string;
     required: boolean;
     fixed: boolean;
     description?: string;
@@ -60,5 +60,4 @@ export class Attribute {
     setPairedType(value: string) {
         this.pairedType = value;
     }
-
 }

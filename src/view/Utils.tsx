@@ -11,11 +11,7 @@ export function isDesktop() {
     return desktop;
 }
 /** @internal */
-export function getRenderStateEx(
-    layout: LayoutInternal,
-    node: TabNode,
-    iconAngle?: number
-) {
+export function getRenderStateEx(layout: LayoutInternal, node: TabNode, iconAngle?: number) {
     let leadingContent = undefined;
     let titleContent: React.ReactNode = node.getName();
     let name = node.getName();
@@ -54,27 +50,18 @@ export function isAuxMouseEvent(event: React.MouseEvent<HTMLElement, MouseEvent>
 }
 
 export function enablePointerOnIFrames(enable: boolean, currentDocument: Document) {
-    const iframes = [
-        ...getElementsByTagName('iframe', currentDocument),
-        ...getElementsByTagName('webview', currentDocument),
-    ];
+    const iframes = [...getElementsByTagName("iframe", currentDocument), ...getElementsByTagName("webview", currentDocument)];
 
     for (const iframe of iframes) {
-        (iframe as HTMLElement).style.pointerEvents = enable ? 'auto' : 'none';
+        (iframe as HTMLElement).style.pointerEvents = enable ? "auto" : "none";
     }
-};
+}
 
 export function getElementsByTagName(tag: string, currentDocument: Document): Element[] {
     return [...currentDocument.getElementsByTagName(tag)];
 }
 
-export function startDrag(
-    doc: Document,
-    event: React.PointerEvent<HTMLElement>,
-    drag: (x: number, y: number) => void,
-    dragEnd: () => void,
-    dragCancel: () => void) {
-
+export function startDrag(doc: Document, event: React.PointerEvent<HTMLElement>, drag: (x: number, y: number) => void, dragEnd: () => void, dragCancel: () => void) {
     event.preventDefault();
 
     const pointerMove = (ev: PointerEvent) => {
@@ -95,7 +82,7 @@ export function startDrag(
 
     doc.addEventListener("pointermove", pointerMove);
     doc.addEventListener("pointerup", pointerUp);
-    doc.addEventListener('pointercancel', pointerCancel);
+    doc.addEventListener("pointercancel", pointerCancel);
 }
 
 export function canDockToWindow(node: Node) {
@@ -131,24 +118,23 @@ export function isOnScreen(rect: Rect) {
     const availableScreenWidth = window.screen.availWidth;
     const availableScreenHeight = window.screen.availHeight;
 
-    return (rect.x >= 0 && rect.getRight() <= availableScreenWidth &&
-        rect.y >= 0 || rect.getBottom() <= availableScreenHeight);
+    return (rect.x >= 0 && rect.getRight() <= availableScreenWidth && rect.y >= 0) || rect.getBottom() <= availableScreenHeight;
 }
 
 export function copyInlineStyles(source: HTMLElement, target: HTMLElement): boolean {
     // Get the inline style attribute from the source element
-    const sourceStyle = source.getAttribute('style');
-    const targetStyle = target.getAttribute('style');
+    const sourceStyle = source.getAttribute("style");
+    const targetStyle = target.getAttribute("style");
     if (sourceStyle === targetStyle) return false;
 
     // console.log("copyInlineStyles", sourceStyle);
-    
+
     if (sourceStyle) {
         // Set the style attribute on the target element
-        target.setAttribute('style', sourceStyle);
+        target.setAttribute("style", sourceStyle);
     } else {
         // If the source has no inline style, clear the target's style attribute
-        target.removeAttribute('style');
+        target.removeAttribute("style");
     }
     return true;
 }
@@ -156,4 +142,4 @@ export function copyInlineStyles(source: HTMLElement, target: HTMLElement): bool
 export function isSafari() {
     const userAgent = navigator.userAgent;
     return userAgent.includes("Safari") && !userAgent.includes("Chrome") && !userAgent.includes("Chromium");
-  }
+}

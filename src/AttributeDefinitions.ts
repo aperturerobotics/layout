@@ -104,9 +104,7 @@ export class AttributeDefinitions {
             let inherited = undefined;
             if (attr.defaultValue !== undefined) {
                 defaultValue = attr.defaultValue;
-            } else if (attr.modelName !== undefined
-                && parentAttributes !== undefined
-                && parentAttributes.nameToAttribute.get(attr.modelName) !== undefined) {
+            } else if (attr.modelName !== undefined && parentAttributes !== undefined && parentAttributes.nameToAttribute.get(attr.modelName) !== undefined) {
                 inherited = attr.modelName;
                 attr = parentAttributes.nameToAttribute.get(inherited)!;
                 defaultValue = attr.defaultValue;
@@ -121,7 +119,7 @@ export class AttributeDefinitions {
             if (c.description) {
                 sb += c.description;
             } else if (c.pairedType && c.pairedAttr?.description) {
-                sb += `Value for ${c.pairedType} attribute ${c.pairedAttr.name} if not overridden`
+                sb += `Value for ${c.pairedType} attribute ${c.pairedAttr.name} if not overridden`;
                 sb += "\n\n\t  ";
                 sb += c.pairedAttr?.description;
             }

@@ -10,7 +10,7 @@ export const useTabOverflow = (
     node: TabSetNode | BorderNode,
     orientation: Orientation,
     toolbarRef: React.MutableRefObject<HTMLElement | null>,
-    stickyButtonsRef: React.MutableRefObject<HTMLElement | null>
+    stickyButtonsRef: React.MutableRefObject<HTMLElement | null>,
 ) => {
     const firstRender = React.useRef<boolean>(true);
     const tabsTruncated = React.useRef<boolean>(false);

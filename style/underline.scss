@@ -111,7 +111,7 @@ $font-family: Roboto, Arial, sans-serif !default;
 }
 
 @mixin tab_button_selected_mixin {
-    border-bottom: var(--underline_height) solid  var(--color-underline);
+    border-bottom: var(--underline_height) solid var(--color-underline);
 }
 
 @mixin tab_button_unselected_mixin {
@@ -120,15 +120,15 @@ $font-family: Roboto, Arial, sans-serif !default;
 }
 
 @mixin tab_button_hovered_mixin {
-    border-bottom: var(--underline_height) solid  var(--color-underline-hover);
+    border-bottom: var(--underline_height) solid var(--color-underline-hover);
 }
 
 @mixin close_button_hovered_mixin {
-    background-color:var(--color-3);
+    background-color: var(--color-3);
 }
 
 @mixin toolbar_button_hovered_mixin {
-    background-color:var(--color-2);
+    background-color: var(--color-2);
 }
 
 @mixin tab_button_stretch_mixin {
@@ -145,15 +145,15 @@ $font-family: Roboto, Arial, sans-serif !default;
 }
 
 @mixin border_button_selected_mixin {
-    border-bottom: var(--underline_height) solid  var(--color-underline);
+    border-bottom: var(--underline_height) solid var(--color-underline);
 }
 
 @mixin border_button_unselected_mixin {
     border-bottom: var(--underline_height) solid transparent;
-    }
+}
 
 @mixin border_button_hovered_mixin {
-    border-bottom: var(--underline_height) solid  var(--color-underline-hover);
+    border-bottom: var(--underline_height) solid var(--color-underline-hover);
 }
 
 @mixin splitter_mixin {
@@ -183,5 +183,5 @@ $font-family: Roboto, Arial, sans-serif !default;
 @import "_base";
 
 .flexlayout__tab_button_textbox {
-    border:none;
+    border: none;
 }

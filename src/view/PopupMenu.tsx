@@ -5,12 +5,7 @@ import { LayoutInternal } from "./Layout";
 import { TabButtonStamp } from "./TabButtonStamp";
 
 /** @internal */
-export function showPopup(
-    triggerElement: Element,
-    items: { index: number; node: TabNode }[],
-    onSelect: (item: { index: number; node: TabNode }) => void,
-    layout: LayoutInternal,
-) {
+export function showPopup(triggerElement: Element, items: { index: number; node: TabNode }[], onSelect: (item: { index: number; node: TabNode }) => void, layout: LayoutInternal) {
     const layoutDiv = layout.getRootDiv();
     const classNameMapper = layout.getClassName;
     const currentDocument = triggerElement.ownerDocument;
@@ -58,14 +53,7 @@ export function showPopup(
     elm.addEventListener("pointerdown", onElementPointerDown);
     currentDocument.addEventListener("pointerdown", onDocPointerDown);
 
-    layout.showControlInPortal(<PopupMenu
-        currentDocument={currentDocument}
-        onSelect={onSelect}
-        onHide={onHide}
-        items={items}
-        classNameMapper={classNameMapper}
-        layout={layout}
-    />, elm);
+    layout.showControlInPortal(<PopupMenu currentDocument={currentDocument} onSelect={onSelect} onHide={onHide} items={items} classNameMapper={classNameMapper} layout={layout} />, elm);
 }
 
 /** @internal */
@@ -80,7 +68,7 @@ interface IPopupMenuProps {
 
 /** @internal */
 const PopupMenu = (props: IPopupMenuProps) => {
-    const { items, onHide, onSelect, classNameMapper, layout} = props;
+    const { items, onHide, onSelect, classNameMapper, layout } = props;
 
     const onItemClick = (item: { index: number; node: TabNode }, event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         onSelect(item);
@@ -88,13 +76,12 @@ const PopupMenu = (props: IPopupMenuProps) => {
         event.stopPropagation();
     };
 
-    const onDragStart = (event: React.DragEvent<HTMLElement>, node:TabNode) => {
+    const onDragStart = (event: React.DragEvent<HTMLElement>, node: TabNode) => {
         event.stopPropagation(); // prevent starting a tabset drag as well
         layout.setDragNode(event.nativeEvent, node as TabNode);
         setTimeout(() => {
             onHide();
         }, 0);
-       
     };
 
     const onDragEnd = (event: React.DragEvent<HTMLElement>) => {
@@ -102,25 +89,23 @@ const PopupMenu = (props: IPopupMenuProps) => {
     };
 
     const itemElements = items.map((item, i) => (
-        <div key={item.index}
+        <div
+            key={item.index}
             className={classNameMapper(CLASSES.FLEXLAYOUT__POPUP_MENU_ITEM)}
             data-layout-path={"/popup-menu/tb" + i}
             onClick={(event) => onItemClick(item, event)}
             draggable={true}
             onDragStart={(e) => onDragStart(e, item.node)}
             onDragEnd={onDragEnd}
-            title={item.node.getHelpText()} >
-            <TabButtonStamp 
-                node={item.node}
-                layout={layout}
-            />
+            title={item.node.getHelpText()}
+        >
+            <TabButtonStamp node={item.node} layout={layout} />
         </div>
     ));
 
     return (
-        <div className={classNameMapper(CLASSES.FLEXLAYOUT__POPUP_MENU)}
-        data-layout-path="/popup-menu"
-        >
+        <div className={classNameMapper(CLASSES.FLEXLAYOUT__POPUP_MENU)} data-layout-path="/popup-menu">
             {itemElements}
-        </div>);
+        </div>
+    );
 };

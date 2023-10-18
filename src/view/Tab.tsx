@@ -33,18 +33,18 @@ export const Tab = (props: ITabProps) => {
         };
 
         // keep scroll position
-        element.addEventListener('scroll', handleScroll);
+        element.addEventListener("scroll", handleScroll);
 
         // listen for clicks to change active tabset
         selfRef.current!.addEventListener("pointerdown", onPointerDown);
 
         return () => {
-            element.removeEventListener('scroll', handleScroll);
+            element.removeEventListener("scroll", handleScroll);
             if (selfRef.current) {
                 selfRef.current.removeEventListener("pointerdown", onPointerDown);
             }
             node.setVisible(false);
-        }
+        };
     }, []);
 
     React.useEffect(() => {
@@ -78,7 +78,7 @@ export const Tab = (props: ITabProps) => {
         if (document.hidden && node.isEnablePopoutOverlay()) {
             const overlayStyle: Record<string, any> = {};
             rect.styleWithPosition(overlayStyle);
-            overlay = (<div style={overlayStyle} className={cm(CLASSES.FLEXLAYOUT__TAB_OVERLAY)}></div>)
+            overlay = <div style={overlayStyle} className={cm(CLASSES.FLEXLAYOUT__TAB_OVERLAY)}></div>;
         }
     } else {
         style.display = "none";
@@ -109,14 +109,7 @@ export const Tab = (props: ITabProps) => {
         <>
             {overlay}
 
-            <div
-                ref={selfRef}
-                style={style}
-                className={className}
-                data-layout-path={path}
-            />
+            <div ref={selfRef} style={style} className={className} data-layout-path={path} />
         </>
     );
 };
-
-

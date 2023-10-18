@@ -27,7 +27,7 @@ export enum CLASSES {
     FLEXLAYOUT__BORDER_TOOLBAR_BUTTON_FLOAT = "flexlayout__border_toolbar_button-float",
 
     FLEXLAYOUT__DRAG_RECT = "flexlayout__drag_rect",
-    
+
     FLEXLAYOUT__EDGE_RECT = "flexlayout__edge_rect",
     FLEXLAYOUT__EDGE_RECT_TOP = "flexlayout__edge_rect_top",
     FLEXLAYOUT__EDGE_RECT_LEFT = "flexlayout__edge_rect_left",

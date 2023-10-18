@@ -98,15 +98,10 @@ export class LayoutWindow {
     public toJson(): IJsonPopout {
         // chrome sets top,left to large -ve values when minimized, dont save in this case
         if (this._window && this._window.screenTop > -10000) {
-            this.rect = new Rect(
-                this._window.screenLeft,
-                this._window.screenTop,
-                this._window.outerWidth,
-                this._window.outerHeight
-            );
+            this.rect = new Rect(this._window.screenLeft, this._window.screenTop, this._window.outerWidth, this._window.outerHeight);
         }
 
-        return { layout: this.root!.toJson(), rect: this.rect.toJson() }
+        return { layout: this.root!.toJson(), rect: this.rect.toJson() };
     }
 
     static fromJson(windowJson: IJsonPopout, model: Model, windowId: string): LayoutWindow {

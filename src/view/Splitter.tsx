@@ -28,7 +28,7 @@ export const Splitter = (props: ISplitterProps) => {
     const handleDiv = React.useRef<HTMLDivElement | undefined>(undefined);
     const dragStartX = React.useRef<number>(0);
     const dragStartY = React.useRef<number>(0);
-    const initalSizes = React.useRef<{ initialSizes: number[], sum: number, startPosition: number }>({ initialSizes: [], sum: 0, startPosition: 0 })
+    const initalSizes = React.useRef<{ initialSizes: number[]; sum: number; startPosition: number }>({ initialSizes: [], sum: 0, startPosition: 0 });
     // const throttleTimer = React.useRef<NodeJS.Timeout | undefined>(undefined);
 
     const size = node.getModel().getSplitterSize();
@@ -46,13 +46,13 @@ export const Splitter = (props: ISplitterProps) => {
         return () => {
             selfRef.current?.removeEventListener("touchstart", onTouchStart);
             extendedRef.current?.removeEventListener("touchstart", onTouchStart);
-        }
+        };
     }, []);
 
     const onTouchStart = (event: TouchEvent) => {
         event.preventDefault();
         event.stopImmediatePropagation();
-    }
+    };
 
     const onPointerDown = (event: React.PointerEvent<HTMLElement>) => {
         event.stopPropagation();
@@ -72,18 +72,12 @@ export const Splitter = (props: ISplitterProps) => {
 
         if (node.getModel().isSplitterEnableHandle()) {
             handleDiv.current = layout.getCurrentDocument()!.createElement("div");
-            handleDiv.current.className = cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE) + " " +
-                (horizontal ? cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE_HORZ) : cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE_VERT));
+            handleDiv.current.className = cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE) + " " + (horizontal ? cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE_HORZ) : cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE_VERT));
             outlineDiv.current.appendChild(handleDiv.current);
         }
 
         const r = selfRef.current?.getBoundingClientRect()!;
-        const rect = new Rect(
-            r.x - layout.getDomRect()!.x,
-            r.y - layout.getDomRect()!.y,
-            r.width,
-            r.height
-        );
+        const rect = new Rect(r.x - layout.getDomRect()!.x, r.y - layout.getDomRect()!.y, r.width, r.height);
 
         dragStartX.current = event.clientX - r.x;
         dragStartY.current = event.clientY - r.y;
@@ -106,7 +100,6 @@ export const Splitter = (props: ISplitterProps) => {
     };
 
     const onDragMove = (x: number, y: number) => {
-
         if (outlineDiv.current) {
             const clientRect = layout.getDomRect();
             if (!clientRect) {
@@ -139,7 +132,6 @@ export const Splitter = (props: ISplitterProps) => {
     };
 
     const updateLayout = (realtime: boolean) => {
-
         const redraw = () => {
             if (outlineDiv.current) {
                 let value = 0;
@@ -148,7 +140,6 @@ export const Splitter = (props: ISplitterProps) => {
                 } else {
                     value = outlineDiv.current!.offsetLeft;
                 }
-
 
                 if (node instanceof BorderNode) {
                     const pos = (node as BorderNode).calculateSplit(node, value);
@@ -180,7 +171,7 @@ export const Splitter = (props: ISplitterProps) => {
     const cm = layout.getClassName;
     const style: Record<string, any> = {
         cursor: horizontal ? "ew-resize" : "ns-resize",
-        flexDirection: horizontal ? "column" : "row"
+        flexDirection: horizontal ? "column" : "row",
     };
     let className = cm(CLASSES.FLEXLAYOUT__SPLITTER) + " " + cm(CLASSES.FLEXLAYOUT__SPLITTER_ + node.getOrientation().getName());
 
@@ -202,24 +193,15 @@ export const Splitter = (props: ISplitterProps) => {
 
     let handle;
     if (!dragging && node.getModel().isSplitterEnableHandle()) {
-        handle = (
-            <div
-                className={cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE) + " " +
-                    (horizontal ? cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE_HORZ) : cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE_VERT))
-                }>
-            </div>
-        );
+        handle = <div className={cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE) + " " + (horizontal ? cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE_HORZ) : cm(CLASSES.FLEXLAYOUT__SPLITTER_HANDLE_VERT))}></div>;
     }
 
     if (extra === 0) {
-        return (<div
-            className={className}
-            style={style}
-            ref={selfRef}
-            data-layout-path={node.getPath() + "/s" + (index - 1)}
-            onPointerDown={onPointerDown}>
-            {handle}
-        </div>);
+        return (
+            <div className={className} style={style} ref={selfRef} data-layout-path={node.getPath() + "/s" + (index - 1)} onPointerDown={onPointerDown}>
+                {handle}
+            </div>
+        );
     } else {
         // add extended transparent div for hit testing
 
@@ -237,20 +219,9 @@ export const Splitter = (props: ISplitterProps) => {
         const className2 = cm(CLASSES.FLEXLAYOUT__SPLITTER_EXTRA);
 
         return (
-            <div
-                className={className}
-                style={style}
-                ref={selfRef}
-                data-layout-path={node.getPath() + "/s" + (index - 1)}
-                onPointerDown={onPointerDown}
-            >
-                <div
-                    style={style2}
-                    ref={extendedRef}
-                    className={className2}
-                    onPointerDown={onPointerDown}>
-                </div>
-            </div>);
+            <div className={className} style={style} ref={selfRef} data-layout-path={node.getPath() + "/s" + (index - 1)} onPointerDown={onPointerDown}>
+                <div style={style2} ref={extendedRef} className={className2} onPointerDown={onPointerDown}></div>
+            </div>
+        );
     }
 };
-

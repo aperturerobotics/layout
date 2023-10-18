@@ -16,16 +16,18 @@ export interface IPopoutWindowProps {
 
 /** @internal */
 export const PopoutWindow = (props: React.PropsWithChildren<IPopoutWindowProps>) => {
-    const { title, layout, layoutWindow, url, onCloseWindow, onSetWindow, children } = props; const popoutWindow = React.useRef<Window | null>(null);
+    const { title, layout, layoutWindow, url, onCloseWindow, onSetWindow, children } = props;
+    const popoutWindow = React.useRef<Window | null>(null);
     const [content, setContent] = React.useState<HTMLElement | undefined>(undefined);
     // map from main docs style -> this docs equivalent style
-    const styleMap = new Map<HTMLElement, HTMLElement>();       
+    const styleMap = new Map<HTMLElement, HTMLElement>();
 
     React.useLayoutEffect(() => {
-        if (!popoutWindow.current) { // only create window once, even in strict mode
+        if (!popoutWindow.current) {
+            // only create window once, even in strict mode
             const windowId = layoutWindow.windowId;
             const rect = layoutWindow.rect;
-            
+
             popoutWindow.current = window.open(url, windowId, `left=${rect.x},top=${rect.y},width=${rect.width},height=${rect.height}`);
 
             if (popoutWindow.current) {
@@ -83,7 +85,7 @@ export const PopoutWindow = (props: React.PropsWithChildren<IPopoutWindowProps>)
                 popoutWindow.current?.close();
                 popoutWindow.current = null;
             }
-        }
+        };
     }, []);
 
     if (content !== undefined) {
@@ -95,7 +97,7 @@ export const PopoutWindow = (props: React.PropsWithChildren<IPopoutWindowProps>)
 
 function handleStyleMutations(mutationsList: any, popoutDocument: Document, styleMap: Map<HTMLElement, HTMLElement>) {
     for (const mutation of mutationsList) {
-        if (mutation.type === 'childList') {
+        if (mutation.type === "childList") {
             for (const addition of mutation.addedNodes) {
                 if (addition instanceof HTMLLinkElement || addition instanceof HTMLStyleElement) {
                     copyStyle(popoutDocument, addition, styleMap);
@@ -111,14 +113,12 @@ function handleStyleMutations(mutationsList: any, popoutDocument: Document, styl
             }
         }
     }
-};
-
-
+}
 
 /** @internal */
 function copyStyles(popoutDoc: Document, styleMap: Map<HTMLElement, HTMLElement>): Promise<boolean[]> {
     const promises: Promise<boolean>[] = [];
-    const styleElements = document.querySelectorAll('style, link[rel="stylesheet"]') as NodeListOf<HTMLElement>
+    const styleElements = document.querySelectorAll('style, link[rel="stylesheet"]') as NodeListOf<HTMLElement>;
     for (const element of styleElements) {
         copyStyle(popoutDoc, element, styleMap, promises);
     }
@@ -134,9 +134,11 @@ function copyStyle(popoutDoc: Document, element: HTMLElement, styleMap: Map<HTML
         styleMap.set(element, linkElement);
 
         if (promises) {
-            promises.push(new Promise((resolve) => {
-                linkElement.onload = () => resolve(true);
-            }));
+            promises.push(
+                new Promise((resolve) => {
+                    linkElement.onload = () => resolve(true);
+                }),
+            );
         }
     } else if (element instanceof HTMLStyleElement) {
         try {
@@ -148,5 +150,3 @@ function copyStyle(popoutDoc: Document, element: HTMLElement, styleMap: Map<HTML
         }
     }
 }
-
-
