@@ -61,16 +61,19 @@ export function showPopup(
     elm.addEventListener("mousedown", onElementMouseDown);
     currentDocument.addEventListener("mousedown", onDocMouseDown);
 
-    layout.showPortal(<PopupMenu
-        currentDocument={currentDocument}
-        onSelect={onSelect}
-        onHide={onHide}
-        items={items}
-        classNameMapper={classNameMapper}
-        layout={layout}
-        iconFactory={iconFactory}
-        titleFactory={titleFactory}
-    />, elm);
+    layout.showPortal(
+        <PopupMenu
+            currentDocument={currentDocument}
+            onSelect={onSelect}
+            onHide={onHide}
+            items={items}
+            classNameMapper={classNameMapper}
+            layout={layout}
+            iconFactory={iconFactory}
+            titleFactory={titleFactory}
+        />,
+        elm,
+    );
 }
 
 /** @internal */
@@ -87,7 +90,7 @@ interface IPopupMenuProps {
 
 /** @internal */
 const PopupMenu = (props: IPopupMenuProps) => {
-    const { items, onHide, onSelect, classNameMapper, layout, iconFactory, titleFactory} = props;
+    const { items, onHide, onSelect, classNameMapper, layout, iconFactory, titleFactory } = props;
 
     const onItemClick = (item: { index: number; node: TabNode }, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         onSelect(item);
@@ -96,26 +99,24 @@ const PopupMenu = (props: IPopupMenuProps) => {
     };
 
     const itemElements = items.map((item, i) => (
-        <div key={item.index}
+        <div
+            key={item.index}
             className={classNameMapper(CLASSES.FLEXLAYOUT__POPUP_MENU_ITEM)}
             data-layout-path={"/popup-menu/tb" + i}
             onClick={(event) => onItemClick(item, event)}
-            title={item.node.getHelpText()} >
-            {item.node.getModel().isLegacyOverflowMenu() ? 
-            item.node._getNameForOverflowMenu() :
-            <TabButtonStamp 
-                node={item.node}
-                layout={layout}
-                iconFactory={iconFactory}
-                titleFactory={titleFactory}
-            />}
+            title={item.node.getHelpText()}
+        >
+            {item.node.getModel().isLegacyOverflowMenu() ? (
+                item.node._getNameForOverflowMenu()
+            ) : (
+                <TabButtonStamp node={item.node} layout={layout} iconFactory={iconFactory} titleFactory={titleFactory} />
+            )}
         </div>
     ));
 
     return (
-        <div className={classNameMapper(CLASSES.FLEXLAYOUT__POPUP_MENU)}
-        data-layout-path="/popup-menu"
-        >
+        <div className={classNameMapper(CLASSES.FLEXLAYOUT__POPUP_MENU)} data-layout-path="/popup-menu">
             {itemElements}
-        </div>);
+        </div>
+    );
 };

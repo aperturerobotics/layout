@@ -88,7 +88,7 @@ export class DragDrop {
                 this._rootElement = this._document.body;
             }
             this.resizeGlass();
-            this._document.defaultView?.addEventListener('resize', this.resizeGlass);
+            this._document.defaultView?.addEventListener("resize", this.resizeGlass);
             this._document.body.appendChild(this._glass!);
             this._glass!.tabIndex = -1;
             this._glass!.focus();
@@ -113,7 +113,7 @@ export class DragDrop {
     hideGlass() {
         if (this._glassShowing) {
             this._document!.body.removeChild(this._glass!);
-            this._document!.defaultView?.removeEventListener('resize', this.resizeGlass);
+            this._document!.defaultView?.removeEventListener("resize", this.resizeGlass);
             this._glassShowing = false;
             this._document = undefined;
             this._rootElement = undefined;
@@ -129,12 +129,12 @@ export class DragDrop {
     /** @internal */
     _setDefaultGlassCursor(cursor: string) {
         this._defaultGlassCursor = cursor;
-        this._updateGlassCursor()
+        this._updateGlassCursor();
     }
 
     setGlassCursorOverride(cursor: string | undefined) {
         this._glassCursorOverride = cursor;
-        this._updateGlassCursor()
+        this._updateGlassCursor();
     }
 
     startDrag(
@@ -146,7 +146,7 @@ export class DragDrop {
         fClick?: ((event: Event) => void) | undefined,
         fDblClick?: ((event: Event) => void) | undefined,
         currentDocument?: Document,
-        rootElement?: HTMLDivElement
+        rootElement?: HTMLDivElement,
     ) {
         // prevent 'duplicate' action (mouse event for same action as previous touch event (a fix for ios))
         if (event && this._lastEvent && this._lastEvent.type.startsWith("touch") && event.type.startsWith("mouse") && event.timeStamp - this._lastEvent.timeStamp < 500) {
@@ -197,7 +197,7 @@ export class DragDrop {
 
         this._active = true;
 
-        if (event?.type === 'dragenter') {
+        if (event?.type === "dragenter") {
             this._dragDepth = 1;
             this._rootElement.addEventListener("dragenter", this._onDragEnter, { passive: false });
             this._rootElement.addEventListener("dragover", this._onMouseMove, { passive: false });
@@ -228,7 +228,7 @@ export class DragDrop {
 
     /** @internal */
     private _onKeyPress(event: KeyboardEvent) {
-        if (event.code === 'Escape') {
+        if (event.code === "Escape") {
             // esc
             this._onDragCancel();
         }
@@ -346,7 +346,6 @@ export class DragDrop {
                 this._fDragCancel(this._dragging);
             }
             if (Math.abs(this._startX - posEvent.clientX) <= 5 && Math.abs(this._startY - posEvent.clientY) <= 5) {
-
                 let isDoubleClick = false;
                 const clickTime = new Date().getTime();
                 // check for double click
@@ -358,7 +357,7 @@ export class DragDrop {
                         }
                     }
                 }
- 
+
                 if (!isDoubleClick && this._fClick) {
                     this._fClick(event);
                 }

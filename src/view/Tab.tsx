@@ -66,23 +66,16 @@ export const Tab = (props: ITabProps) => {
         className += " " + cm(CLASSES.FLEXLAYOUT__TAB_BORDER);
         className += " " + cm(CLASSES.FLEXLAYOUT__TAB_BORDER_ + parentNode.getLocation().getName());
     }
-    
+
     if (node.getContentClassName() !== undefined) {
         className += " " + node.getContentClassName();
     }
 
     return (
-        <div
-            className={className}
-            data-layout-path={path}
-            onMouseDown={onMouseDown}
-            onTouchStart={onMouseDown}
-            style={style}>
+        <div className={className} data-layout-path={path} onMouseDown={onMouseDown} onTouchStart={onMouseDown} style={style}>
             <ErrorBoundary message={props.layout.i18nName(I18nLabel.Error_rendering_component)}>
                 <Fragment>{child}</Fragment>
             </ErrorBoundary>
         </div>
     );
 };
-
-

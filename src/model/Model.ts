@@ -54,8 +54,7 @@ export class Model {
         attributeDefinitions.add("legacyOverflowMenu", false).setType(Attribute.BOOLEAN);
         attributeDefinitions.add("enableEdgeDock", true).setType(Attribute.BOOLEAN);
         attributeDefinitions.add("rootOrientationVertical", false).setType(Attribute.BOOLEAN);
-        attributeDefinitions.add("marginInsets", { top: 0, right: 0, bottom: 0, left: 0 })
-            .setType("IInsets");
+        attributeDefinitions.add("marginInsets", { top: 0, right: 0, bottom: 0, left: 0 }).setType("IInsets");
         attributeDefinitions.add("enableUseVisibility", false).setType(Attribute.BOOLEAN);
         attributeDefinitions.add("enableRotateBorderIcons", true).setType(Attribute.BOOLEAN);
 
@@ -91,10 +90,8 @@ export class Model {
         attributeDefinitions.add("tabSetEnableTabStrip", true).setType(Attribute.BOOLEAN);
         attributeDefinitions.add("tabSetHeaderHeight", 0).setType(Attribute.NUMBER);
         attributeDefinitions.add("tabSetTabStripHeight", 0).setType(Attribute.NUMBER);
-        attributeDefinitions.add("tabSetMarginInsets", { top: 0, right: 0, bottom: 0, left: 0 })
-            .setType("IInsets");
-        attributeDefinitions.add("tabSetBorderInsets", { top: 0, right: 0, bottom: 0, left: 0 })
-            .setType("IInsets");
+        attributeDefinitions.add("tabSetMarginInsets", { top: 0, right: 0, bottom: 0, left: 0 }).setType("IInsets");
+        attributeDefinitions.add("tabSetBorderInsets", { top: 0, right: 0, bottom: 0, left: 0 }).setType("IInsets");
         attributeDefinitions.add("tabSetTabLocation", "top").setType("ITabLocation");
         attributeDefinitions.add("tabSetMinWidth", 0).setType(Attribute.NUMBER);
         attributeDefinitions.add("tabSetMinHeight", 0).setType(Attribute.NUMBER);
@@ -136,7 +133,6 @@ export class Model {
     private _onCreateTabSet?: (tabNode?: TabNode) => ITabSetAttributes;
     /** @internal */
     private _showHiddenBorder: DockLocation;
-
 
     /**
      * 'private' constructor. Use the static method Model.fromJson(json) to create a model
@@ -190,7 +186,7 @@ export class Model {
     }
 
     /** @internal */
-    _setMaximizedTabset(tabsetNode: (TabSetNode | undefined)) {
+    _setMaximizedTabset(tabsetNode: TabSetNode | undefined) {
         this._maximizedTabSet = tabsetNode;
     }
 
@@ -259,15 +255,11 @@ export class Model {
      * @param node The top node you want to begin searching from, deafults to the root node
      * @returns The first Tab Set
      */
-    getFirstTabSet(node = this._root as Node): Node
-    {
+    getFirstTabSet(node = this._root as Node): Node {
         const child = node.getChildren()[0];
-        if (child instanceof TabSetNode)
-        {
+        if (child instanceof TabSetNode) {
             return child;
-        }
-        else
-        {
+        } else {
             return this.getFirstTabSet(child);
         }
     }
@@ -538,7 +530,7 @@ export class Model {
 
     /** @internal */
     _nextUniqueId() {
-        return '#' + randomUUID();
+        return "#" + randomUUID();
     }
 
     /** @internal */
@@ -563,7 +555,7 @@ export class Model {
      * set callback called when a new TabSet is created.
      * The tabNode can be undefined if it's the auto created first tabset in the root row (when the last
      * tab is deleted, the root tabset can be recreated)
-     * @param onCreateTabSet 
+     * @param onCreateTabSet
      */
     setOnCreateTabSet(onCreateTabSet: (tabNode?: TabNode) => ITabSetAttributes) {
         this._onCreateTabSet = onCreateTabSet;
@@ -586,4 +578,3 @@ export class Model {
         return JSON.stringify(this.toJson());
     }
 }
-

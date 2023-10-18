@@ -156,7 +156,7 @@ export class TabNode extends Node implements IDraggable {
     getClassName() {
         return this._getAttr("className") as string | undefined;
     }
-    
+
     getContentClassName() {
         return this._getAttr("contentClassName") as string | undefined;
     }
@@ -227,5 +227,4 @@ export class TabNode extends Node implements IDraggable {
     static getAttributeDefinitions() {
         return TabNode._attributeDefinitions;
     }
-
 }

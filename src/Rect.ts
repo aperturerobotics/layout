@@ -27,7 +27,7 @@ export class Rect {
     }
 
     equals(rect: Rect | null | undefined) {
-        return this.x === rect?.x && this.y === rect?.y && this.width === rect?.width && this.height === rect?.height
+        return this.x === rect?.x && this.y === rect?.y && this.width === rect?.width && this.height === rect?.height;
     }
 
     getBottom() {

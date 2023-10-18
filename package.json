@@ -30,7 +30,8 @@
         "css": "sass style/underline.scss style/underline.css && sass style/gray.scss style/gray.css && sass style/light.scss style/light.css && sass style/light.scss test/style/light.css && sass style/dark.scss style/dark.css",
         "cypress": "cypress open-ct",
         "cypress-firefox": "cypress open-ct --browser firefox",
-        "test": "cypress run --component"
+        "test": "cypress run --component",
+        "format": "prettier --write './style/*.scss' './{src,declarations}/**/(*.ts|*.tsx|*.html)' package.json"
     },
     "author": "Caplin Systems Ltd",
     "repository": "https://github.com/caplin/FlexLayout",

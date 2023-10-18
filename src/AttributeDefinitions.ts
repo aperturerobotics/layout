@@ -90,9 +90,7 @@ export class AttributeDefinitions {
             let inherited = undefined;
             if (attr.defaultValue !== undefined) {
                 defaultValue = attr.defaultValue;
-            } else if (attr.modelName !== undefined
-                && parentAttributes !== undefined
-                && parentAttributes.nameToAttribute[attr.modelName] !== undefined) {
+            } else if (attr.modelName !== undefined && parentAttributes !== undefined && parentAttributes.nameToAttribute[attr.modelName] !== undefined) {
                 inherited = attr.modelName;
                 attr = parentAttributes.nameToAttribute[attr.modelName];
                 defaultValue = attr.defaultValue;
@@ -106,12 +104,9 @@ export class AttributeDefinitions {
             if (c.fixed) {
                 lines.push("\t" + c.name + ": " + defValue + ";");
             } else {
-                const comment = (defaultValue !== undefined ? "default: " + defValue : "") +
-                    (inherited !== undefined ? " - inherited from global " + inherited : "");
+                const comment = (defaultValue !== undefined ? "default: " + defValue : "") + (inherited !== undefined ? " - inherited from global " + inherited : "");
 
-                lines.push("\t" + c.name + required + ": " + type + ";" +
-                    (comment.length > 0 ? " // " + comment : "")
-                );
+                lines.push("\t" + c.name + required + ": " + type + ";" + (comment.length > 0 ? " // " + comment : ""));
             }
         }
         lines.push("}");

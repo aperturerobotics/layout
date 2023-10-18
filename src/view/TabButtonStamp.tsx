@@ -23,23 +23,12 @@ export const TabButtonStamp = (props: ITabButtonStampProps) => {
 
     const renderState = getRenderStateEx(layout, node, iconFactory, titleFactory);
 
-    let content = renderState.content ? (
-        <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_CONTENT)}>
-            {renderState.content}
-        </div>)
-        : node._getNameForOverflowMenu();
+    let content = renderState.content ? <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_CONTENT)}>{renderState.content}</div> : node._getNameForOverflowMenu();
 
-    const leading = renderState.leading ? (
-        <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_LEADING)}>
-            {renderState.leading}
-        </div>) : null;
+    const leading = renderState.leading ? <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_LEADING)}>{renderState.leading}</div> : null;
 
     return (
-        <div
-            ref={selfRef}
-            className={classNames}
-            title={node.getHelpText()}
-        >
+        <div ref={selfRef} className={classNames} title={node.getHelpText()}>
             {leading}
             {content}
         </div>

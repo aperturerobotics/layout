@@ -191,7 +191,7 @@ export class TabSetNode extends Node implements IDraggable, IDropTarget {
     isEnableClose() {
         return this._getAttr("enableClose") as boolean;
     }
-    
+
     isEnableSingleTabStretch() {
         return this._getAttr("enableSingleTabStretch") as boolean;
     }
@@ -509,10 +509,8 @@ export class TabSetNode extends Node implements IDraggable, IDropTarget {
         return prefSize;
     }
 
-
     /** @internal */
     static getAttributeDefinitions() {
         return TabSetNode._attributeDefinitions;
     }
-
 }

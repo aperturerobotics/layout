@@ -24,28 +24,9 @@ export const Splitter = (props: ISplitterProps) => {
     const outlineDiv = React.useRef<HTMLDivElement | undefined>(undefined);
     const parentNode = node.getParent() as RowNode | BorderNode;
 
-    const onMouseDown = (
-        event:
-            | Event
-            | React.MouseEvent<HTMLDivElement, MouseEvent>
-            | React.TouchEvent<HTMLDivElement>
-    ) => {
-        DragDrop.instance.setGlassCursorOverride(
-            node.getOrientation() === Orientation.HORZ
-                ? "ns-resize"
-                : "ew-resize"
-        );
-        DragDrop.instance.startDrag(
-            event,
-            onDragStart,
-            onDragMove,
-            onDragEnd,
-            onDragCancel,
-            undefined,
-            undefined,
-            layout.getCurrentDocument(),
-            layout.getRootDiv() ?? undefined
-        );
+    const onMouseDown = (event: Event | React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
+        DragDrop.instance.setGlassCursorOverride(node.getOrientation() === Orientation.HORZ ? "ns-resize" : "ew-resize");
+        DragDrop.instance.startDrag(event, onDragStart, onDragMove, onDragEnd, onDragCancel, undefined, undefined, layout.getCurrentDocument(), layout.getRootDiv() ?? undefined);
         pBounds.current = parentNode._getSplitterBounds(node, true);
         const rootdiv = layout.getRootDiv();
         outlineDiv.current = layout.getCurrentDocument()!.createElement("div");
@@ -160,13 +141,7 @@ export const Splitter = (props: ISplitterProps) => {
 
     const extra = node.getModel().getSplitterExtra();
     if (extra === 0) {
-        return (<div
-            style={style}
-            data-layout-path={path}
-            className={className}
-            onTouchStart={onMouseDown}
-            onMouseDown={onMouseDown}>
-        </div>);
+        return <div style={style} data-layout-path={path} className={className} onTouchStart={onMouseDown} onMouseDown={onMouseDown}></div>;
     } else {
         // add extended transparent div for hit testing
         // extends forward only, so as not to interfere with scrollbars
@@ -179,23 +154,15 @@ export const Splitter = (props: ISplitterProps) => {
             r2.height += extra;
         }
         const style2 = r2.styleWithPosition({
-            cursor: node.getOrientation() === Orientation.HORZ ? "ns-resize" : "ew-resize"
+            cursor: node.getOrientation() === Orientation.HORZ ? "ns-resize" : "ew-resize",
         });
 
         const className2 = cm(CLASSES.FLEXLAYOUT__SPLITTER_EXTRA);
 
         return (
-            <div
-                style={style}
-                data-layout-path={path}
-                className={className}>
-                <div
-                    style={style2}
-                    className={className2}
-                    onTouchStart={onMouseDown}
-                    onMouseDown={onMouseDown}>
-                </div>
-            </div>);
+            <div style={style} data-layout-path={path} className={className}>
+                <div style={style2} className={className2} onTouchStart={onMouseDown} onMouseDown={onMouseDown}></div>
+            </div>
+        );
     }
-
 };

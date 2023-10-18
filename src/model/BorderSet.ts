@@ -85,14 +85,12 @@ export class BorderSet {
             if (border.getSelected() !== -1) {
                 // visible
                 const size = border._getAdjustedSize();
-                if (sumWidth > width && adjustableWidth > 0 && border.getLocation().getOrientation() === Orientation.HORZ && size > 0
-                    && size > border.getMinSize()) {
+                if (sumWidth > width && adjustableWidth > 0 && border.getLocation().getOrientation() === Orientation.HORZ && size > 0 && size > border.getMinSize()) {
                     border._setAdjustedSize(size - 1);
                     sumWidth--;
                     adjustableWidth--;
                     adjusted = true;
-                } else if (sumHeight > height && adjustableHeight > 0 && border.getLocation().getOrientation() === Orientation.VERT && size > 0
-                    && size > border.getMinSize()) {
+                } else if (sumHeight > height && adjustableHeight > 0 && border.getLocation().getOrientation() === Orientation.VERT && size > 0 && size > border.getMinSize()) {
                     border._setAdjustedSize(size - 1);
                     sumHeight--;
                     adjustableHeight--;

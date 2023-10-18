@@ -19,7 +19,7 @@
         @media (hover: hover) {
             &:hover {
                 background-color: var(--color-splitter-hover);
-                transition: background-color ease-in .1s;
+                transition: background-color ease-in 0.1s;
                 transition-delay: 0.05s;
                 @include splitter_hover_mixin;
             }
@@ -210,7 +210,7 @@
 
             &_stretch {
                 background-color: transparent;
-                color:var(--color-tab-selected);
+                color: var(--color-tab-selected);
                 width: 100%;
                 padding: 3px 0em;
                 text-wrap: nowrap;
@@ -223,28 +223,28 @@
 
                 @media (hover: hover) {
                     &:hover {
-                        color:var(--color-tab-selected);
+                        color: var(--color-tab-selected);
                         @include tab_button_stretch_hovered_mixin;
                     }
                 }
             }
 
             &--selected {
-                background-color:var(--color-tab-selected-background);
-                color:var(--color-tab-selected);
+                background-color: var(--color-tab-selected-background);
+                color: var(--color-tab-selected);
                 @include tab_button_selected_mixin;
             }
             @media (hover: hover) {
                 &:hover {
-                    background-color:var(--color-tab-selected-background);
-                    color:var(--color-tab-selected);
+                    background-color: var(--color-tab-selected-background);
+                    color: var(--color-tab-selected);
                     @include tab_button_hovered_mixin;
                 }
             }
 
             &--unselected {
-                background-color:var(--color-tab-unselected-background);
-                color:var(--color-tab-unselected);
+                background-color: var(--color-tab-unselected-background);
+                color: var(--color-tab-unselected);
                 @include tab_button_unselected_mixin;
             }
 
@@ -314,9 +314,9 @@
         &_toolbar {
             display: flex;
             align-items: center;
-            gap: .3em;
-            padding-left: .5em;
-            padding-right: .3em;
+            gap: 0.3em;
+            padding-left: 0.5em;
+            padding-right: 0.3em;
 
             &_button {
                 border: none;
@@ -447,7 +447,7 @@
         &_tab_divider {
             width: 4px;
             @include border_tab_divider_mixin;
-            }
+        }
 
         &_button {
             display: flex;
@@ -512,20 +512,20 @@
 
         &_toolbar {
             display: flex;
-            gap: .3em;
+            gap: 0.3em;
             align-items: center;
 
             &_left,
             &_right {
                 flex-direction: column;
-                padding-top: .5em;
-                padding-bottom: .3em;
+                padding-top: 0.5em;
+                padding-bottom: 0.3em;
             }
 
             &_top,
             &_bottom {
-                padding-left: .5em;
-                padding-right: .3em;
+                padding-left: 0.5em;
+                padding-right: 0.3em;
             }
 
             &_button {
@@ -540,7 +540,7 @@
                         @include toolbar_button_hovered_mixin;
                     }
                 }
-                
+
                 &-float {
                 }
 

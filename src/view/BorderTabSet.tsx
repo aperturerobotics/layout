@@ -16,8 +16,8 @@ import { isAuxMouseEvent } from "./Utils";
 export interface IBorderTabSetProps {
     border: BorderNode;
     layout: ILayoutCallbacks;
-    iconFactory?: (node: TabNode) => (React.ReactNode | undefined);
-    titleFactory?: (node: TabNode) => (ITitleObject | React.ReactNode | undefined);
+    iconFactory?: (node: TabNode) => React.ReactNode | undefined;
+    titleFactory?: (node: TabNode) => ITitleObject | React.ReactNode | undefined;
     icons: IIcons;
     path: string;
 }
@@ -52,12 +52,7 @@ export const BorderTabSet = (props: IBorderTabSetProps) => {
             callback(border, event, hiddenTabs, onOverflowItemSelect);
         } else {
             const element = overflowbuttonRef.current!;
-            showPopup(element,
-                hiddenTabs,
-                onOverflowItemSelect,
-                layout,
-                iconFactory,
-                titleFactory);
+            showPopup(element, hiddenTabs, onOverflowItemSelect, layout, iconFactory, titleFactory);
         }
         event.stopPropagation();
     };
@@ -95,14 +90,11 @@ export const BorderTabSet = (props: IBorderTabSetProps) => {
                 iconFactory={iconFactory}
                 titleFactory={titleFactory}
                 icons={icons}
-            />
+            />,
         );
-        if (i < border.getChildren().length-1) {
-            tabs.push(
-                <div key={"divider" + i} className={cm(CLASSES.FLEXLAYOUT__BORDER_TAB_DIVIDER)}></div>
-            );
+        if (i < border.getChildren().length - 1) {
+            tabs.push(<div key={"divider" + i} className={cm(CLASSES.FLEXLAYOUT__BORDER_TAB_DIVIDER)}></div>);
         }
-
     };
 
     for (let i = 0; i < border.getChildren().length; i++) {
@@ -117,10 +109,10 @@ export const BorderTabSet = (props: IBorderTabSetProps) => {
     // allow customization of tabset right/bottom buttons
     let buttons: any[] = [];
     let stickyButtons: any[] = [];
-    const renderState : ITabSetRenderValues= { headerContent: undefined, buttons, stickyButtons: stickyButtons, headerButtons: [], overflowPosition: undefined };
+    const renderState: ITabSetRenderValues = { headerContent: undefined, buttons, stickyButtons: stickyButtons, headerButtons: [], overflowPosition: undefined };
     layout.customizeTabSet(border, renderState);
     buttons = renderState.buttons;
-    
+
     if (renderState.overflowPosition === undefined) {
         renderState.overflowPosition = stickyButtons.length;
     }
@@ -129,16 +121,20 @@ export const BorderTabSet = (props: IBorderTabSetProps) => {
         if (tabsTruncated) {
             buttons = [...stickyButtons, ...buttons];
         } else {
-            tabs.push(<div
-                ref={stickyButtonsRef}
-                key="sticky_buttons_container"
-                onMouseDown={onInterceptMouseDown}
-                onTouchStart={onInterceptMouseDown}
-                onDragStart={(e) => { e.preventDefault() }}
-                className={cm(CLASSES.FLEXLAYOUT__TAB_TOOLBAR_STICKY_BUTTONS_CONTAINER)}
-            >
-                {stickyButtons}
-            </div>);
+            tabs.push(
+                <div
+                    ref={stickyButtonsRef}
+                    key="sticky_buttons_container"
+                    onMouseDown={onInterceptMouseDown}
+                    onTouchStart={onInterceptMouseDown}
+                    onDragStart={(e) => {
+                        e.preventDefault();
+                    }}
+                    className={cm(CLASSES.FLEXLAYOUT__TAB_TOOLBAR_STICKY_BUTTONS_CONTAINER)}
+                >
+                    {stickyButtons}
+                </div>,
+            );
         }
     }
 
@@ -148,23 +144,33 @@ export const BorderTabSet = (props: IBorderTabSetProps) => {
         if (typeof icons.more === "function") {
             overflowContent = icons.more(border, hiddenTabs);
         } else {
-            overflowContent = (<>
-                {icons.more}
-                <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_OVERFLOW_COUNT)}>{hiddenTabs.length}</div>
-            </>);
+            overflowContent = (
+                <>
+                    {icons.more}
+                    <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_OVERFLOW_COUNT)}>{hiddenTabs.length}</div>
+                </>
+            );
         }
-        buttons.splice(Math.min(renderState.overflowPosition, buttons.length), 0,
+        buttons.splice(
+            Math.min(renderState.overflowPosition, buttons.length),
+            0,
             <button
                 key="overflowbutton"
                 ref={overflowbuttonRef}
-                className={cm(CLASSES.FLEXLAYOUT__BORDER_TOOLBAR_BUTTON) + " " + cm(CLASSES.FLEXLAYOUT__BORDER_TOOLBAR_BUTTON_OVERFLOW) + " " + cm(CLASSES.FLEXLAYOUT__BORDER_TOOLBAR_BUTTON_OVERFLOW_ + border.getLocation().getName())}
+                className={
+                    cm(CLASSES.FLEXLAYOUT__BORDER_TOOLBAR_BUTTON) +
+                    " " +
+                    cm(CLASSES.FLEXLAYOUT__BORDER_TOOLBAR_BUTTON_OVERFLOW) +
+                    " " +
+                    cm(CLASSES.FLEXLAYOUT__BORDER_TOOLBAR_BUTTON_OVERFLOW_ + border.getLocation().getName())
+                }
                 title={overflowTitle}
                 onClick={onOverflowClick}
                 onMouseDown={onInterceptMouseDown}
                 onTouchStart={onInterceptMouseDown}
             >
                 {overflowContent}
-            </button>
+            </button>,
         );
     }
 
@@ -182,8 +188,8 @@ export const BorderTabSet = (props: IBorderTabSetProps) => {
                     onMouseDown={onInterceptMouseDown}
                     onTouchStart={onInterceptMouseDown}
                 >
-                    {(typeof icons.popout === "function") ? icons.popout(selectedTabNode) : icons.popout}
-                </button>
+                    {typeof icons.popout === "function" ? icons.popout(selectedTabNode) : icons.popout}
+                </button>,
             );
         }
     }
@@ -206,12 +212,17 @@ export const BorderTabSet = (props: IBorderTabSetProps) => {
     }
 
     return (
-        <div ref={selfRef} dir="ltr" style={style} className={borderClasses}
+        <div
+            ref={selfRef}
+            dir="ltr"
+            style={style}
+            className={borderClasses}
             data-layout-path={path}
             onClick={onAuxMouseClick}
             onAuxClick={onAuxMouseClick}
             onContextMenu={onContextMenu}
-            onWheel={onMouseWheel}>
+            onWheel={onMouseWheel}
+        >
             <div style={{ height: borderHeight }} className={cm(CLASSES.FLEXLAYOUT__BORDER_INNER) + " " + cm(CLASSES.FLEXLAYOUT__BORDER_INNER_ + border.getLocation().getName())}>
                 <div style={innerStyle} className={cm(CLASSES.FLEXLAYOUT__BORDER_INNER_TAB_CONTAINER) + " " + cm(CLASSES.FLEXLAYOUT__BORDER_INNER_TAB_CONTAINER_ + border.getLocation().getName())}>
                     {tabs}

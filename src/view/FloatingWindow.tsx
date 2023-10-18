@@ -49,8 +49,8 @@ export const FloatingWindow = (props: React.PropsWithChildren<IFloatingWindowPro
                     {
                         href: styleSheet.href,
                         type: styleSheet.type,
-                        rules: rules ? Array.from(rules).map(rule => rule.cssText) : null,
-                    }
+                        rules: rules ? Array.from(rules).map((rule) => rule.cssText) : null,
+                    },
                 ];
             } catch (e) {
                 return result;
@@ -124,7 +124,7 @@ function copyStyles(doc: Document, styleSheets: IStyleSheet[]): Promise<boolean[
             promises.push(
                 new Promise((resolve) => {
                     styleElement.onload = () => resolve(true);
-                })
+                }),
             );
         } else {
             if (styleSheet.rules) {

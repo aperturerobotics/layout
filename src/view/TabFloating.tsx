@@ -24,11 +24,11 @@ export const TabFloating = (props: ITabFloatingProps) => {
         if (node.getWindow()) {
             node.getWindow()!.focus();
         }
-    }
+    };
 
     const dockPopout = () => {
         layout.doAction(Actions.unFloatTab(node.getId()));
-    }
+    };
 
     const onMouseDown = () => {
         const parent = node.getParent() as TabSetNode;
@@ -50,7 +50,6 @@ export const TabFloating = (props: ITabFloatingProps) => {
     };
 
     const cm = layout.getClassName;
-
 
     const parentNode = node.getParent() as TabSetNode | BorderNode;
     const style: Record<string, any> = node._styleWithPosition();
@@ -77,11 +76,7 @@ export const TabFloating = (props: ITabFloatingProps) => {
         );
     } else {
         return (
-            <div className={cm(CLASSES.FLEXLAYOUT__TAB_FLOATING)}
-                data-layout-path={path}
-                onMouseDown={onMouseDown}
-                onTouchStart={onMouseDown}
-                style={style}>
+            <div className={cm(CLASSES.FLEXLAYOUT__TAB_FLOATING)} data-layout-path={path} onMouseDown={onMouseDown} onTouchStart={onMouseDown} style={style}>
                 <div className={cm(CLASSES.FLEXLAYOUT__TAB_FLOATING_INNER)}>
                     <div>{message}</div>
                     <div>

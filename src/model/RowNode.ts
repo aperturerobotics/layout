@@ -390,7 +390,6 @@ export class RowNode extends Node implements IDropTarget {
             this._model._setActiveTabset(child);
             this._addChild(child);
         }
-
     }
 
     /** @internal */
@@ -477,11 +476,11 @@ export class RowNode extends Node implements IDropTarget {
 
         const horz = !this._model.isRootOrientationVertical();
 
-        if (horz && dockLocation === DockLocation.LEFT || !horz && dockLocation === DockLocation.TOP) {
+        if ((horz && dockLocation === DockLocation.LEFT) || (!horz && dockLocation === DockLocation.TOP)) {
             this._addChild(tabSet, 0);
-        } else if (horz && dockLocation === DockLocation.RIGHT || !horz && dockLocation === DockLocation.BOTTOM) {
+        } else if ((horz && dockLocation === DockLocation.RIGHT) || (!horz && dockLocation === DockLocation.BOTTOM)) {
             this._addChild(tabSet);
-        } else if (horz && dockLocation === DockLocation.TOP || !horz && dockLocation === DockLocation.LEFT) {
+        } else if ((horz && dockLocation === DockLocation.TOP) || (!horz && dockLocation === DockLocation.LEFT)) {
             const vrow = new RowNode(this._model, {});
             const hrow = new RowNode(this._model, {});
             hrow._setWeight(75);
@@ -493,7 +492,7 @@ export class RowNode extends Node implements IDropTarget {
             vrow._addChild(tabSet);
             vrow._addChild(hrow);
             this._addChild(vrow);
-        } else if (horz && dockLocation === DockLocation.BOTTOM || !horz && dockLocation === DockLocation.RIGHT) {
+        } else if ((horz && dockLocation === DockLocation.BOTTOM) || (!horz && dockLocation === DockLocation.RIGHT)) {
             const vrow = new RowNode(this._model, {});
             const hrow = new RowNode(this._model, {});
             hrow._setWeight(75);
@@ -551,5 +550,4 @@ export class RowNode extends Node implements IDropTarget {
     static getAttributeDefinitions() {
         return RowNode._attributeDefinitions;
     }
-
 }

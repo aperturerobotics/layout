@@ -8,7 +8,7 @@ export class Attribute {
     modelName?: string;
     defaultValue: any;
     alwaysWriteJson?: boolean;
-    type?: string; 
+    type?: string;
     required: boolean;
     fixed: boolean;
 
@@ -37,5 +37,4 @@ export class Attribute {
         this.fixed = true;
         return this;
     }
-
 }

@@ -3,13 +3,7 @@ import { TabNode } from "../model/TabNode";
 import { IconFactory, ILayoutCallbacks, ITitleObject, TitleFactory } from "./Layout";
 
 /** @internal */
-export function getRenderStateEx(
-    layout: ILayoutCallbacks,
-    node: TabNode,
-    iconFactory?: IconFactory,
-    titleFactory?: TitleFactory,
-    iconAngle?: number
-) {
+export function getRenderStateEx(layout: ILayoutCallbacks, node: TabNode, iconFactory?: IconFactory, titleFactory?: TitleFactory, iconAngle?: number) {
     let leadingContent = iconFactory ? iconFactory(node) : undefined;
     let titleContent: React.ReactNode = node.getName();
     let name = node.getName();
@@ -18,7 +12,7 @@ export function getRenderStateEx(
     }
 
     function isTitleObject(obj: any): obj is ITitleObject {
-        return obj.titleContent !== undefined
+        return obj.titleContent !== undefined;
     }
 
     if (titleFactory !== undefined) {
@@ -38,9 +32,9 @@ export function getRenderStateEx(
 
     if (leadingContent === undefined && node.getIcon() !== undefined) {
         if (iconAngle !== 0) {
-             leadingContent = <img style={{ width: "1em", height: "1em", transform: "rotate(" + iconAngle + "deg)" }} src={node.getIcon()} alt="leadingContent" />;
+            leadingContent = <img style={{ width: "1em", height: "1em", transform: "rotate(" + iconAngle + "deg)" }} src={node.getIcon()} alt="leadingContent" />;
         } else {
-            leadingContent = <img style={{ width: "1em", height: "1em" }} src={node.getIcon()} alt="leadingContent" />;  
+            leadingContent = <img style={{ width: "1em", height: "1em" }} src={node.getIcon()} alt="leadingContent" />;
         }
     }
 
@@ -53,7 +47,6 @@ export function getRenderStateEx(
     node._setRenderedName(renderState.name);
 
     return renderState;
-
 }
 
 /** @internal */
@@ -65,7 +58,6 @@ export function hideElement(style: Record<string, any>, useVisibility: Constrain
     }
 }
 
-
 /** @internal */
 export function isAuxMouseEvent(event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) {
     let auxEvent = false;
@@ -76,4 +68,3 @@ export function isAuxMouseEvent(event: React.MouseEvent<HTMLDivElement, MouseEve
     }
     return auxEvent;
 }
-
