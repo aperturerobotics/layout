@@ -22,7 +22,9 @@ export interface ITabProps {
 /** @internal */
 export const Tab = (props: ITabProps) => {
     const { layout, selected, node, factory, path } = props;
-    const [renderComponent, setRenderComponent] = React.useState<boolean>(!props.node.isEnableRenderOnDemand() || props.selected);
+    const [renderComponent, setRenderComponent] = React.useState<boolean>(
+        !props.node.isEnableRenderOnDemand() || props.selected
+    );
 
     React.useLayoutEffect(() => {
         if (!renderComponent && selected) {
@@ -51,7 +53,10 @@ export const Tab = (props: ITabProps) => {
     }
 
     if (parentNode instanceof TabSetNode) {
-        if (node.getModel().getMaximizedTabset() !== undefined && !parentNode.isMaximized()) {
+        if (
+            node.getModel().getMaximizedTabset() !== undefined &&
+            !parentNode.isMaximized()
+        ) {
             hideElement(style, useVisibility);
         }
     }
@@ -64,9 +69,14 @@ export const Tab = (props: ITabProps) => {
     let className = cm(CLASSES.FLEXLAYOUT__TAB);
     if (parentNode instanceof BorderNode) {
         className += " " + cm(CLASSES.FLEXLAYOUT__TAB_BORDER);
-        className += " " + cm(CLASSES.FLEXLAYOUT__TAB_BORDER_ + parentNode.getLocation().getName());
+        className +=
+            " " +
+            cm(
+                CLASSES.FLEXLAYOUT__TAB_BORDER_ +
+                    parentNode.getLocation().getName()
+            );
     }
-    
+
     if (node.getContentClassName() !== undefined) {
         className += " " + node.getContentClassName();
     }
@@ -77,12 +87,15 @@ export const Tab = (props: ITabProps) => {
             data-layout-path={path}
             onMouseDown={onMouseDown}
             onTouchStart={onMouseDown}
-            style={style}>
-            <ErrorBoundary message={props.layout.i18nName(I18nLabel.Error_rendering_component)}>
+            style={style}
+        >
+            <ErrorBoundary
+                message={props.layout.i18nName(
+                    I18nLabel.Error_rendering_component
+                )}
+            >
                 <Fragment>{child}</Fragment>
             </ErrorBoundary>
         </div>
     );
 };
-
-

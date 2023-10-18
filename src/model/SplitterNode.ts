@@ -57,7 +57,7 @@ export class SplitterNode extends Node {
     }
 
     /** @internal */
-    _setWeight(value: number): void { }
+    _setWeight(value: number): void {}
 
     /** @internal */
     _getPrefSize(orientation: Orientation): number {
@@ -65,7 +65,7 @@ export class SplitterNode extends Node {
     }
 
     /** @internal */
-    _updateAttrs(json: any): void { }
+    _updateAttrs(json: any): void {}
 
     /** @internal */
     _getAttributeDefinitions(): AttributeDefinitions {

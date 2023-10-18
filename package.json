@@ -37,6 +37,10 @@
         "typedoc/",
         "dist/"
     ],
+    "prettier": {
+        "semi": true,
+        "singleQuote": false
+    },
     "scripts": {
         "build": "npm run build:style && npm run build:doc && npm run build:lib",
         "build:min": "npm run build:style && npm run build:doc && npm run build:lib:min",
@@ -45,6 +49,7 @@
         "build:doc": "typedoc --out typedoc --exclude \"**/examples/**/*.tsx\" --excludeInternal --disableSources --excludePrivate --excludeProtected --readme none ./src",
         "build:style": "sass style/underline.scss style/underline.css && sass style/gray.scss style/gray.css && sass style/light.scss style/light.css && sass style/dark.scss style/dark.css",
         "test": "tsc --project tsconfig.json --noEmit",
+        "format": "prettier --write './{src,style,declarations}/**/(*.ts|*.tsx|*.html|*.css|*.scss)' package.json",
         "lint": "eslint src/*"
     },
     "peerDependencies": {

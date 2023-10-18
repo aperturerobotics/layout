@@ -27,7 +27,12 @@ export class Rect {
     }
 
     equals(rect: Rect) {
-        if (this.x === rect.x && this.y === rect.y && this.width === rect.width && this.height === rect.height) {
+        if (
+            this.x === rect.x &&
+            this.y === rect.y &&
+            this.width === rect.width &&
+            this.height === rect.height
+        ) {
             return true;
         } else {
             return false;
@@ -50,7 +55,10 @@ export class Rect {
         this.styleWithPosition(element.style, position);
     }
 
-    styleWithPosition(style: Record<string, any>, position: string = "absolute") {
+    styleWithPosition(
+        style: Record<string, any>,
+        position: string = "absolute"
+    ) {
         style.left = this.x + "px";
         style.top = this.y + "px";
         style.width = Math.max(0, this.width) + "px"; // need Math.max to prevent -ve, cause error in IE
@@ -60,15 +68,30 @@ export class Rect {
     }
 
     contains(x: number, y: number) {
-        if (this.x <= x && x <= this.getRight() && this.y <= y && y <= this.getBottom()) {
+        if (
+            this.x <= x &&
+            x <= this.getRight() &&
+            this.y <= y &&
+            y <= this.getBottom()
+        ) {
             return true;
         } else {
             return false;
         }
     }
 
-    removeInsets(insets: { top: number; left: number; bottom: number; right: number }) {
-        return new Rect(this.x + insets.left, this.y + insets.top, Math.max(0, this.width - insets.left - insets.right), Math.max(0, this.height - insets.top - insets.bottom));
+    removeInsets(insets: {
+        top: number;
+        left: number;
+        bottom: number;
+        right: number;
+    }) {
+        return new Rect(
+            this.x + insets.left,
+            this.y + insets.top,
+            Math.max(0, this.width - insets.left - insets.right),
+            Math.max(0, this.height - insets.top - insets.bottom)
+        );
     }
 
     centerInRect(outerRect: Rect) {
@@ -86,6 +109,16 @@ export class Rect {
     }
 
     toString() {
-        return "(Rect: x=" + this.x + ", y=" + this.y + ", width=" + this.width + ", height=" + this.height + ")";
+        return (
+            "(Rect: x=" +
+            this.x +
+            ", y=" +
+            this.y +
+            ", width=" +
+            this.width +
+            ", height=" +
+            this.height +
+            ")"
+        );
     }
 }
