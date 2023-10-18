@@ -79,8 +79,8 @@ export const BorderTabSet = (props: IBorderTabSetProps) => {
     const tabButtons: any = [];
 
     const layoutTab = (i: number) => {
-        let isSelected = border.getSelected() === i;
-        let child = border.getChildren()[i] as TabNode;
+        const isSelected = border.getSelected() === i;
+        const child = border.getChildren()[i] as TabNode;
 
         tabButtons.push(
             <BorderButton layout={layout} border={border.getLocation().getName()} node={child} path={border.getPath() + "/tb" + i} key={child.getId()} selected={isSelected} icons={icons} />,
@@ -101,7 +101,7 @@ export const BorderTabSet = (props: IBorderTabSetProps) => {
 
     // allow customization of tabset right/bottom buttons
     let buttons: any[] = [];
-    let stickyButtons: any[] = [];
+    const stickyButtons: any[] = [];
     const renderState: ITabSetRenderValues = { buttons, stickyButtons: stickyButtons, overflowPosition: undefined };
     layout.customizeTabSet(border, renderState);
     buttons = renderState.buttons;

@@ -1,20 +1,20 @@
 # FlexLayout
 
 [![GitHub](https://img.shields.io/github/license/Caplin/FlexLayout)](https://github.com/caplin/FlexLayout/blob/master/LICENSE)
-![npm](https://img.shields.io/npm/dw/flexlayout-react)
-[![npm](https://img.shields.io/npm/v/flexlayout-react)](https://www.npmjs.com/package/flexlayout-react)
 
 FlexLayout is a layout manager that arranges React components in multiple tab sets, tabs can be resized and moved.
 
 ![FlexLayout Demo Screenshot](Screenshot_light.png?raw=true "FlexLayout Demo Screenshot")
+
+**This is a maintenance fork of react-flexlayout. Check out the original project at the link above.**
+
+To install this fork: `yarn add @aptre/flex-layout` and use `@aptre/flex-layout` in place of `flexlayout-react`.
 
 [Run the Demo](https://rawgit.com/caplin/FlexLayout/demos/demos/v0.8/demo/index.html)
 
 Try it now using [JSFiddle](https://jsfiddle.net/fvd9btea/)
 
 [API Doc](https://rawgit.com/caplin/FlexLayout/demos/demos/v0.8/typedoc/index.html)
-
-[Screenshot of Caplin Liberator Explorer using FlexLayout](https://rawgit.com/caplin/FlexLayout/demos/demos/v0.20/images/LiberatorExplorerV3_3.PNG)
 
 FlexLayout's only dependency is React.
 
@@ -361,27 +361,6 @@ for example see the getDocument() callback in agGrid at https://www.ag-grid.com/
 enableWindowReMount tab attribute to force the component to re-mount.
 
 See this article about using React portals in this way: https://dev.to/noriste/the-challenges-of-rendering-an-openlayers-map-in-a-popup-through-react-2elh
-
-## Running the Examples and Building the Project
-
-First install dependencies:
-
-```
-pnpm install
-```
-
-Compile the project and run the examples:
-
-```
-pnpm start
-```
-
-Open your browser at http://localhost:8080/examples/ to show the examples directory, click on the examples to run them.
-
-The 'pnpm start' command will watch for changes to flexlayout and example source, so you can make changes to the code
-and then refresh the browser to see the result.
-
-To build the npm distribution run 'pnpm build', this will create the artifacts in the dist dir.
 
 ## Alternative Layout Managers
 

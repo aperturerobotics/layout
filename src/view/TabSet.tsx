@@ -152,7 +152,7 @@ export const TabSet = (props: ITabSetProps) => {
     if (node.isEnableTabStrip()) {
         for (let i = 0; i < node.getChildren().length; i++) {
             const child = node.getChildren()[i] as TabNode;
-            let isSelected = node.getSelected() === i;
+            const isSelected = node.getSelected() === i;
             tabs.push(<TabButton layout={layout} node={child} path={path + "/tb" + i} key={child.getId()} selected={isSelected} />);
             if (i < node.getChildren().length - 1) {
                 tabs.push(<div key={"divider" + i} className={cm(CLASSES.FLEXLAYOUT__TABSET_TAB_DIVIDER)}></div>);
@@ -375,7 +375,7 @@ export const TabSet = (props: ITabSetProps) => {
         }
     }
 
-    var emptyTabset: React.ReactNode;
+    let emptyTabset: React.ReactNode;
     if (node.getChildren().length === 0) {
         const placeHolderCallback = layout.getTabSetPlaceHolderCallback();
         if (placeHolderCallback) {
@@ -405,7 +405,7 @@ export const TabSet = (props: ITabSetProps) => {
         );
     }
 
-    let style: Record<string, any> = {
+    const style: Record<string, any> = {
         flexGrow: Math.max(1, node.getWeight() * 1000),
         minWidth: node.getMinWidth(),
         minHeight: node.getMinHeight(),
