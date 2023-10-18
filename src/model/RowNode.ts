@@ -37,12 +37,16 @@ export class RowNode extends Node implements IDropTarget {
         return newLayoutNode;
     }
     /** @internal */
-    private static _attributeDefinitions: AttributeDefinitions = RowNode._createAttributeDefinitions();
+    private static _attributeDefinitions: AttributeDefinitions =
+        RowNode._createAttributeDefinitions();
 
     /** @internal */
     private static _createAttributeDefinitions(): AttributeDefinitions {
         const attributeDefinitions = new AttributeDefinitions();
-        attributeDefinitions.add("type", RowNode.TYPE, true).setType(Attribute.STRING).setFixed();
+        attributeDefinitions
+            .add("type", RowNode.TYPE, true)
+            .setType(Attribute.STRING)
+            .setFixed();
         attributeDefinitions.add("id", undefined).setType(Attribute.STRING);
 
         attributeDefinitions.add("weight", 100).setType(Attribute.NUMBER);
@@ -97,7 +101,11 @@ export class RowNode extends Node implements IDropTarget {
         let fixedPixels = 0;
         let prefPixels = 0;
         let totalPrefWeight = 0;
-        const drawChildren = this._getDrawChildren() as (RowNode | TabSetNode | SplitterNode)[];
+        const drawChildren = this._getDrawChildren() as (
+            | RowNode
+            | TabSetNode
+            | SplitterNode
+        )[];
 
         for (const child of drawChildren) {
             const prefSize = child._getPrefSize(this.getOrientation());
@@ -137,7 +145,9 @@ export class RowNode extends Node implements IDropTarget {
                         child._setTempSize(0);
                     } else {
                         const minSize = child.getMinSize(this.getOrientation());
-                        const size = Math.floor(availablePixels * (child.getWeight() / totalWeight));
+                        const size = Math.floor(
+                            availablePixels * (child.getWeight() / totalWeight),
+                        );
                         child._setTempSize(Math.max(minSize, size));
                     }
                     variableSize += child._getTempSize();
@@ -154,8 +164,14 @@ export class RowNode extends Node implements IDropTarget {
             while (totalSizeGiven < pixelSize) {
                 for (const child of drawChildren) {
                     if (!(child instanceof SplitterNode)) {
-                        const prefSize = child._getPrefSize(this.getOrientation());
-                        if (!child._isFixed() && (prefSize === undefined || resizePreferred) && totalSizeGiven < pixelSize) {
+                        const prefSize = child._getPrefSize(
+                            this.getOrientation(),
+                        );
+                        if (
+                            !child._isFixed() &&
+                            (prefSize === undefined || resizePreferred) &&
+                            totalSizeGiven < pixelSize
+                        ) {
                             child._setTempSize(child._getTempSize() + 1);
                             totalSizeGiven++;
                         }
@@ -207,9 +223,25 @@ export class RowNode extends Node implements IDropTarget {
         let p = 0;
         for (const child of drawChildren) {
             if (this.getOrientation() === Orientation.HORZ) {
-                child._layout(new Rect(this._rect.x + p, this._rect.y, child._getTempSize(), this._rect.height), metrics);
+                child._layout(
+                    new Rect(
+                        this._rect.x + p,
+                        this._rect.y,
+                        child._getTempSize(),
+                        this._rect.height,
+                    ),
+                    metrics,
+                );
             } else {
-                child._layout(new Rect(this._rect.x, this._rect.y + p, this._rect.width, child._getTempSize()), metrics);
+                child._layout(
+                    new Rect(
+                        this._rect.x,
+                        this._rect.y + p,
+                        this._rect.width,
+                        child._getTempSize(),
+                    ),
+                    metrics,
+                );
             }
             p += child._getTempSize();
         }
@@ -218,9 +250,16 @@ export class RowNode extends Node implements IDropTarget {
     }
 
     /** @internal */
-    _getSplitterBounds(splitterNode: SplitterNode, useMinSize: boolean = false) {
+    _getSplitterBounds(
+        splitterNode: SplitterNode,
+        useMinSize: boolean = false,
+    ) {
         const pBounds = [0, 0];
-        const drawChildren = this._getDrawChildren() as (RowNode | TabSetNode | SplitterNode)[];
+        const drawChildren = this._getDrawChildren() as (
+            | RowNode
+            | TabSetNode
+            | SplitterNode
+        )[];
         const p = drawChildren.indexOf(splitterNode);
         const node1 = drawChildren[p - 1];
         const node2 = drawChildren[p + 1];
@@ -228,12 +267,16 @@ export class RowNode extends Node implements IDropTarget {
             const minSize1 = useMinSize ? node1.getMinWidth() : 0;
             const minSize2 = useMinSize ? node2.getMinWidth() : 0;
             pBounds[0] = node1.getRect().x + minSize1;
-            pBounds[1] = node2.getRect().getRight() - splitterNode.getWidth() - minSize2;
+            pBounds[1] =
+                node2.getRect().getRight() - splitterNode.getWidth() - minSize2;
         } else {
             const minSize1 = useMinSize ? node1.getMinHeight() : 0;
             const minSize2 = useMinSize ? node2.getMinHeight() : 0;
             pBounds[0] = node1.getRect().y + minSize1;
-            pBounds[1] = node2.getRect().getBottom() - splitterNode.getHeight() - minSize2;
+            pBounds[1] =
+                node2.getRect().getBottom() -
+                splitterNode.getHeight() -
+                minSize2;
         }
         return pBounds;
     }
@@ -241,18 +284,25 @@ export class RowNode extends Node implements IDropTarget {
     /** @internal */
     _calculateSplit(splitter: SplitterNode, splitterPos: number) {
         let rtn;
-        const drawChildren = this._getDrawChildren() as (RowNode | TabSetNode | SplitterNode)[];
+        const drawChildren = this._getDrawChildren() as (
+            | RowNode
+            | TabSetNode
+            | SplitterNode
+        )[];
         const p = drawChildren.indexOf(splitter);
         const pBounds = this._getSplitterBounds(splitter);
 
-        const weightedLength = drawChildren[p - 1].getWeight() + drawChildren[p + 1].getWeight();
+        const weightedLength =
+            drawChildren[p - 1].getWeight() + drawChildren[p + 1].getWeight();
 
         const pixelWidth1 = Math.max(0, splitterPos - pBounds[0]);
         const pixelWidth2 = Math.max(0, pBounds[1] - splitterPos);
 
         if (pixelWidth1 + pixelWidth2 > 0) {
-            const weight1 = (pixelWidth1 * weightedLength) / (pixelWidth1 + pixelWidth2);
-            const weight2 = (pixelWidth2 * weightedLength) / (pixelWidth1 + pixelWidth2);
+            const weight1 =
+                (pixelWidth1 * weightedLength) / (pixelWidth1 + pixelWidth2);
+            const weight2 =
+                (pixelWidth2 * weightedLength) / (pixelWidth1 + pixelWidth2);
 
             rtn = {
                 node1Id: drawChildren[p - 1].getId(),
@@ -356,8 +406,13 @@ export class RowNode extends Node implements IDropTarget {
                             subChildrenTotal += subsubChild.getWeight();
                         }
                         for (let j = 0; j < subChildChildren.length; j++) {
-                            const subsubChild = subChildChildren[j] as RowNode | TabSetNode;
-                            subsubChild._setWeight((child.getWeight() * subsubChild.getWeight()) / subChildrenTotal);
+                            const subsubChild = subChildChildren[j] as
+                                | RowNode
+                                | TabSetNode;
+                            subsubChild._setWeight(
+                                (child.getWeight() * subsubChild.getWeight()) /
+                                    subChildrenTotal,
+                            );
                             this._addChild(subsubChild, i + j);
                         }
                     } else {
@@ -367,7 +422,10 @@ export class RowNode extends Node implements IDropTarget {
                 } else {
                     i++;
                 }
-            } else if (child instanceof TabSetNode && child.getChildren().length === 0) {
+            } else if (
+                child instanceof TabSetNode &&
+                child.getChildren().length === 0
+            ) {
                 if (child.isEnableDeleteWhenEmpty()) {
                     this._removeChild(child);
                     if (child === this._model.getMaximizedTabset()) {
@@ -390,11 +448,14 @@ export class RowNode extends Node implements IDropTarget {
             this._model._setActiveTabset(child);
             this._addChild(child);
         }
-
     }
 
     /** @internal */
-    canDrop(dragNode: Node & IDraggable, x: number, y: number): DropInfo | undefined {
+    canDrop(
+        dragNode: Node & IDraggable,
+        x: number,
+        y: number,
+    ): DropInfo | undefined {
         const yy = y - this._rect.y;
         const xx = x - this._rect.x;
         const w = this._rect.width;
@@ -405,28 +466,68 @@ export class RowNode extends Node implements IDropTarget {
 
         if (this._model.isEnableEdgeDock() && this._parent === undefined) {
             // _root row
-            if (x < this._rect.x + margin && yy > h / 2 - half && yy < h / 2 + half) {
+            if (
+                x < this._rect.x + margin &&
+                yy > h / 2 - half &&
+                yy < h / 2 + half
+            ) {
                 const dockLocation = DockLocation.LEFT;
                 const outlineRect = dockLocation.getDockRect(this._rect);
                 outlineRect.width = outlineRect.width / 2;
-                dropInfo = new DropInfo(this, outlineRect, dockLocation, -1, CLASSES.FLEXLAYOUT__OUTLINE_RECT_EDGE);
-            } else if (x > this._rect.getRight() - margin && yy > h / 2 - half && yy < h / 2 + half) {
+                dropInfo = new DropInfo(
+                    this,
+                    outlineRect,
+                    dockLocation,
+                    -1,
+                    CLASSES.FLEXLAYOUT__OUTLINE_RECT_EDGE,
+                );
+            } else if (
+                x > this._rect.getRight() - margin &&
+                yy > h / 2 - half &&
+                yy < h / 2 + half
+            ) {
                 const dockLocation = DockLocation.RIGHT;
                 const outlineRect = dockLocation.getDockRect(this._rect);
                 outlineRect.width = outlineRect.width / 2;
                 outlineRect.x += outlineRect.width;
-                dropInfo = new DropInfo(this, outlineRect, dockLocation, -1, CLASSES.FLEXLAYOUT__OUTLINE_RECT_EDGE);
-            } else if (y < this._rect.y + margin && xx > w / 2 - half && xx < w / 2 + half) {
+                dropInfo = new DropInfo(
+                    this,
+                    outlineRect,
+                    dockLocation,
+                    -1,
+                    CLASSES.FLEXLAYOUT__OUTLINE_RECT_EDGE,
+                );
+            } else if (
+                y < this._rect.y + margin &&
+                xx > w / 2 - half &&
+                xx < w / 2 + half
+            ) {
                 const dockLocation = DockLocation.TOP;
                 const outlineRect = dockLocation.getDockRect(this._rect);
                 outlineRect.height = outlineRect.height / 2;
-                dropInfo = new DropInfo(this, outlineRect, dockLocation, -1, CLASSES.FLEXLAYOUT__OUTLINE_RECT_EDGE);
-            } else if (y > this._rect.getBottom() - margin && xx > w / 2 - half && xx < w / 2 + half) {
+                dropInfo = new DropInfo(
+                    this,
+                    outlineRect,
+                    dockLocation,
+                    -1,
+                    CLASSES.FLEXLAYOUT__OUTLINE_RECT_EDGE,
+                );
+            } else if (
+                y > this._rect.getBottom() - margin &&
+                xx > w / 2 - half &&
+                xx < w / 2 + half
+            ) {
                 const dockLocation = DockLocation.BOTTOM;
                 const outlineRect = dockLocation.getDockRect(this._rect);
                 outlineRect.height = outlineRect.height / 2;
                 outlineRect.y += outlineRect.height;
-                dropInfo = new DropInfo(this, outlineRect, dockLocation, -1, CLASSES.FLEXLAYOUT__OUTLINE_RECT_EDGE);
+                dropInfo = new DropInfo(
+                    this,
+                    outlineRect,
+                    dockLocation,
+                    -1,
+                    CLASSES.FLEXLAYOUT__OUTLINE_RECT_EDGE,
+                );
             }
 
             if (dropInfo !== undefined) {
@@ -440,7 +541,11 @@ export class RowNode extends Node implements IDropTarget {
     }
 
     /** @internal */
-    drop(dragNode: Node & IDraggable, location: DockLocation, index: number): void {
+    drop(
+        dragNode: Node & IDraggable,
+        location: DockLocation,
+        index: number,
+    ): void {
         const dockLocation = location;
 
         const parent = dragNode.getParent();
@@ -462,7 +567,10 @@ export class RowNode extends Node implements IDropTarget {
             tabSet = dragNode;
         } else {
             const callback = this._model._getOnCreateTabSet();
-            tabSet = new TabSetNode(this._model, callback ? callback(dragNode as TabNode) : {});
+            tabSet = new TabSetNode(
+                this._model,
+                callback ? callback(dragNode as TabNode) : {},
+            );
             tabSet._addChild(dragNode);
         }
         let size = this._children.reduce((sum, child) => {
@@ -477,11 +585,20 @@ export class RowNode extends Node implements IDropTarget {
 
         const horz = !this._model.isRootOrientationVertical();
 
-        if (horz && dockLocation === DockLocation.LEFT || !horz && dockLocation === DockLocation.TOP) {
+        if (
+            (horz && dockLocation === DockLocation.LEFT) ||
+            (!horz && dockLocation === DockLocation.TOP)
+        ) {
             this._addChild(tabSet, 0);
-        } else if (horz && dockLocation === DockLocation.RIGHT || !horz && dockLocation === DockLocation.BOTTOM) {
+        } else if (
+            (horz && dockLocation === DockLocation.RIGHT) ||
+            (!horz && dockLocation === DockLocation.BOTTOM)
+        ) {
             this._addChild(tabSet);
-        } else if (horz && dockLocation === DockLocation.TOP || !horz && dockLocation === DockLocation.LEFT) {
+        } else if (
+            (horz && dockLocation === DockLocation.TOP) ||
+            (!horz && dockLocation === DockLocation.LEFT)
+        ) {
             const vrow = new RowNode(this._model, {});
             const hrow = new RowNode(this._model, {});
             hrow._setWeight(75);
@@ -493,7 +610,10 @@ export class RowNode extends Node implements IDropTarget {
             vrow._addChild(tabSet);
             vrow._addChild(hrow);
             this._addChild(vrow);
-        } else if (horz && dockLocation === DockLocation.BOTTOM || !horz && dockLocation === DockLocation.RIGHT) {
+        } else if (
+            (horz && dockLocation === DockLocation.BOTTOM) ||
+            (!horz && dockLocation === DockLocation.RIGHT)
+        ) {
             const vrow = new RowNode(this._model, {});
             const hrow = new RowNode(this._model, {});
             hrow._setWeight(75);
@@ -551,5 +671,4 @@ export class RowNode extends Node implements IDropTarget {
     static getAttributeDefinitions() {
         return RowNode._attributeDefinitions;
     }
-
 }

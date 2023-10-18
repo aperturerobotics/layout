@@ -32,7 +32,10 @@ export function adjustSelectedIndexAfterFloat(node: TabNode) {
 /** @internal */
 export function adjustSelectedIndexAfterDock(node: TabNode) {
     const parent = node.getParent();
-    if (parent !== null && (parent instanceof TabSetNode || parent instanceof BorderNode)) {
+    if (
+        parent !== null &&
+        (parent instanceof TabSetNode || parent instanceof BorderNode)
+    ) {
         const children = parent.getChildren();
         for (let i = 0; i < children.length; i++) {
             const child = children[i] as TabNode;
@@ -45,12 +48,22 @@ export function adjustSelectedIndexAfterDock(node: TabNode) {
 }
 
 /** @internal */
-export function adjustSelectedIndex(parent: TabSetNode | BorderNode | RowNode, removedIndex: number) {
+export function adjustSelectedIndex(
+    parent: TabSetNode | BorderNode | RowNode,
+    removedIndex: number,
+) {
     // for the tabset/border being removed from set the selected index
-    if (parent !== undefined && (parent.getType() === TabSetNode.TYPE || parent.getType() === BorderNode.TYPE)) {
+    if (
+        parent !== undefined &&
+        (parent.getType() === TabSetNode.TYPE ||
+            parent.getType() === BorderNode.TYPE)
+    ) {
         const selectedIndex = (parent as TabSetNode | BorderNode).getSelected();
         if (selectedIndex !== -1) {
-            if (removedIndex === selectedIndex && parent.getChildren().length > 0) {
+            if (
+                removedIndex === selectedIndex &&
+                parent.getChildren().length > 0
+            ) {
                 if (removedIndex >= parent.getChildren().length) {
                     // removed last tab; select new last tab
                     parent._setSelected(parent.getChildren().length - 1);
@@ -70,9 +83,10 @@ export function adjustSelectedIndex(parent: TabSetNode | BorderNode | RowNode, r
 
 export function randomUUID() {
     // @ts-ignore
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, (c) =>
+        (
+            c ^
+            (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
+        ).toString(16),
     );
-  }
-
-
+}

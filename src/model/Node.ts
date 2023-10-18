@@ -4,7 +4,12 @@ import { DropInfo } from "../DropInfo";
 import { Orientation } from "../Orientation";
 import { Rect } from "../Rect";
 import { IDraggable } from "./IDraggable";
-import { IJsonBorderNode, IJsonRowNode, IJsonTabNode, IJsonTabSetNode } from "./IJsonModel";
+import {
+    IJsonBorderNode,
+    IJsonRowNode,
+    IJsonTabNode,
+    IJsonTabSetNode,
+} from "./IJsonModel";
 import { Model, ILayoutMetrics } from "./Model";
 
 export abstract class Node {
@@ -78,7 +83,9 @@ export abstract class Node {
 
     getOrientation(): Orientation {
         if (this._parent === undefined) {
-            return this._model.isRootOrientationVertical() ? Orientation.VERT : Orientation.HORZ;
+            return this._model.isRootOrientationVertical()
+                ? Orientation.VERT
+                : Orientation.HORZ;
         } else {
             return Orientation.flip(this._parent.getOrientation());
         }
@@ -93,7 +100,12 @@ export abstract class Node {
         delete this._listeners[event];
     }
 
-    abstract toJson(): IJsonRowNode | IJsonBorderNode | IJsonTabSetNode | IJsonTabNode | undefined;
+    abstract toJson():
+        | IJsonRowNode
+        | IJsonBorderNode
+        | IJsonTabSetNode
+        | IJsonTabNode
+        | undefined;
 
     /** @internal */
     _setId(id: string) {
@@ -113,7 +125,8 @@ export abstract class Node {
         let val = this._attributes[name];
 
         if (val === undefined) {
-            const modelName = this._getAttributeDefinitions().getModelName(name);
+            const modelName =
+                this._getAttributeDefinitions().getModelName(name);
             if (modelName !== undefined) {
                 val = this._model._getAttribute(modelName);
             }
@@ -176,7 +189,11 @@ export abstract class Node {
     }
 
     /** @internal */
-    _findDropTargetNode(dragNode: Node & IDraggable, x: number, y: number): DropInfo | undefined {
+    _findDropTargetNode(
+        dragNode: Node & IDraggable,
+        x: number,
+        y: number,
+    ): DropInfo | undefined {
         let rtn: DropInfo | undefined;
         if (this._rect.contains(x, y)) {
             if (this._model.getMaximizedTabset() !== undefined) {
@@ -200,29 +217,51 @@ export abstract class Node {
     }
 
     /** @internal */
-    canDrop(dragNode: Node & IDraggable, x: number, y: number): DropInfo | undefined {
+    canDrop(
+        dragNode: Node & IDraggable,
+        x: number,
+        y: number,
+    ): DropInfo | undefined {
         return undefined;
     }
 
     /** @internal */
-    _canDockInto(dragNode: Node & IDraggable, dropInfo: DropInfo | undefined): boolean {
+    _canDockInto(
+        dragNode: Node & IDraggable,
+        dropInfo: DropInfo | undefined,
+    ): boolean {
         if (dropInfo != null) {
-            if (dropInfo.location === DockLocation.CENTER && dropInfo.node.isEnableDrop() === false) {
+            if (
+                dropInfo.location === DockLocation.CENTER &&
+                dropInfo.node.isEnableDrop() === false
+            ) {
                 return false;
             }
 
             // prevent named tabset docking into another tabset, since this would lose the header
-            if (dropInfo.location === DockLocation.CENTER && dragNode.getType() === "tabset" && dragNode.getName() !== undefined) {
+            if (
+                dropInfo.location === DockLocation.CENTER &&
+                dragNode.getType() === "tabset" &&
+                dragNode.getName() !== undefined
+            ) {
                 return false;
             }
 
-            if (dropInfo.location !== DockLocation.CENTER && dropInfo.node.isEnableDivide() === false) {
+            if (
+                dropInfo.location !== DockLocation.CENTER &&
+                dropInfo.node.isEnableDivide() === false
+            ) {
                 return false;
             }
 
             // finally check model callback to check if drop allowed
             if (this._model._getOnAllowDrop()) {
-                return (this._model._getOnAllowDrop() as (dragNode: Node, dropInfo: DropInfo) => boolean)(dragNode, dropInfo);
+                return (
+                    this._model._getOnAllowDrop() as (
+                        dragNode: Node,
+                        dropInfo: DropInfo,
+                    ) => boolean
+                )(dragNode, dropInfo);
             }
         }
         return true;

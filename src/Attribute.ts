@@ -8,11 +8,16 @@ export class Attribute {
     modelName?: string;
     defaultValue: any;
     alwaysWriteJson?: boolean;
-    type?: string; 
+    type?: string;
     required: boolean;
     fixed: boolean;
 
-    constructor(name: string, modelName: string | undefined, defaultValue: any, alwaysWriteJson?: boolean) {
+    constructor(
+        name: string,
+        modelName: string | undefined,
+        defaultValue: any,
+        alwaysWriteJson?: boolean,
+    ) {
         this.name = name;
         this.modelName = modelName;
         this.defaultValue = defaultValue;
@@ -37,5 +42,4 @@ export class Attribute {
         this.fixed = true;
         return this;
     }
-
 }

@@ -10,7 +10,7 @@ export const useTabOverflow = (
     node: TabSetNode | BorderNode,
     orientation: Orientation,
     toolbarRef: React.MutableRefObject<HTMLDivElement | null>,
-    stickyButtonsRef: React.MutableRefObject<HTMLDivElement | null>
+    stickyButtonsRef: React.MutableRefObject<HTMLDivElement | null>,
 ) => {
     const firstRender = React.useRef<boolean>(true);
     const tabsTruncated = React.useRef<boolean>(false);
@@ -19,7 +19,9 @@ export const useTabOverflow = (
 
     const [position, setPosition] = React.useState<number>(0);
     const userControlledLeft = React.useRef<boolean>(false);
-    const [hiddenTabs, setHiddenTabs] = React.useState<{ node: TabNode; index: number }[]>([]);
+    const [hiddenTabs, setHiddenTabs] = React.useState<
+        { node: TabNode; index: number }[]
+    >([]);
     const lastHiddenCount = React.useRef<number>(0);
 
     // if selected node or tabset/border rectangle change then unset usercontrolled (so selected tab will be kept in view)
@@ -76,9 +78,17 @@ export const useTabOverflow = (
         if (firstRender.current === true) {
             tabsTruncated.current = false;
         }
-        const nodeRect = node instanceof TabSetNode ? node.getRect() : (node as BorderNode).getTabHeaderRect()!;
-        let lastChild = node.getChildren()[node.getChildren().length - 1] as TabNode;
-        const stickyButtonsSize = stickyButtonsRef.current === null ? 0 : getSize(stickyButtonsRef.current!.getBoundingClientRect());
+        const nodeRect =
+            node instanceof TabSetNode
+                ? node.getRect()
+                : (node as BorderNode).getTabHeaderRect()!;
+        let lastChild = node.getChildren()[
+            node.getChildren().length - 1
+        ] as TabNode;
+        const stickyButtonsSize =
+            stickyButtonsRef.current === null
+                ? 0
+                : getSize(stickyButtonsRef.current!.getBoundingClientRect());
 
         if (
             firstRender.current === true ||
@@ -88,13 +98,20 @@ export const useTabOverflow = (
         ) {
             lastHiddenCount.current = hiddenTabs.length;
             lastRect.current = nodeRect;
-            const enabled = node instanceof TabSetNode ? node.isEnableTabStrip() === true : true;
+            const enabled =
+                node instanceof TabSetNode
+                    ? node.isEnableTabStrip() === true
+                    : true;
             let endPos = getFar(nodeRect) - stickyButtonsSize;
             if (toolbarRef.current !== null) {
                 endPos -= getSize(toolbarRef.current.getBoundingClientRect());
             }
             if (enabled && node.getChildren().length > 0) {
-                if (hiddenTabs.length === 0 && position === 0 && getFar(lastChild.getTabRect()!) + tabMargin < endPos) {
+                if (
+                    hiddenTabs.length === 0 &&
+                    position === 0 &&
+                    getFar(lastChild.getTabRect()!) + tabMargin < endPos
+                ) {
                     return; // nothing to do all tabs are shown in available space
                 }
 
@@ -107,10 +124,16 @@ export const useTabOverflow = (
                     const selectedEnd = getFar(selectedRect) + tabMargin;
 
                     // when selected tab is larger than available space then align left
-                    if (getSize(selectedRect) + 2 * tabMargin >= endPos - getNear(nodeRect)) {
+                    if (
+                        getSize(selectedRect) + 2 * tabMargin >=
+                        endPos - getNear(nodeRect)
+                    ) {
                         shiftPos = getNear(nodeRect) - selectedStart;
                     } else {
-                        if (selectedEnd > endPos || selectedStart < getNear(nodeRect)) {
+                        if (
+                            selectedEnd > endPos ||
+                            selectedStart < getNear(nodeRect)
+                        ) {
                             if (selectedStart < getNear(nodeRect)) {
                                 shiftPos = getNear(nodeRect) - selectedStart;
                             }
@@ -122,15 +145,28 @@ export const useTabOverflow = (
                     }
                 }
 
-                const extraSpace = Math.max(0, endPos - (getFar(lastChild.getTabRect()!) + tabMargin + shiftPos));
-                const newPosition = Math.min(0, position + shiftPos + extraSpace);
+                const extraSpace = Math.max(
+                    0,
+                    endPos -
+                        (getFar(lastChild.getTabRect()!) +
+                            tabMargin +
+                            shiftPos),
+                );
+                const newPosition = Math.min(
+                    0,
+                    position + shiftPos + extraSpace,
+                );
 
                 // find hidden tabs
                 const diff = newPosition - position;
                 const hidden: { node: TabNode; index: number }[] = [];
                 for (let i = 0; i < node.getChildren().length; i++) {
                     const child = node.getChildren()[i] as TabNode;
-                    if (getNear(child.getTabRect()!) + diff < getNear(nodeRect!) || getFar(child.getTabRect()!) + diff > endPos) {
+                    if (
+                        getNear(child.getTabRect()!) + diff <
+                            getNear(nodeRect!) ||
+                        getFar(child.getTabRect()!) + diff > endPos
+                    ) {
                         hidden.push({ node: child, index: i });
                     }
                 }
@@ -164,5 +200,12 @@ export const useTabOverflow = (
         event.stopPropagation();
     };
 
-    return { selfRef, position, userControlledLeft, hiddenTabs, onMouseWheel, tabsTruncated: tabsTruncated.current };
+    return {
+        selfRef,
+        position,
+        userControlledLeft,
+        hiddenTabs,
+        onMouseWheel,
+        tabsTruncated: tabsTruncated.current,
+    };
 };

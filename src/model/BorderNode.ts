@@ -33,25 +33,51 @@ export class BorderNode extends Node implements IDropTarget {
         return border;
     }
     /** @internal */
-    private static _attributeDefinitions: AttributeDefinitions = BorderNode._createAttributeDefinitions();
+    private static _attributeDefinitions: AttributeDefinitions =
+        BorderNode._createAttributeDefinitions();
 
     /** @internal */
     private static _createAttributeDefinitions(): AttributeDefinitions {
         const attributeDefinitions = new AttributeDefinitions();
-        attributeDefinitions.add("type", BorderNode.TYPE, true).setType(Attribute.STRING).setFixed();
+        attributeDefinitions
+            .add("type", BorderNode.TYPE, true)
+            .setType(Attribute.STRING)
+            .setFixed();
 
         attributeDefinitions.add("selected", -1).setType(Attribute.NUMBER);
         attributeDefinitions.add("show", true).setType(Attribute.BOOLEAN);
         attributeDefinitions.add("config", undefined).setType("any");
 
-        attributeDefinitions.addInherited("barSize", "borderBarSize").setType(Attribute.NUMBER);
-        attributeDefinitions.addInherited("enableDrop", "borderEnableDrop").setType(Attribute.BOOLEAN);
-        attributeDefinitions.addInherited("className", "borderClassName").setType(Attribute.STRING);
-        attributeDefinitions.addInherited("autoSelectTabWhenOpen", "borderAutoSelectTabWhenOpen").setType(Attribute.BOOLEAN);
-        attributeDefinitions.addInherited("autoSelectTabWhenClosed", "borderAutoSelectTabWhenClosed").setType(Attribute.BOOLEAN);
-        attributeDefinitions.addInherited("size", "borderSize").setType(Attribute.NUMBER);
-        attributeDefinitions.addInherited("minSize", "borderMinSize").setType(Attribute.NUMBER);
-        attributeDefinitions.addInherited("enableAutoHide", "borderEnableAutoHide").setType(Attribute.BOOLEAN);
+        attributeDefinitions
+            .addInherited("barSize", "borderBarSize")
+            .setType(Attribute.NUMBER);
+        attributeDefinitions
+            .addInherited("enableDrop", "borderEnableDrop")
+            .setType(Attribute.BOOLEAN);
+        attributeDefinitions
+            .addInherited("className", "borderClassName")
+            .setType(Attribute.STRING);
+        attributeDefinitions
+            .addInherited(
+                "autoSelectTabWhenOpen",
+                "borderAutoSelectTabWhenOpen",
+            )
+            .setType(Attribute.BOOLEAN);
+        attributeDefinitions
+            .addInherited(
+                "autoSelectTabWhenClosed",
+                "borderAutoSelectTabWhenClosed",
+            )
+            .setType(Attribute.BOOLEAN);
+        attributeDefinitions
+            .addInherited("size", "borderSize")
+            .setType(Attribute.NUMBER);
+        attributeDefinitions
+            .addInherited("minSize", "borderMinSize")
+            .setType(Attribute.NUMBER);
+        attributeDefinitions
+            .addInherited("enableAutoHide", "borderEnableAutoHide")
+            .setType(Attribute.BOOLEAN);
         return attributeDefinitions;
     }
 
@@ -136,7 +162,10 @@ export class BorderNode extends Node implements IDropTarget {
             return defaultSize;
         } else {
             const tabNode = this._children[selected] as TabNode;
-            const tabBorderSize = (this._location._orientation === Orientation.HORZ) ? tabNode._getAttr("borderWidth") : tabNode._getAttr("borderHeight");
+            const tabBorderSize =
+                this._location._orientation === Orientation.HORZ
+                    ? tabNode._getAttr("borderWidth")
+                    : tabNode._getAttr("borderHeight");
             if (tabBorderSize === -1) {
                 return defaultSize;
             } else {
@@ -182,7 +211,11 @@ export class BorderNode extends Node implements IDropTarget {
     isShowing() {
         const show = this._attributes.show as boolean;
         if (show) {
-            if (this._model._getShowHiddenBorder() !== this._location && this.isAutoHide() && this._children.length === 0) {
+            if (
+                this._model._getShowHiddenBorder() !== this._location &&
+                this.isAutoHide() &&
+                this._children.length === 0
+            ) {
                 return false;
             }
             return true;
@@ -207,7 +240,10 @@ export class BorderNode extends Node implements IDropTarget {
             this._attributes.size = pos;
         } else {
             const tabNode = this._children[selected] as TabNode;
-            const tabBorderSize = (this._location._orientation === Orientation.HORZ) ? tabNode._getAttr("borderWidth") : tabNode._getAttr("borderHeight");
+            const tabBorderSize =
+                this._location._orientation === Orientation.HORZ
+                    ? tabNode._getAttr("borderWidth")
+                    : tabNode._getAttr("borderHeight");
             if (tabBorderSize === -1) {
                 this._attributes.size = pos;
             } else {
@@ -253,12 +289,17 @@ export class BorderNode extends Node implements IDropTarget {
         this._drawChildren = [];
         const location = this._location;
 
-        const split1 = location.split(inner, this._adjustedSize + this._model.getSplitterSize()); // split off tab contents
-        const split2 = location.reflect().split(split1.start, this._model.getSplitterSize()); // split contents into content and splitter
+        const split1 = location.split(
+            inner,
+            this._adjustedSize + this._model.getSplitterSize(),
+        ); // split off tab contents
+        const split2 = location
+            .reflect()
+            .split(split1.start, this._model.getSplitterSize()); // split contents into content and splitter
 
         this._contentRect = split2.end;
 
-        for (let i = 0; i< this._children.length; i++) {
+        for (let i = 0; i < this._children.length; i++) {
             const child = this._children[i];
             child._layout(this._contentRect!, metrics);
             child._setVisible(i === this.getSelected());
@@ -286,7 +327,11 @@ export class BorderNode extends Node implements IDropTarget {
     }
 
     /** @internal */
-    canDrop(dragNode: Node & IDraggable, x: number, y: number): DropInfo | undefined {
+    canDrop(
+        dragNode: Node & IDraggable,
+        x: number,
+        y: number,
+    ): DropInfo | undefined {
         if (dragNode.getType() !== TabNode.TYPE) {
             return undefined;
         }
@@ -310,19 +355,52 @@ export class BorderNode extends Node implements IDropTarget {
                         childRect = (child as TabNode).getTabRect()!;
                         childCenter = childRect.x + childRect.width / 2;
                         if (x >= pos && x < childCenter) {
-                            const outlineRect = new Rect(childRect.x - 2, childY, 3, childHeight);
-                            dropInfo = new DropInfo(this, outlineRect, dockLocation, i, CLASSES.FLEXLAYOUT__OUTLINE_RECT);
+                            const outlineRect = new Rect(
+                                childRect.x - 2,
+                                childY,
+                                3,
+                                childHeight,
+                            );
+                            dropInfo = new DropInfo(
+                                this,
+                                outlineRect,
+                                dockLocation,
+                                i,
+                                CLASSES.FLEXLAYOUT__OUTLINE_RECT,
+                            );
                             break;
                         }
                         pos = childCenter;
                     }
                     if (dropInfo == null) {
-                        const outlineRect = new Rect(childRect.getRight() - 2, childY, 3, childHeight);
-                        dropInfo = new DropInfo(this, outlineRect, dockLocation, this._children.length, CLASSES.FLEXLAYOUT__OUTLINE_RECT);
+                        const outlineRect = new Rect(
+                            childRect.getRight() - 2,
+                            childY,
+                            3,
+                            childHeight,
+                        );
+                        dropInfo = new DropInfo(
+                            this,
+                            outlineRect,
+                            dockLocation,
+                            this._children.length,
+                            CLASSES.FLEXLAYOUT__OUTLINE_RECT,
+                        );
                     }
                 } else {
-                    const outlineRect = new Rect(this._tabHeaderRect!.x + 1, this._tabHeaderRect!.y + 2, 3, 18);
-                    dropInfo = new DropInfo(this, outlineRect, dockLocation, 0, CLASSES.FLEXLAYOUT__OUTLINE_RECT);
+                    const outlineRect = new Rect(
+                        this._tabHeaderRect!.x + 1,
+                        this._tabHeaderRect!.y + 2,
+                        3,
+                        18,
+                    );
+                    dropInfo = new DropInfo(
+                        this,
+                        outlineRect,
+                        dockLocation,
+                        0,
+                        CLASSES.FLEXLAYOUT__OUTLINE_RECT,
+                    );
                 }
             } else {
                 if (this._children.length > 0) {
@@ -338,27 +416,69 @@ export class BorderNode extends Node implements IDropTarget {
                         childRect = (child as TabNode).getTabRect()!;
                         childCenter = childRect.y + childRect.height / 2;
                         if (y >= pos && y < childCenter) {
-                            const outlineRect = new Rect(childX, childRect.y - 2, childWidth, 3);
-                            dropInfo = new DropInfo(this, outlineRect, dockLocation, i, CLASSES.FLEXLAYOUT__OUTLINE_RECT);
+                            const outlineRect = new Rect(
+                                childX,
+                                childRect.y - 2,
+                                childWidth,
+                                3,
+                            );
+                            dropInfo = new DropInfo(
+                                this,
+                                outlineRect,
+                                dockLocation,
+                                i,
+                                CLASSES.FLEXLAYOUT__OUTLINE_RECT,
+                            );
                             break;
                         }
                         pos = childCenter;
                     }
                     if (dropInfo == null) {
-                        const outlineRect = new Rect(childX, childRect.getBottom() - 2, childWidth, 3);
-                        dropInfo = new DropInfo(this, outlineRect, dockLocation, this._children.length, CLASSES.FLEXLAYOUT__OUTLINE_RECT);
+                        const outlineRect = new Rect(
+                            childX,
+                            childRect.getBottom() - 2,
+                            childWidth,
+                            3,
+                        );
+                        dropInfo = new DropInfo(
+                            this,
+                            outlineRect,
+                            dockLocation,
+                            this._children.length,
+                            CLASSES.FLEXLAYOUT__OUTLINE_RECT,
+                        );
                     }
                 } else {
-                    const outlineRect = new Rect(this._tabHeaderRect!.x + 2, this._tabHeaderRect!.y + 1, 18, 3);
-                    dropInfo = new DropInfo(this, outlineRect, dockLocation, 0, CLASSES.FLEXLAYOUT__OUTLINE_RECT);
+                    const outlineRect = new Rect(
+                        this._tabHeaderRect!.x + 2,
+                        this._tabHeaderRect!.y + 1,
+                        18,
+                        3,
+                    );
+                    dropInfo = new DropInfo(
+                        this,
+                        outlineRect,
+                        dockLocation,
+                        0,
+                        CLASSES.FLEXLAYOUT__OUTLINE_RECT,
+                    );
                 }
             }
             if (!dragNode._canDockInto(dragNode, dropInfo)) {
                 return undefined;
             }
-        } else if (this.getSelected() !== -1 && this._contentRect!.contains(x, y)) {
+        } else if (
+            this.getSelected() !== -1 &&
+            this._contentRect!.contains(x, y)
+        ) {
             const outlineRect = this._contentRect;
-            dropInfo = new DropInfo(this, outlineRect!, dockLocation, -1, CLASSES.FLEXLAYOUT__OUTLINE_RECT);
+            dropInfo = new DropInfo(
+                this,
+                outlineRect!,
+                dockLocation,
+                -1,
+                CLASSES.FLEXLAYOUT__OUTLINE_RECT,
+            );
             if (!dragNode._canDockInto(dragNode, dropInfo)) {
                 return undefined;
             }
@@ -368,13 +488,22 @@ export class BorderNode extends Node implements IDropTarget {
     }
 
     /** @internal */
-    drop(dragNode: Node & IDraggable, location: DockLocation, index: number, select?: boolean): void {
+    drop(
+        dragNode: Node & IDraggable,
+        location: DockLocation,
+        index: number,
+        select?: boolean,
+    ): void {
         let fromIndex = 0;
         const dragParent = dragNode.getParent() as BorderNode | TabSetNode;
         if (dragParent !== undefined) {
             fromIndex = dragParent._removeChild(dragNode);
             // if selected node in border is being docked into a different border then deselect border tabs
-            if (dragParent !== this && dragParent instanceof BorderNode && dragParent.getSelected() === fromIndex) {
+            if (
+                dragParent !== this &&
+                dragParent instanceof BorderNode &&
+                dragParent.getSelected() === fromIndex
+            ) {
                 dragParent._setSelected(-1);
             } else {
                 adjustSelectedIndex(dragParent, fromIndex);
@@ -382,7 +511,12 @@ export class BorderNode extends Node implements IDropTarget {
         }
 
         // if dropping a tab back to same tabset and moving to forward position then reduce insertion index
-        if (dragNode.getType() === TabNode.TYPE && dragParent === this && fromIndex < index && index > 0) {
+        if (
+            dragNode.getType() === TabNode.TYPE &&
+            dragParent === this &&
+            fromIndex < index &&
+            index > 0
+        ) {
             index--;
         }
 
@@ -407,7 +541,9 @@ export class BorderNode extends Node implements IDropTarget {
         const json: any = {};
         BorderNode._attributeDefinitions.toJson(json, this._attributes);
         json.location = this._location.getName();
-        json.children = this._children.map((child) => (child as TabNode).toJson());
+        json.children = this._children.map((child) =>
+            (child as TabNode).toJson(),
+        );
         return json;
     }
 
@@ -420,16 +556,32 @@ export class BorderNode extends Node implements IDropTarget {
         const rootRow = this._model.getRoot();
         if (this._location === DockLocation.TOP) {
             pBounds[0] = outerRect.y + minSize;
-            pBounds[1] = Math.max(pBounds[0], innerRect.getBottom() - splitter.getHeight() - rootRow.getMinHeight());
+            pBounds[1] = Math.max(
+                pBounds[0],
+                innerRect.getBottom() -
+                    splitter.getHeight() -
+                    rootRow.getMinHeight(),
+            );
         } else if (this._location === DockLocation.LEFT) {
             pBounds[0] = outerRect.x + minSize;
-            pBounds[1] = Math.max(pBounds[0], innerRect.getRight() - splitter.getWidth() - rootRow.getMinWidth());
+            pBounds[1] = Math.max(
+                pBounds[0],
+                innerRect.getRight() -
+                    splitter.getWidth() -
+                    rootRow.getMinWidth(),
+            );
         } else if (this._location === DockLocation.BOTTOM) {
             pBounds[1] = outerRect.getBottom() - splitter.getHeight() - minSize;
-            pBounds[0] = Math.min(pBounds[1], innerRect.y + rootRow.getMinHeight());
+            pBounds[0] = Math.min(
+                pBounds[1],
+                innerRect.y + rootRow.getMinHeight(),
+            );
         } else if (this._location === DockLocation.RIGHT) {
             pBounds[1] = outerRect.getRight() - splitter.getWidth() - minSize;
-            pBounds[0] = Math.min(pBounds[1], innerRect.x + rootRow.getMinWidth());
+            pBounds[0] = Math.min(
+                pBounds[1],
+                innerRect.x + rootRow.getMinWidth(),
+            );
         }
         return pBounds;
     }
@@ -437,7 +589,10 @@ export class BorderNode extends Node implements IDropTarget {
     /** @internal */
     _calculateSplit(splitter: SplitterNode, splitterPos: number) {
         const pBounds = this._getSplitterBounds(splitter);
-        if (this._location === DockLocation.BOTTOM || this._location === DockLocation.RIGHT) {
+        if (
+            this._location === DockLocation.BOTTOM ||
+            this._location === DockLocation.RIGHT
+        ) {
             return Math.max(0, pBounds[1] - splitterPos);
         } else {
             return Math.max(0, splitterPos - pBounds[0]);
@@ -453,5 +608,4 @@ export class BorderNode extends Node implements IDropTarget {
     static getAttributeDefinitions() {
         return BorderNode._attributeDefinitions;
     }
-
 }

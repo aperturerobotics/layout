@@ -29,7 +29,13 @@ export class Actions {
      * @param select (optional) whether to select the new tab, overriding autoSelectTab
      * @returns {Action} the action
      */
-    static addNode(json: any, toNodeId: string, location: DockLocation, index: number, select?: boolean): Action {
+    static addNode(
+        json: any,
+        toNodeId: string,
+        location: DockLocation,
+        index: number,
+        select?: boolean,
+    ): Action {
         return new Action(Actions.ADD_NODE, {
             json,
             toNode: toNodeId,
@@ -48,7 +54,13 @@ export class Actions {
      * @param select (optional) whether to select the moved tab(s) in new tabset, overriding autoSelectTab
      * @returns {Action} the action
      */
-    static moveNode(fromNodeId: string, toNodeId: string, location: DockLocation, index: number, select?: boolean): Action {
+    static moveNode(
+        fromNodeId: string,
+        toNodeId: string,
+        location: DockLocation,
+        index: number,
+        select?: boolean,
+    ): Action {
         return new Action(Actions.MOVE_NODE, {
             fromNode: fromNodeId,
             toNode: toNodeId,
@@ -101,7 +113,9 @@ export class Actions {
      * @returns {Action} the action
      */
     static setActiveTabset(tabsetNodeId: string | undefined): Action {
-        return new Action(Actions.SET_ACTIVE_TABSET, { tabsetNode: tabsetNodeId });
+        return new Action(Actions.SET_ACTIVE_TABSET, {
+            tabsetNode: tabsetNodeId,
+        });
     }
 
     /**
@@ -112,7 +126,14 @@ export class Actions {
      * @param splitSpec an object the defines the new split between two tabsets, see example below.
      * @returns {Action} the action
      */
-    static adjustSplit(splitSpec: { node1Id: string; weight1: number; pixelWidth1: number; node2Id: string; weight2: number; pixelWidth2: number }): Action {
+    static adjustSplit(splitSpec: {
+        node1Id: string;
+        weight1: number;
+        pixelWidth1: number;
+        node2Id: string;
+        weight2: number;
+        pixelWidth2: number;
+    }): Action {
         const node1 = splitSpec.node1Id;
         const node2 = splitSpec.node2Id;
 
@@ -145,7 +166,9 @@ export class Actions {
      * @returns {Action} the action
      */
     static updateModelAttributes(attributes: any): Action {
-        return new Action(Actions.UPDATE_MODEL_ATTRIBUTES, { json: attributes });
+        return new Action(Actions.UPDATE_MODEL_ATTRIBUTES, {
+            json: attributes,
+        });
     }
 
     /**
@@ -155,7 +178,10 @@ export class Actions {
      * @returns {Action} the action
      */
     static updateNodeAttributes(nodeId: string, attributes: any): Action {
-        return new Action(Actions.UPDATE_NODE_ATTRIBUTES, { node: nodeId, json: attributes });
+        return new Action(Actions.UPDATE_NODE_ATTRIBUTES, {
+            node: nodeId,
+            json: attributes,
+        });
     }
 
     static floatTab(nodeId: string): Action {

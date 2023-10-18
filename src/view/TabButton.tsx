@@ -22,24 +22,39 @@ export interface ITabButtonProps {
 
 /** @internal */
 export const TabButton = (props: ITabButtonProps) => {
-    const { layout, node, selected, iconFactory, titleFactory, icons, path } = props;
+    const { layout, node, selected, iconFactory, titleFactory, icons, path } =
+        props;
     const selfRef = React.useRef<HTMLDivElement | null>(null);
     const contentRef = React.useRef<HTMLInputElement | null>(null);
 
-    const onMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) => {
-
+    const onMouseDown = (
+        event:
+            | React.MouseEvent<HTMLDivElement, MouseEvent>
+            | React.TouchEvent<HTMLDivElement>,
+    ) => {
         if (!isAuxMouseEvent(event) && !layout.getEditingTab()) {
-            layout.dragStart(event, undefined, node, node.isEnableDrag(), onClick, onDoubleClick);
+            layout.dragStart(
+                event,
+                undefined,
+                node,
+                node.isEnableDrag(),
+                onClick,
+                onDoubleClick,
+            );
         }
     };
 
-    const onAuxMouseClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const onAuxMouseClick = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    ) => {
         if (isAuxMouseEvent(event)) {
             layout.auxMouseClick(node, event);
         }
     };
 
-    const onContextMenu = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const onContextMenu = (
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    ) => {
         layout.showContextMenu(node, event);
     };
 
@@ -55,14 +70,22 @@ export const TabButton = (props: ITabButtonProps) => {
 
     const onRename = () => {
         layout.setEditingTab(node);
-        layout.getCurrentDocument()!.body.addEventListener("mousedown", onEndEdit);
-        layout.getCurrentDocument()!.body.addEventListener("touchstart", onEndEdit);
+        layout
+            .getCurrentDocument()!
+            .body.addEventListener("mousedown", onEndEdit);
+        layout
+            .getCurrentDocument()!
+            .body.addEventListener("touchstart", onEndEdit);
     };
 
     const onEndEdit = (event: Event) => {
         if (event.target !== contentRef.current!) {
-            layout.getCurrentDocument()!.body.removeEventListener("mousedown", onEndEdit);
-            layout.getCurrentDocument()!.body.removeEventListener("touchstart", onEndEdit);
+            layout
+                .getCurrentDocument()!
+                .body.removeEventListener("mousedown", onEndEdit);
+            layout
+                .getCurrentDocument()!
+                .body.removeEventListener("touchstart", onEndEdit);
             layout.setEditingTab(undefined);
         }
     };
@@ -74,7 +97,10 @@ export const TabButton = (props: ITabButtonProps) => {
         }
         if (closeType === ICloseType.Visible) {
             // not selected but x should be visible due to hover
-            if (window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            if (
+                window.matchMedia &&
+                window.matchMedia("(hover: hover) and (pointer: fine)").matches
+            ) {
                 return true;
             }
         }
@@ -89,7 +115,11 @@ export const TabButton = (props: ITabButtonProps) => {
         }
     };
 
-    const onCloseMouseDown = (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+    const onCloseMouseDown = (
+        event:
+            | React.MouseEvent<HTMLDivElement>
+            | React.TouchEvent<HTMLDivElement>,
+    ) => {
         event.stopPropagation();
     };
 
@@ -110,33 +140,48 @@ export const TabButton = (props: ITabButtonProps) => {
                     r.left - layoutRect.left,
                     r.top - layoutRect.top,
                     r.width,
-                    r.height
-                )
+                    r.height,
+                ),
             );
         }
     };
 
-    const onTextBoxMouseDown = (event: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>) => {
+    const onTextBoxMouseDown = (
+        event:
+            | React.MouseEvent<HTMLInputElement>
+            | React.TouchEvent<HTMLInputElement>,
+    ) => {
         // console.log("onTextBoxMouseDown");
         event.stopPropagation();
     };
 
-    const onTextBoxKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.code === 'Escape') {
+    const onTextBoxKeyPress = (
+        event: React.KeyboardEvent<HTMLInputElement>,
+    ) => {
+        if (event.code === "Escape") {
             // esc
             layout.setEditingTab(undefined);
-        } else if (event.code === 'Enter') {
+        } else if (event.code === "Enter") {
             // enter
             layout.setEditingTab(undefined);
-            layout.doAction(Actions.renameTab(node.getId(), (event.target as HTMLInputElement).value));
+            layout.doAction(
+                Actions.renameTab(
+                    node.getId(),
+                    (event.target as HTMLInputElement).value,
+                ),
+            );
         }
     };
 
     const cm = layout.getClassName;
     const parentNode = node.getParent() as TabSetNode;
 
-    const isStretch = parentNode.isEnableSingleTabStretch() && parentNode.getChildren().length === 1;
-    let baseClassName = isStretch ? CLASSES.FLEXLAYOUT__TAB_BUTTON_STRETCH : CLASSES.FLEXLAYOUT__TAB_BUTTON;
+    const isStretch =
+        parentNode.isEnableSingleTabStretch() &&
+        parentNode.getChildren().length === 1;
+    let baseClassName = isStretch
+        ? CLASSES.FLEXLAYOUT__TAB_BUTTON_STRETCH
+        : CLASSES.FLEXLAYOUT__TAB_BUTTON;
     let classNames = cm(baseClassName);
     classNames += " " + cm(baseClassName + "_" + parentNode.getTabLocation());
 
@@ -152,17 +197,24 @@ export const TabButton = (props: ITabButtonProps) => {
         classNames += " " + node.getClassName();
     }
 
-    const renderState = getRenderStateEx(layout, node, iconFactory, titleFactory);
+    const renderState = getRenderStateEx(
+        layout,
+        node,
+        iconFactory,
+        titleFactory,
+    );
 
     let content = renderState.content ? (
         <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_CONTENT)}>
             {renderState.content}
-        </div>) : null;
+        </div>
+    ) : null;
 
     const leading = renderState.leading ? (
         <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_LEADING)}>
             {renderState.leading}
-        </div>) : null;
+        </div>
+    ) : null;
 
     if (layout.getEditingTab() === node) {
         content = (
@@ -190,9 +242,12 @@ export const TabButton = (props: ITabButtonProps) => {
                 className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_TRAILING)}
                 onMouseDown={onCloseMouseDown}
                 onClick={onClose}
-                onTouchStart={onCloseMouseDown}>
-                {(typeof icons.close === "function") ? icons.close(node) : icons.close}
-            </div>
+                onTouchStart={onCloseMouseDown}
+            >
+                {typeof icons.close === "function"
+                    ? icons.close(node)
+                    : icons.close}
+            </div>,
         );
     }
 
