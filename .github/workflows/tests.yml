@@ -1,0 +1,42 @@
+name: Tests
+
+on:
+  push:
+    branches: [ "aperture" ]
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ "aperture" ]
+
+# Builds images for target boards.
+permissions:
+  contents: read
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18.x]
+    timeout-minutes: 10
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@1b05615854632b887b69ae1be8cbefe72d3ae423 # v2.6.0
+        with:
+          egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - name: Setup Node.JS ${{ matrix.node }}
+        uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4.0.0
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+      - name: Yarn install
+        run: yarn install
+      # - name: Depcheck
+      #   run: yarn run deps
+      - name: Build Javascript
+        run: yarn run build
+      - name: Test Js
+        run: yarn run test
+      - name: Lint Javascript
+        run: yarn run lint
