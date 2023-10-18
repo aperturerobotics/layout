@@ -111,7 +111,7 @@ export class AttributeDefinitions {
                 type = attr.type;
             }
 
-            let defValue = JSON.stringify(defaultValue);
+            const defValue = JSON.stringify(defaultValue);
 
             const required = attr.required ? "" : "?";
 

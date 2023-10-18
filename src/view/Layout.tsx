@@ -1039,7 +1039,7 @@ export class LayoutInternal extends React.Component<ILayoutInternalProps, ILayou
     };
 
     public setDragComponent(event: DragEvent, component: React.ReactNode, x: number, y: number) {
-        let dragElement: JSX.Element = (
+        const dragElement: JSX.Element = (
             <div style={{ position: "unset" }} className={this.getClassName(CLASSES.FLEXLAYOUT__LAYOUT) + " " + this.getClassName(CLASSES.FLEXLAYOUT__DRAG_RECT)}>
                 {component}
             </div>
@@ -1176,7 +1176,7 @@ export class LayoutInternal extends React.Component<ILayoutInternalProps, ILayou
 
             this.checkForBorderToShow(pos.x, pos.y);
 
-            let dropInfo = this.props.model.findDropTargetNode(this.windowId, LayoutInternal.dragState!.dragNode!, pos.x, pos.y);
+            const dropInfo = this.props.model.findDropTargetNode(this.windowId, LayoutInternal.dragState!.dragNode!, pos.x, pos.y);
             if (dropInfo) {
                 this.dropInfo = dropInfo;
                 if (this.outlineDiv) {

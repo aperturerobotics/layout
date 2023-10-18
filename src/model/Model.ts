@@ -402,8 +402,8 @@ export class Model {
         }
         if (json.popouts) {
             let i = 0;
-            let top = 100;
-            let left = 100;
+            const top = 100;
+            const left = 100;
             for (const windowId in json.popouts) {
                 const windowJson = json.popouts[windowId];
                 const layoutWindow = LayoutWindow.fromJson(windowJson, model, windowId);
@@ -617,7 +617,7 @@ export class Model {
         Model.attributeDefinitions.pairAttributes("TabNode", TabNode.getAttributeDefinitions());
         Model.attributeDefinitions.pairAttributes("BorderNode", BorderNode.getAttributeDefinitions());
 
-        let sb = [];
+        const sb = [];
         sb.push(Model.attributeDefinitions.toTypescriptInterface("Global", undefined));
         sb.push(RowNode.getAttributeDefinitions().toTypescriptInterface("Row", Model.attributeDefinitions));
         sb.push(TabSetNode.getAttributeDefinitions().toTypescriptInterface("TabSet", Model.attributeDefinitions));
