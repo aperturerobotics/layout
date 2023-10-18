@@ -103,8 +103,17 @@ export const TabButton = (props: ITabButtonProps) => {
     const updateRect = () => {
         // record position of tab in node
         const layoutRect = layout.getDomRect();
-        const r = selfRef.current!.getBoundingClientRect();
-        node._setTabRect(new Rect(r.left - layoutRect.left, r.top - layoutRect.top, r.width, r.height));
+        const r = selfRef.current?.getBoundingClientRect();
+        if (r) {
+            node._setTabRect(
+                new Rect(
+                    r.left - layoutRect.left,
+                    r.top - layoutRect.top,
+                    r.width,
+                    r.height
+                )
+            );
+        }
     };
 
     const onTextBoxMouseDown = (event: React.MouseEvent<HTMLInputElement> | React.TouchEvent<HTMLInputElement>) => {
