@@ -199,16 +199,14 @@ export interface ILayoutCallbacks {
     getTabSetPlaceHolderCallback(): TabSetPlaceHolderCallback | undefined;
 }
 
-// Popout windows work in latest browsers based on webkit (Chrome, Opera, Safari, latest Edge) and Firefox. They do
-// not work on any version if IE or the original Edge browser
-// Assume any recent desktop browser not IE or original Edge will work
 /** @internal */
-// @ts-ignore
-const isIEorEdge = typeof window !== "undefined" && (window.document.documentMode || /Edge\//.test(window.navigator.userAgent));
+const isDesktop =
+    typeof window !== "undefined" &&
+    window.matchMedia &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
 /** @internal */
-const isDesktop = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-/** @internal */
-const defaultSupportsPopout: boolean = isDesktop && !isIEorEdge;
+const defaultSupportsPopout: boolean = isDesktop;
 
 /**
  * A React component that hosts a multi-tabbed layout
