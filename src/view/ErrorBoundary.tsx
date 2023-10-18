@@ -13,7 +13,10 @@ export interface IErrorBoundaryState {
 }
 
 /** @internal */
-export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBoundaryState> {
+export class ErrorBoundary extends React.Component<
+    IErrorBoundaryProps,
+    IErrorBoundaryState
+> {
     constructor(props: IErrorBoundaryProps) {
         super(props);
         this.state = { hasError: false };
@@ -32,7 +35,9 @@ export class ErrorBoundary extends React.Component<IErrorBoundaryProps, IErrorBo
         if (this.state.hasError) {
             return (
                 <div className={CLASSES.FLEXLAYOUT__ERROR_BOUNDARY_CONTAINER}>
-                    <div className={CLASSES.FLEXLAYOUT__ERROR_BOUNDARY_CONTENT}>{this.props.message}</div>
+                    <div className={CLASSES.FLEXLAYOUT__ERROR_BOUNDARY_CONTENT}>
+                        {this.props.message}
+                    </div>
                 </div>
             );
         }

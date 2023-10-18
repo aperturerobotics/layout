@@ -20,11 +20,16 @@ interface IStyleSheet {
 }
 
 /** @internal */
-export const FloatingWindow = (props: React.PropsWithChildren<IFloatingWindowProps>) => {
-    const { title, id, url, rect, onCloseWindow, onSetWindow, children } = props;
+export const FloatingWindow = (
+    props: React.PropsWithChildren<IFloatingWindowProps>
+) => {
+    const { title, id, url, rect, onCloseWindow, onSetWindow, children } =
+        props;
     const popoutWindow = React.useRef<Window | null>(null);
     const timerId = React.useRef<any>(null);
-    const [content, setContent] = React.useState<HTMLElement | undefined>(undefined);
+    const [content, setContent] = React.useState<HTMLElement | undefined>(
+        undefined
+    );
 
     React.useLayoutEffect(() => {
         if (timerId.current) {
@@ -35,28 +40,37 @@ export const FloatingWindow = (props: React.PropsWithChildren<IFloatingWindowPro
         // Make a local copy of the styles from the current window which will be passed into
         // the floating window. window.document.styleSheets is mutable and we can't guarantee
         // the styles will exist when 'popoutWindow.load' is called below.
-        const styles = Array.from(window.document.styleSheets).reduce((result, styleSheet) => {
-            let rules: CSSRuleList | undefined = undefined;
-            try {
-                rules = styleSheet.cssRules;
-            } catch (e) {
-                // styleSheet.cssRules can throw security exception
-            }
+        const styles = Array.from(window.document.styleSheets).reduce(
+            (result, styleSheet) => {
+                let rules: CSSRuleList | undefined = undefined;
+                try {
+                    rules = styleSheet.cssRules;
+                } catch (e) {
+                    // styleSheet.cssRules can throw security exception
+                }
 
-            try {
-                return [
-                    ...result,
-                    {
-                        href: styleSheet.href,
-                        type: styleSheet.type,
-                        rules: rules ? Array.from(rules).map(rule => rule.cssText) : null,
-                    }
-                ];
-            } catch (e) {
-                return result;
-            }
-        }, [] as IStyleSheet[]);
-        popoutWindow.current = window.open(url, id, `left=${r.x},top=${r.y},width=${r.width},height=${r.height}`);
+                try {
+                    return [
+                        ...result,
+                        {
+                            href: styleSheet.href,
+                            type: styleSheet.type,
+                            rules: rules
+                                ? Array.from(rules).map((rule) => rule.cssText)
+                                : null,
+                        },
+                    ];
+                } catch (e) {
+                    return result;
+                }
+            },
+            [] as IStyleSheet[]
+        );
+        popoutWindow.current = window.open(
+            url,
+            id,
+            `left=${r.x},top=${r.y},width=${r.width},height=${r.height}`
+        );
         if (popoutWindow.current !== null) {
             onSetWindow(id, popoutWindow.current);
 
@@ -73,16 +87,20 @@ export const FloatingWindow = (props: React.PropsWithChildren<IFloatingWindowPro
                     const popoutDocument = popoutWindow.current!.document;
                     popoutDocument.title = title;
                     const popoutContent = popoutDocument.createElement("div");
-                    popoutContent.className = CLASSES.FLEXLAYOUT__FLOATING_WINDOW_CONTENT;
+                    popoutContent.className =
+                        CLASSES.FLEXLAYOUT__FLOATING_WINDOW_CONTENT;
                     popoutDocument.body.appendChild(popoutContent);
                     copyStyles(popoutDocument, styles).then(() => {
                         setContent(popoutContent);
                     });
 
                     // listen for popout unloading (needs to be after load for safari)
-                    popoutWindow.current!.addEventListener("beforeunload", () => {
-                        onCloseWindow(id);
-                    });
+                    popoutWindow.current!.addEventListener(
+                        "beforeunload",
+                        () => {
+                            onCloseWindow(id);
+                        }
+                    );
                 }
             });
         } else {
@@ -110,7 +128,10 @@ export const FloatingWindow = (props: React.PropsWithChildren<IFloatingWindowPro
 };
 
 /** @internal */
-function copyStyles(doc: Document, styleSheets: IStyleSheet[]): Promise<boolean[]> {
+function copyStyles(
+    doc: Document,
+    styleSheets: IStyleSheet[]
+): Promise<boolean[]> {
     const head = doc.head;
     const promises: Promise<boolean>[] = [];
     for (const styleSheet of styleSheets) {

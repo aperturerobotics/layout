@@ -2,7 +2,11 @@ import * as React from "react";
 import { Rect } from "./Rect";
 
 /** @internal */
-const canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);
+const canUseDOM = !!(
+    typeof window !== "undefined" &&
+    window.document &&
+    window.document.createElement
+);
 
 export class DragDrop {
     static instance = new DragDrop();
@@ -14,9 +18,13 @@ export class DragDrop {
     /** @internal */
     private _fDragEnd: ((event: Event) => void) | undefined;
     /** @internal */
-    private _fDragMove: ((event: React.MouseEvent<Element>) => void) | undefined;
+    private _fDragMove:
+        | ((event: React.MouseEvent<Element>) => void)
+        | undefined;
     /** @internal */
-    private _fDragStart: ((pos: { clientX: number; clientY: number }) => boolean) | undefined;
+    private _fDragStart:
+        | ((pos: { clientX: number; clientY: number }) => boolean)
+        | undefined;
     /** @internal */
     private _fDragCancel: ((wasDragging: boolean) => void) | undefined;
 
@@ -51,7 +59,12 @@ export class DragDrop {
     /** @internal */
     private _rootElement?: HTMLElement | undefined;
     /** @internal */
-    private _lastEvent?: Event | React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement> | React.DragEvent<Element> | undefined;
+    private _lastEvent?:
+        | Event
+        | React.MouseEvent<HTMLDivElement, MouseEvent>
+        | React.TouchEvent<HTMLDivElement>
+        | React.DragEvent<Element>
+        | undefined;
 
     /** @internal */
     private constructor() {
@@ -88,14 +101,23 @@ export class DragDrop {
                 this._rootElement = this._document.body;
             }
             this.resizeGlass();
-            this._document.defaultView?.addEventListener('resize', this.resizeGlass);
+            this._document.defaultView?.addEventListener(
+                "resize",
+                this.resizeGlass
+            );
             this._document.body.appendChild(this._glass!);
             this._glass!.tabIndex = -1;
             this._glass!.focus();
             this._glass!.addEventListener("keydown", this._onKeyPress);
-            this._glass!.addEventListener("dragenter", this._onDragEnter, { passive: false });
-            this._glass!.addEventListener("dragover", this._onMouseMove, { passive: false });
-            this._glass!.addEventListener("dragleave", this._onDragLeave, { passive: false });
+            this._glass!.addEventListener("dragenter", this._onDragEnter, {
+                passive: false,
+            });
+            this._glass!.addEventListener("dragover", this._onMouseMove, {
+                passive: false,
+            });
+            this._glass!.addEventListener("dragleave", this._onDragLeave, {
+                passive: false,
+            });
             this._glassShowing = true;
             this._fDragCancel = fCancel;
             this._manualGlassManagement = false;
@@ -113,7 +135,10 @@ export class DragDrop {
     hideGlass() {
         if (this._glassShowing) {
             this._document!.body.removeChild(this._glass!);
-            this._document!.defaultView?.removeEventListener('resize', this.resizeGlass);
+            this._document!.defaultView?.removeEventListener(
+                "resize",
+                this.resizeGlass
+            );
             this._glassShowing = false;
             this._document = undefined;
             this._rootElement = undefined;
@@ -123,23 +148,31 @@ export class DragDrop {
 
     /** @internal */
     _updateGlassCursor() {
-        this._glass!.style.cursor = this._glassCursorOverride ?? this._defaultGlassCursor;
+        this._glass!.style.cursor =
+            this._glassCursorOverride ?? this._defaultGlassCursor;
     }
 
     /** @internal */
     _setDefaultGlassCursor(cursor: string) {
         this._defaultGlassCursor = cursor;
-        this._updateGlassCursor()
+        this._updateGlassCursor();
     }
 
     setGlassCursorOverride(cursor: string | undefined) {
         this._glassCursorOverride = cursor;
-        this._updateGlassCursor()
+        this._updateGlassCursor();
     }
 
     startDrag(
-        event: Event | React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement> | React.DragEvent<Element> | undefined,
-        fDragStart: ((pos: { clientX: number; clientY: number }) => boolean) | undefined,
+        event:
+            | Event
+            | React.MouseEvent<HTMLDivElement, MouseEvent>
+            | React.TouchEvent<HTMLDivElement>
+            | React.DragEvent<Element>
+            | undefined,
+        fDragStart:
+            | ((pos: { clientX: number; clientY: number }) => boolean)
+            | undefined,
         fDragMove: ((event: React.MouseEvent<Element>) => void) | undefined,
         fDragEnd: ((event: Event) => void) | undefined,
         fDragCancel?: ((wasDragging: boolean) => void) | undefined,
@@ -149,7 +182,13 @@ export class DragDrop {
         rootElement?: HTMLDivElement
     ) {
         // prevent 'duplicate' action (mouse event for same action as previous touch event (a fix for ios))
-        if (event && this._lastEvent && this._lastEvent.type.startsWith("touch") && event.type.startsWith("mouse") && event.timeStamp - this._lastEvent.timeStamp < 500) {
+        if (
+            event &&
+            this._lastEvent &&
+            this._lastEvent.type.startsWith("touch") &&
+            event.type.startsWith("mouse") &&
+            event.timeStamp - this._lastEvent.timeStamp < 500
+        ) {
             return;
         }
 
@@ -176,8 +215,13 @@ export class DragDrop {
         if (event) {
             this._startX = posEvent.clientX;
             this._startY = posEvent.clientY;
-            if (!window.matchMedia || window.matchMedia("(pointer: fine)").matches) {
-                this._setDefaultGlassCursor(getComputedStyle(event.target as Element).cursor);
+            if (
+                !window.matchMedia ||
+                window.matchMedia("(pointer: fine)").matches
+            ) {
+                this._setDefaultGlassCursor(
+                    getComputedStyle(event.target as Element).cursor
+                );
             }
             this._stopPropagation(event);
             this._preventDefault(event);
@@ -197,18 +241,36 @@ export class DragDrop {
 
         this._active = true;
 
-        if (event?.type === 'dragenter') {
+        if (event?.type === "dragenter") {
             this._dragDepth = 1;
-            this._rootElement.addEventListener("dragenter", this._onDragEnter, { passive: false });
-            this._rootElement.addEventListener("dragover", this._onMouseMove, { passive: false });
-            this._rootElement.addEventListener("dragleave", this._onDragLeave, { passive: false });
-            this._document.addEventListener("dragend", this._onDragCancel, { passive: false });
-            this._document.addEventListener("drop", this._onMouseUp, { passive: false });
+            this._rootElement.addEventListener("dragenter", this._onDragEnter, {
+                passive: false,
+            });
+            this._rootElement.addEventListener("dragover", this._onMouseMove, {
+                passive: false,
+            });
+            this._rootElement.addEventListener("dragleave", this._onDragLeave, {
+                passive: false,
+            });
+            this._document.addEventListener("dragend", this._onDragCancel, {
+                passive: false,
+            });
+            this._document.addEventListener("drop", this._onMouseUp, {
+                passive: false,
+            });
         } else {
-            this._document.addEventListener("mouseup", this._onMouseUp, { passive: false });
-            this._document.addEventListener("mousemove", this._onMouseMove, { passive: false });
-            this._document.addEventListener("touchend", this._onMouseUp, { passive: false });
-            this._document.addEventListener("touchmove", this._onMouseMove, { passive: false });
+            this._document.addEventListener("mouseup", this._onMouseUp, {
+                passive: false,
+            });
+            this._document.addEventListener("mousemove", this._onMouseMove, {
+                passive: false,
+            });
+            this._document.addEventListener("touchend", this._onMouseUp, {
+                passive: false,
+            });
+            this._document.addEventListener("touchmove", this._onMouseMove, {
+                passive: false,
+            });
         }
     }
 
@@ -221,14 +283,22 @@ export class DragDrop {
     }
 
     toString() {
-        const rtn = "(DragDrop: " + "startX=" + this._startX + ", startY=" + this._startY + ", dragging=" + this._dragging + ")";
+        const rtn =
+            "(DragDrop: " +
+            "startX=" +
+            this._startX +
+            ", startY=" +
+            this._startY +
+            ", dragging=" +
+            this._dragging +
+            ")";
 
         return rtn;
     }
 
     /** @internal */
     private _onKeyPress(event: KeyboardEvent) {
-        if (event.code === 'Escape') {
+        if (event.code === "Escape") {
             // esc
             this._onDragCancel();
         }
@@ -272,14 +342,26 @@ export class DragDrop {
     }
 
     /** @internal */
-    private _stopPropagation(event: Event | React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement> | React.DragEvent<Element>) {
+    private _stopPropagation(
+        event:
+            | Event
+            | React.MouseEvent<HTMLDivElement, MouseEvent>
+            | React.TouchEvent<HTMLDivElement>
+            | React.DragEvent<Element>
+    ) {
         if (event.stopPropagation) {
             event.stopPropagation();
         }
     }
 
     /** @internal */
-    private _preventDefault(event: Event | React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement> | React.DragEvent<Element>) {
+    private _preventDefault(
+        event:
+            | Event
+            | React.MouseEvent<HTMLDivElement, MouseEvent>
+            | React.TouchEvent<HTMLDivElement>
+            | React.DragEvent<Element>
+    ) {
         if (event.preventDefault && event.cancelable) {
             event.preventDefault();
         }
@@ -287,18 +369,31 @@ export class DragDrop {
     }
 
     /** @internal */
-    private _onMouseMove(event: Event | React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement> | React.DragEvent<Element>) {
+    private _onMouseMove(
+        event:
+            | Event
+            | React.MouseEvent<HTMLDivElement, MouseEvent>
+            | React.TouchEvent<HTMLDivElement>
+            | React.DragEvent<Element>
+    ) {
         this._lastEvent = event;
 
         const posEvent = this._getLocationEvent(event);
         this._stopPropagation(event);
         this._preventDefault(event);
 
-        if (!this._dragging && (Math.abs(this._startX - posEvent.clientX) > 5 || Math.abs(this._startY - posEvent.clientY) > 5)) {
+        if (
+            !this._dragging &&
+            (Math.abs(this._startX - posEvent.clientX) > 5 ||
+                Math.abs(this._startY - posEvent.clientY) > 5)
+        ) {
             this._dragging = true;
             if (this._fDragStart) {
                 this._setDefaultGlassCursor("move");
-                this._dragging = this._fDragStart({ clientX: this._startX, clientY: this._startY });
+                this._dragging = this._fDragStart({
+                    clientX: this._startX,
+                    clientY: this._startY,
+                });
             }
         }
 
@@ -345,12 +440,17 @@ export class DragDrop {
             if (this._fDragCancel) {
                 this._fDragCancel(this._dragging);
             }
-            if (Math.abs(this._startX - posEvent.clientX) <= 5 && Math.abs(this._startY - posEvent.clientY) <= 5) {
-
+            if (
+                Math.abs(this._startX - posEvent.clientX) <= 5 &&
+                Math.abs(this._startY - posEvent.clientY) <= 5
+            ) {
                 let isDoubleClick = false;
                 const clickTime = new Date().getTime();
                 // check for double click
-                if (Math.abs(this._clickX - posEvent.clientX) <= 5 && Math.abs(this._clickY - posEvent.clientY) <= 5) {
+                if (
+                    Math.abs(this._clickX - posEvent.clientX) <= 5 &&
+                    Math.abs(this._clickY - posEvent.clientY) <= 5
+                ) {
                     if (clickTime - this._lastClick < 500) {
                         if (this._fDblClick) {
                             this._fDblClick(event);
@@ -358,7 +458,7 @@ export class DragDrop {
                         }
                     }
                 }
- 
+
                 if (!isDoubleClick && this._fClick) {
                     this._fClick(event);
                 }
