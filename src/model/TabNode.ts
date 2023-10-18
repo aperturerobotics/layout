@@ -17,32 +17,65 @@ export class TabNode extends Node implements IDraggable {
         return newLayoutNode;
     }
     /** @internal */
-    private static _attributeDefinitions: AttributeDefinitions = TabNode._createAttributeDefinitions();
+    private static _attributeDefinitions: AttributeDefinitions =
+        TabNode._createAttributeDefinitions();
 
     /** @internal */
     private static _createAttributeDefinitions(): AttributeDefinitions {
         const attributeDefinitions = new AttributeDefinitions();
-        attributeDefinitions.add("type", TabNode.TYPE, true).setType(Attribute.STRING);
+        attributeDefinitions
+            .add("type", TabNode.TYPE, true)
+            .setType(Attribute.STRING);
         attributeDefinitions.add("id", undefined).setType(Attribute.STRING);
 
-        attributeDefinitions.add("name", "[Unnamed Tab]").setType(Attribute.STRING);
-        attributeDefinitions.add("altName", undefined).setType(Attribute.STRING);
-        attributeDefinitions.add("helpText", undefined).setType(Attribute.STRING);
-        attributeDefinitions.add("component", undefined).setType(Attribute.STRING);
+        attributeDefinitions
+            .add("name", "[Unnamed Tab]")
+            .setType(Attribute.STRING);
+        attributeDefinitions
+            .add("altName", undefined)
+            .setType(Attribute.STRING);
+        attributeDefinitions
+            .add("helpText", undefined)
+            .setType(Attribute.STRING);
+        attributeDefinitions
+            .add("component", undefined)
+            .setType(Attribute.STRING);
         attributeDefinitions.add("config", undefined).setType("any");
         attributeDefinitions.add("floating", false).setType(Attribute.BOOLEAN);
 
-        attributeDefinitions.addInherited("enableClose", "tabEnableClose").setType(Attribute.BOOLEAN);
-        attributeDefinitions.addInherited("closeType", "tabCloseType").setType("ICloseType");
-        attributeDefinitions.addInherited("enableDrag", "tabEnableDrag").setType(Attribute.BOOLEAN);
-        attributeDefinitions.addInherited("enableRename", "tabEnableRename").setType(Attribute.BOOLEAN);
-        attributeDefinitions.addInherited("className", "tabClassName").setType(Attribute.STRING);
-        attributeDefinitions.addInherited("contentClassName", "tabContentClassName").setType(Attribute.STRING);
-        attributeDefinitions.addInherited("icon", "tabIcon").setType(Attribute.STRING);
-        attributeDefinitions.addInherited("enableRenderOnDemand", "tabEnableRenderOnDemand").setType(Attribute.BOOLEAN);
-        attributeDefinitions.addInherited("enableFloat", "tabEnableFloat").setType(Attribute.BOOLEAN);
-        attributeDefinitions.addInherited("borderWidth", "tabBorderWidth").setType(Attribute.NUMBER);
-        attributeDefinitions.addInherited("borderHeight", "tabBorderHeight").setType(Attribute.NUMBER);
+        attributeDefinitions
+            .addInherited("enableClose", "tabEnableClose")
+            .setType(Attribute.BOOLEAN);
+        attributeDefinitions
+            .addInherited("closeType", "tabCloseType")
+            .setType("ICloseType");
+        attributeDefinitions
+            .addInherited("enableDrag", "tabEnableDrag")
+            .setType(Attribute.BOOLEAN);
+        attributeDefinitions
+            .addInherited("enableRename", "tabEnableRename")
+            .setType(Attribute.BOOLEAN);
+        attributeDefinitions
+            .addInherited("className", "tabClassName")
+            .setType(Attribute.STRING);
+        attributeDefinitions
+            .addInherited("contentClassName", "tabContentClassName")
+            .setType(Attribute.STRING);
+        attributeDefinitions
+            .addInherited("icon", "tabIcon")
+            .setType(Attribute.STRING);
+        attributeDefinitions
+            .addInherited("enableRenderOnDemand", "tabEnableRenderOnDemand")
+            .setType(Attribute.BOOLEAN);
+        attributeDefinitions
+            .addInherited("enableFloat", "tabEnableFloat")
+            .setType(Attribute.BOOLEAN);
+        attributeDefinitions
+            .addInherited("borderWidth", "tabBorderWidth")
+            .setType(Attribute.NUMBER);
+        attributeDefinitions
+            .addInherited("borderHeight", "tabBorderHeight")
+            .setType(Attribute.NUMBER);
         return attributeDefinitions;
     }
 
@@ -156,7 +189,7 @@ export class TabNode extends Node implements IDraggable {
     getClassName() {
         return this._getAttr("className") as string | undefined;
     }
-    
+
     getContentClassName() {
         return this._getAttr("contentClassName") as string | undefined;
     }
@@ -227,5 +260,4 @@ export class TabNode extends Node implements IDraggable {
     static getAttributeDefinitions() {
         return TabNode._attributeDefinitions;
     }
-
 }

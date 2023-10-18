@@ -1,6 +1,11 @@
 import * as React from "react";
 import { TabNode } from "../model/TabNode";
-import { IconFactory, ILayoutCallbacks, ITitleObject, TitleFactory } from "./Layout";
+import {
+    IconFactory,
+    ILayoutCallbacks,
+    ITitleObject,
+    TitleFactory,
+} from "./Layout";
 
 /** @internal */
 export function getRenderStateEx(
@@ -18,7 +23,7 @@ export function getRenderStateEx(
     }
 
     function isTitleObject(obj: any): obj is ITitleObject {
-        return obj.titleContent !== undefined
+        return obj.titleContent !== undefined;
     }
 
     if (titleFactory !== undefined) {
@@ -38,26 +43,49 @@ export function getRenderStateEx(
 
     if (leadingContent === undefined && node.getIcon() !== undefined) {
         if (iconAngle !== 0) {
-             leadingContent = <img style={{ width: "1em", height: "1em", transform: "rotate(" + iconAngle + "deg)" }} src={node.getIcon()} alt="leadingContent" />;
+            leadingContent = (
+                <img
+                    style={{
+                        width: "1em",
+                        height: "1em",
+                        transform: "rotate(" + iconAngle + "deg)",
+                    }}
+                    src={node.getIcon()}
+                    alt="leadingContent"
+                />
+            );
         } else {
-            leadingContent = <img style={{ width: "1em", height: "1em" }} src={node.getIcon()} alt="leadingContent" />;  
+            leadingContent = (
+                <img
+                    style={{ width: "1em", height: "1em" }}
+                    src={node.getIcon()}
+                    alt="leadingContent"
+                />
+            );
         }
     }
 
     let buttons: any[] = [];
 
     // allow customization of leading contents (icon) and contents
-    const renderState = { leading: leadingContent, content: titleContent, name, buttons };
+    const renderState = {
+        leading: leadingContent,
+        content: titleContent,
+        name,
+        buttons,
+    };
     layout.customizeTab(node, renderState);
 
     node._setRenderedName(renderState.name);
 
     return renderState;
-
 }
 
 /** @internal */
-export function hideElement(style: Record<string, any>, useVisibility: ConstrainBoolean) {
+export function hideElement(
+    style: Record<string, any>,
+    useVisibility: ConstrainBoolean
+) {
     if (useVisibility) {
         style.visibility = "hidden";
     } else {
@@ -65,15 +93,23 @@ export function hideElement(style: Record<string, any>, useVisibility: Constrain
     }
 }
 
-
 /** @internal */
-export function isAuxMouseEvent(event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.TouchEvent<HTMLDivElement>) {
+export function isAuxMouseEvent(
+    event:
+        | React.MouseEvent<HTMLDivElement, MouseEvent>
+        | React.TouchEvent<HTMLDivElement>
+) {
     let auxEvent = false;
     if (event.nativeEvent instanceof MouseEvent) {
-        if (event.nativeEvent.button !== 0 || event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) {
+        if (
+            event.nativeEvent.button !== 0 ||
+            event.ctrlKey ||
+            event.altKey ||
+            event.metaKey ||
+            event.shiftKey
+        ) {
             auxEvent = true;
         }
     }
     return auxEvent;
 }
-
