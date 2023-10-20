@@ -2,7 +2,7 @@
     "name": "@aptre/flex-layout",
     "author": "Caplin Systems Ltd",
     "description": "A multi-tab docking layout manager",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "license": "ISC",
     "repository": {
         "type": "git",
@@ -26,7 +26,21 @@
     "module": "./dist/index.mjs",
     "types": "./declarations/index.d.ts",
     "exports": {
-        ".": "./dist/index.mjs"
+        ".": "./dist/index.mjs",
+        "./style": "./style/",
+        "./style/_base.scss": "./style/_base.scss",
+        "./style/dark.css": "./style/dark.css",
+        "./style/dark.css.map": "./style/dark.css.map",
+        "./style/dark.scss": "./style/dark.scss",
+        "./style/gray.css": "./style/gray.css",
+        "./style/gray.css.map": "./style/gray.css.map",
+        "./style/gray.scss": "./style/gray.scss",
+        "./style/light.css": "./style/light.css",
+        "./style/light.css.map": "./style/light.css.map",
+        "./style/light.scss": "./style/light.scss",
+        "./style/underline.css": "./style/underline.css",
+        "./style/underline.css.map": "./style/underline.css.map",
+        "./style/underline.scss": "./style/underline.scss"
     },
     "files": [
         "README.md",
@@ -61,9 +75,9 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "@types/node": "^18.15.13",
+        "@types/node": "^20.8.7",
         "@types/prismjs": "^1.26.0",
-        "@types/react": "^18.0.5",
+        "@types/react": "^18.2.31",
         "@types/react-dom": "^18.0.1",
         "esbuild": "^0.19.5",
         "prettier": "^3.0.0",
