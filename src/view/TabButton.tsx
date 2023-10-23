@@ -167,12 +167,23 @@ export const TabButton = (props: ITabButtonProps) => {
         );
     }
 
+    const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            onClick();
+        }
+    };
+
     return (
         <div
             ref={selfRef}
+            role="button"
+            tabIndex={0}
+            aria-pressed={selected}
             data-layout-path={path}
             className={classNames}
             onClick={onClick}
+            onKeyDown={onKeyDown}
             onAuxClick={onAuxMouseClick}
             onContextMenu={onContextMenu}
             title={node.getHelpText()}
