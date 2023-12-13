@@ -26,7 +26,7 @@ import { FloatingWindowTab } from "./FloatingWindowTab";
 import { TabFloating } from "./TabFloating";
 import { IJsonTabNode } from "../model/IJsonModel";
 import { Orientation } from "../Orientation";
-import { CloseIcon, MaximizeIcon, OverflowIcon, PopoutIcon, RestoreIcon } from "./Icons";
+import { CloseIcon, EdgeIcon, MaximizeIcon, OverflowIcon, PopoutIcon, RestoreIcon } from "./Icons";
 import { TabButtonStamp } from "./TabButtonStamp";
 
 export type CustomDragCallback = (dragging: TabNode | IJsonTabNode, over: TabNode, x: number, y: number, location: DockLocation) => void;
@@ -147,6 +147,7 @@ export interface IIcons {
     maximize?: React.ReactNode | ((tabSetNode: TabSetNode) => React.ReactNode);
     restore?: React.ReactNode | ((tabSetNode: TabSetNode) => React.ReactNode);
     more?: React.ReactNode | ((tabSetNode: TabSetNode | BorderNode, hiddenTabs: { node: TabNode; index: number }[]) => React.ReactNode);
+    edgeArrow?: React.ReactNode;
 }
 
 const defaultIcons = {
@@ -156,6 +157,7 @@ const defaultIcons = {
     maximize: <MaximizeIcon />,
     restore: <RestoreIcon />,
     more: <OverflowIcon />,
+    edgeArrow: <EdgeIcon />,
 };
 
 export interface ICustomDropDestination {
@@ -205,10 +207,7 @@ export interface ILayoutCallbacks {
 }
 
 /** @internal */
-const isDesktop =
-    typeof window !== "undefined" &&
-    window.matchMedia &&
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const isDesktop = typeof window !== "undefined" && window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 /** @internal */
 const defaultSupportsPopout: boolean = isDesktop;
 
@@ -520,6 +519,7 @@ export class Layout extends React.Component<ILayoutProps, ILayoutState> {
         }
 
         const edges: React.ReactNode[] = [];
+        const arrowIcon = this.icons.edgeArrow;
         if (this.state.showEdges) {
             const r = this.centerRect;
             const length = this.edgeRectLength;
@@ -532,28 +532,36 @@ export class Layout extends React.Component<ILayoutProps, ILayoutState> {
                     key="North"
                     style={{ top: r.y, left: r.x + r.width / 2 - offset, width: length, height: width, borderBottomLeftRadius: radius, borderBottomRightRadius: radius }}
                     className={className + " " + this.getClassName(CLASSES.FLEXLAYOUT__EDGE_RECT_TOP)}
-                ></div>,
+                >
+                    <div style={{ transform: "rotate(180deg)" }}>{arrowIcon}</div>
+                </div>,
             );
             edges.push(
                 <div
                     key="West"
                     style={{ top: r.y + r.height / 2 - offset, left: r.x, width: width, height: length, borderTopRightRadius: radius, borderBottomRightRadius: radius }}
                     className={className + " " + this.getClassName(CLASSES.FLEXLAYOUT__EDGE_RECT_LEFT)}
-                ></div>,
+                >
+                    <div style={{ transform: "rotate(90deg)" }}>{arrowIcon}</div>
+                </div>,
             );
             edges.push(
                 <div
                     key="South"
                     style={{ top: r.y + r.height - width, left: r.x + r.width / 2 - offset, width: length, height: width, borderTopLeftRadius: radius, borderTopRightRadius: radius }}
                     className={className + " " + this.getClassName(CLASSES.FLEXLAYOUT__EDGE_RECT_BOTTOM)}
-                ></div>,
+                >
+                    <div>{arrowIcon}</div>
+                </div>,
             );
             edges.push(
                 <div
                     key="East"
                     style={{ top: r.y + r.height / 2 - offset, left: r.x + r.width - width, width: width, height: length, borderTopLeftRadius: radius, borderBottomLeftRadius: radius }}
                     className={className + " " + this.getClassName(CLASSES.FLEXLAYOUT__EDGE_RECT_RIGHT)}
-                ></div>,
+                >
+                    <div style={{ transform: "rotate(-90deg)" }}>{arrowIcon}</div>
+                </div>,
             );
         }
 
