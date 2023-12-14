@@ -29,7 +29,7 @@
     ],
     "main": "./dist/index.mjs",
     "module": "./dist/index.mjs",
-    "types": "./declarations/index.d.ts",
+    "types": "./dist/index.d.ts",
     "exports": {
         ".": "./dist/index.mjs",
         "./style": "./style/",
@@ -57,12 +57,13 @@
         "dist/"
     ],
     "scripts": {
-        "build": "npm run build:style && npm run build:doc && npm run build:lib",
-        "build:min": "npm run build:style && npm run build:doc && npm run build:lib:min",
+        "build": "npm run build:style && npm run build:doc && npm run build:lib && npm run build:types",
+        "build:min": "npm run build:style && npm run build:doc && npm run build:lib:min && npm run build:types",
         "build:lib": "rimraf ./dist && esbuild --bundle --external:react --external:react-dom --format=esm --target=es2022 --platform=browser --outfile=./dist/index.mjs ./src/index.ts",
         "build:lib:min": "npm run build:lib -- --minify",
         "build:doc": "typedoc --out typedoc --exclude \"**/examples/**/*.tsx\" --excludeInternal --disableSources --excludePrivate --excludeProtected --readme none ./src",
         "build:style": "sass style/underline.scss style/underline.css && sass style/gray.scss style/gray.css && sass style/light.scss style/light.css && sass style/dark.scss style/dark.css",
+        "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist/",
         "test": "tsc --project tsconfig.json --noEmit",
         "lint": "eslint src/*",
         "format": "prettier --write './style/*.scss' './{src,declarations}/**/(*.ts|*.tsx|*.html)' package.json"
@@ -85,7 +86,6 @@
         "prismjs": "^1.28.0",
         "react": "^18.0.0",
         "react-dom": "^18.0.0",
-        "react-scripts": "5.0.1",
         "rimraf": "^5.0.5",
         "sass": "^1.50.0",
         "typedoc": "^0.25.0",
