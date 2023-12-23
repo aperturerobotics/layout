@@ -18,7 +18,7 @@ export class Rect {
     }
 
     static fromElement(element: Element) {
-        let { x, y, width, height } = element.getBoundingClientRect();
+        const { x, y, width, height } = element.getBoundingClientRect();
         return new Rect(x, y, width, height);
     }
 

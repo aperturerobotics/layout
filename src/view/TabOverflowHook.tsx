@@ -77,7 +77,7 @@ export const useTabOverflow = (
             tabsTruncated.current = false;
         }
         const nodeRect = node instanceof TabSetNode ? node.getRect() : (node as BorderNode).getTabHeaderRect()!;
-        let lastChild = node.getChildren()[node.getChildren().length - 1] as TabNode;
+        const lastChild = node.getChildren()[node.getChildren().length - 1] as TabNode;
         const stickyButtonsSize = stickyButtonsRef.current === null ? 0 : getSize(stickyButtonsRef.current!.getBoundingClientRect());
 
         if (

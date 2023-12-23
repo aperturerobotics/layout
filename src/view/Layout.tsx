@@ -638,10 +638,10 @@ export class Layout extends React.Component<ILayoutProps, ILayoutState> {
                 let tabCount = 0;
                 for (const child of drawChildren) {
                     if (child instanceof SplitterNode) {
-                        let path = borderPath + "/s";
+                        const path = borderPath + "/s";
                         splitterComponents.push(<Splitter key={child.getId()} layout={this} node={child} path={path} />);
                     } else if (child instanceof TabNode) {
-                        let path = borderPath + "/t" + tabCount++;
+                        const path = borderPath + "/t" + tabCount++;
                         if (this.supportsPopout && child.isFloating()) {
                             const rect = this._getScreenRect(child);
 
@@ -871,14 +871,18 @@ export class Layout extends React.Component<ILayoutProps, ILayoutState> {
             if (rootdiv && outlineDiv) {
                 try {
                     rootdiv.removeChild(outlineDiv);
-                } catch (e) {}
+                } catch (e) {
+                    // ignore error
+                }
             }
 
             const dragDiv = this.dragDiv;
             if (rootdiv && dragDiv) {
                 try {
                     rootdiv.removeChild(dragDiv);
-                } catch (e) {}
+                } catch (e) {
+                    // ignore error
+                }
             }
 
             this.dragDiv = undefined;
@@ -927,7 +931,7 @@ export class Layout extends React.Component<ILayoutProps, ILayoutState> {
     };
 
     /** @internal */
-    dragRectRender = (text: String | undefined, node?: Node, json?: IJsonTabNode, onRendered?: () => void) => {
+    dragRectRender = (text: string | undefined, node?: Node, json?: IJsonTabNode, onRendered?: () => void) => {
         let content: React.ReactElement | undefined;
 
         if (text !== undefined) {
@@ -1045,7 +1049,7 @@ export class Layout extends React.Component<ILayoutProps, ILayoutState> {
             }
         }
 
-        let dropInfo = this.props.model._findDropTargetNode(this.dragNode!, pos.x, pos.y);
+        const dropInfo = this.props.model._findDropTargetNode(this.dragNode!, pos.x, pos.y);
         if (dropInfo) {
             if (this.props.onTabDrag) {
                 this.handleCustomTabDrag(dropInfo, pos, event);

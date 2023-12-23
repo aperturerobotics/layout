@@ -72,16 +72,19 @@
         "react": "^18.0.0",
         "react-dom": "^18.0.0"
     },
-    "eslintConfig": {
-        "extends": "react-app"
+    "dependencies": {
+        "ulidx": "^2.2.1"
     },
-    "dependencies": {},
     "devDependencies": {
         "@types/node": "^20.8.7",
         "@types/prismjs": "^1.26.0",
         "@types/react": "^18.2.31",
         "@types/react-dom": "^18.0.1",
+        "@typescript-eslint/eslint-plugin": "^6.15.0",
+        "@typescript-eslint/parser": "^6.15.0",
         "esbuild": "^0.19.5",
+        "eslint": "^8.56.0",
+        "eslint-plugin-react": "^7.33.2",
         "prettier": "^3.0.0",
         "prismjs": "^1.28.0",
         "react": "^18.0.0",

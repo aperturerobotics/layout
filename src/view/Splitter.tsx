@@ -125,7 +125,7 @@ export const Splitter = (props: ISplitterProps) => {
     };
 
     const cm = layout.getClassName;
-    let r = node.getRect();
+    const r = node.getRect();
     const style = r.styleWithPosition({
         cursor: node.getOrientation() === Orientation.HORZ ? "ns-resize" : "ew-resize",
     });
@@ -145,7 +145,7 @@ export const Splitter = (props: ISplitterProps) => {
     } else {
         // add extended transparent div for hit testing
         // extends forward only, so as not to interfere with scrollbars
-        let r2 = r.clone();
+        const r2 = r.clone();
         r2.x = 0;
         r2.y = 0;
         if (node.getOrientation() === Orientation.VERT) {

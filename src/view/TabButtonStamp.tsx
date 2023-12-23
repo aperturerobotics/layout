@@ -19,11 +19,11 @@ export const TabButtonStamp = (props: ITabButtonStampProps) => {
 
     const cm = layout.getClassName;
 
-    let classNames = cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_STAMP);
+    const classNames = cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_STAMP);
 
     const renderState = getRenderStateEx(layout, node, iconFactory, titleFactory);
 
-    let content = renderState.content ? <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_CONTENT)}>{renderState.content}</div> : node._getNameForOverflowMenu();
+    const content = renderState.content ? <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_CONTENT)}>{renderState.content}</div> : node._getNameForOverflowMenu();
 
     const leading = renderState.leading ? <div className={cm(CLASSES.FLEXLAYOUT__TAB_BUTTON_LEADING)}>{renderState.leading}</div> : null;
 

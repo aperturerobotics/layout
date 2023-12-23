@@ -132,7 +132,7 @@ export const TabSet = (props: ITabSetProps) => {
     if (node.isEnableTabStrip()) {
         for (let i = 0; i < node.getChildren().length; i++) {
             const child = node.getChildren()[i] as TabNode;
-            let isSelected = node.getSelected() === i;
+            const isSelected = node.getSelected() === i;
             tabs.push(<TabButton layout={layout} node={child} path={path + "/tb" + i} key={child.getId()} selected={isSelected} iconFactory={iconFactory} titleFactory={titleFactory} icons={icons} />);
             if (i < node.getChildren().length - 1) {
                 tabs.push(<div key={"divider" + i} className={cm(CLASSES.FLEXLAYOUT__TABSET_TAB_DIVIDER)}></div>);
@@ -281,7 +281,6 @@ export const TabSet = (props: ITabSetProps) => {
     );
 
     let header;
-    let tabStrip;
 
     let tabStripClasses = cm(CLASSES.FLEXLAYOUT__TABSET_TABBAR_OUTER);
     if (node.getClassNameTabStrip() !== undefined) {
@@ -349,7 +348,7 @@ export const TabSet = (props: ITabSetProps) => {
     }
 
     const tabStripStyle: { [key: string]: string } = { height: node.getTabStripHeight() + "px" };
-    tabStrip = (
+    const tabStrip = (
         <div
             className={tabStripClasses}
             style={tabStripStyle}
@@ -374,7 +373,7 @@ export const TabSet = (props: ITabSetProps) => {
 
     style = layout.styleFont(style);
 
-    var placeHolder: React.ReactNode = undefined;
+    let placeHolder: React.ReactNode = undefined;
     if (node.getChildren().length === 0) {
         const placeHolderCallback = layout.getTabSetPlaceHolderCallback();
         if (placeHolderCallback) {
@@ -384,7 +383,7 @@ export const TabSet = (props: ITabSetProps) => {
 
     const center = <div className={cm(CLASSES.FLEXLAYOUT__TABSET_CONTENT)}>{placeHolder}</div>;
 
-    var content;
+    let content;
     if (node.getTabLocation() === "top") {
         content = (
             <>

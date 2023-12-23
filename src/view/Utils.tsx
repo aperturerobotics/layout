@@ -38,7 +38,7 @@ export function getRenderStateEx(layout: ILayoutCallbacks, node: TabNode, iconFa
         }
     }
 
-    let buttons: any[] = [];
+    const buttons: any[] = [];
 
     // allow customization of leading contents (icon) and contents
     const renderState = { leading: leadingContent, content: titleContent, name, buttons };
