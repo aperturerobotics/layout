@@ -66,7 +66,11 @@
         "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist/",
         "test": "tsc --project tsconfig.json --noEmit",
         "lint:js": "ESLINT_USE_FLAT_CONFIG=false eslint -c .eslintrc.cjs ./",
-        "format": "prettier --write './style/*.scss' './{src,declarations}/**/(*.ts|*.tsx|*.html)' package.json"
+        "format": "prettier --write './style/*.scss' './{src,declarations}/**/(*.ts|*.tsx|*.html)' package.json",
+        "release:version": "npm version patch -m \"release: v%s\" --no-git-tag-version",
+        "release:commit": "git reset && git add package.json && git commit -s -m \"release: v$npm_package_version\" && git tag v$npm_package_version",
+        "release:publish": "git push && git push --tags && npm run build && npm publish",
+        "release": "npm run release:version && npm run release:commit"
     },
     "peerDependencies": {
         "react": "^18.0.0",
