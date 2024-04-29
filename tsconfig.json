@@ -1,11 +1,11 @@
 {
     "compilerOptions": {
+        "target": "ES2022",
+        "module": "Node16",
+        "moduleResolution": "Node16",
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": true,
-        "module": "ES6",
-        "moduleResolution": "node",
-        "target": "ES6",
         "stripInternal": true,
         "alwaysStrict": true,
         "forceConsistentCasingInFileNames": true,
@@ -15,5 +15,6 @@
         "jsx": "react",
         "skipLibCheck": true
     },
-    "include": ["./src/**/*"]
+    "include": ["./src/**/*"],
+    "exclude": ["dist", "typedoc"]
 }

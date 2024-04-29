@@ -1,4 +1,4 @@
-import { ulid } from 'ulidx'
+import { ulid } from "ulidx";
 import { TabSetNode } from "./TabSetNode";
 import { BorderNode } from "./BorderNode";
 import { RowNode } from "./RowNode";
@@ -70,5 +70,5 @@ export function adjustSelectedIndex(parent: TabSetNode | BorderNode | RowNode, r
 }
 
 export function randomUUID() {
-    return ulid()
+    return ulid();
 }

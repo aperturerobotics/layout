@@ -54,9 +54,7 @@ export function showPopup(
         event.stopPropagation();
     };
 
-    const onDocMouseDown = (_event: Event) => {
-        onHide();
-    };
+    const onDocMouseDown = () => onHide();
 
     elm.addEventListener("mousedown", onElementMouseDown);
     currentDocument.addEventListener("mousedown", onDocMouseDown);
