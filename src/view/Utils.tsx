@@ -1,6 +1,6 @@
 import * as React from "react";
-import { TabNode } from "../model/TabNode";
-import { IconFactory, ILayoutCallbacks, ITitleObject, TitleFactory } from "./Layout";
+import { TabNode } from "../model/TabNode.js";
+import { IconFactory, ILayoutCallbacks, ITitleObject, TitleFactory } from "./Layout.js";
 
 /** @internal */
 export function getRenderStateEx(layout: ILayoutCallbacks, node: TabNode, iconFactory?: IconFactory, titleFactory?: TitleFactory, iconAngle?: number) {

@@ -1,19 +1,19 @@
-import { Attribute } from "../Attribute";
-import { AttributeDefinitions } from "../AttributeDefinitions";
-import { DockLocation } from "../DockLocation";
-import { DropInfo } from "../DropInfo";
-import { Orientation } from "../Orientation";
-import { Rect } from "../Rect";
-import { CLASSES } from "../Types";
-import { IDraggable } from "./IDraggable";
-import { IDropTarget } from "./IDropTarget";
-import { IJsonBorderNode } from "./IJsonModel";
-import { Model, ILayoutMetrics } from "./Model";
-import { Node } from "./Node";
-import { SplitterNode } from "./SplitterNode";
-import { TabNode } from "./TabNode";
-import { TabSetNode } from "./TabSetNode";
-import { adjustSelectedIndex } from "./Utils";
+import { Attribute } from "../Attribute.js";
+import { AttributeDefinitions } from "../AttributeDefinitions.js";
+import { DockLocation } from "../DockLocation.js";
+import { DropInfo } from "../DropInfo.js";
+import { Orientation } from "../Orientation.js";
+import { Rect } from "../Rect.js";
+import { CLASSES } from "../Types.js";
+import { IDraggable } from "./IDraggable.js";
+import { IDropTarget } from "./IDropTarget.js";
+import { IJsonBorderNode } from "./IJsonModel.js";
+import { Model, ILayoutMetrics } from "./Model.js";
+import { Node } from "./Node.js";
+import { SplitterNode } from "./SplitterNode.js";
+import { TabNode } from "./TabNode.js";
+import { TabSetNode } from "./TabSetNode.js";
+import { adjustSelectedIndex } from "./Utils.js";
 
 export class BorderNode extends Node implements IDropTarget {
     static readonly TYPE = "border";

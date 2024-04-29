@@ -1,19 +1,19 @@
-import { Attribute } from "../Attribute";
-import { AttributeDefinitions } from "../AttributeDefinitions";
-import { DockLocation } from "../DockLocation";
-import { DropInfo } from "../DropInfo";
-import { Orientation } from "../Orientation";
-import { Rect } from "../Rect";
-import { CLASSES } from "../Types";
-import { BorderNode } from "./BorderNode";
-import { IDraggable } from "./IDraggable";
-import { IDropTarget } from "./IDropTarget";
-import { IJsonTabSetNode } from "./IJsonModel";
-import { Model, ILayoutMetrics } from "./Model";
-import { Node } from "./Node";
-import { RowNode } from "./RowNode";
-import { TabNode } from "./TabNode";
-import { adjustSelectedIndex } from "./Utils";
+import { Attribute } from "../Attribute.js";
+import { AttributeDefinitions } from "../AttributeDefinitions.js";
+import { DockLocation } from "../DockLocation.js";
+import { DropInfo } from "../DropInfo.js";
+import { Orientation } from "../Orientation.js";
+import { Rect } from "../Rect.js";
+import { CLASSES } from "../Types.js";
+import { BorderNode } from "./BorderNode.js";
+import { IDraggable } from "./IDraggable.js";
+import { IDropTarget } from "./IDropTarget.js";
+import { IJsonTabSetNode } from "./IJsonModel.js";
+import { Model, ILayoutMetrics } from "./Model.js";
+import { Node } from "./Node.js";
+import { RowNode } from "./RowNode.js";
+import { TabNode } from "./TabNode.js";
+import { adjustSelectedIndex } from "./Utils.js";
 
 export class TabSetNode extends Node implements IDraggable, IDropTarget {
     static readonly TYPE = "tabset";

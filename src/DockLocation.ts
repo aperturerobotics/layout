@@ -1,5 +1,5 @@
-import { Orientation } from "./Orientation";
-import { Rect } from "./Rect";
+import { Orientation } from "./Orientation.js";
+import { Rect } from "./Rect.js";
 
 export class DockLocation {
     static values: Record<string, DockLocation> = {};

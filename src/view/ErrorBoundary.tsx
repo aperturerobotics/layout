@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ErrorInfo } from "react";
-import { CLASSES } from "../Types";
+import { CLASSES } from "../Types.js";
 
 /** @internal */
 export interface IErrorBoundaryProps {

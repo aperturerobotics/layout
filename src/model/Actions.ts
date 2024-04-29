@@ -1,5 +1,5 @@
-import { DockLocation } from "../DockLocation";
-import { Action } from "./Action";
+import { DockLocation } from "../DockLocation.js";
+import { Action } from "./Action.js";
 
 /**
  * The Action creator class for FlexLayout model actions

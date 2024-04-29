@@ -1,13 +1,13 @@
 import * as React from "react";
-import { I18nLabel } from "../I18nLabel";
-import { Actions } from "../model/Actions";
-import { TabNode } from "../model/TabNode";
-import { TabSetNode } from "../model/TabSetNode";
-import { Rect } from "../Rect";
-import { IconFactory, IIcons, ILayoutCallbacks, TitleFactory } from "./Layout";
-import { ICloseType } from "../model/ICloseType";
-import { CLASSES } from "../Types";
-import { getRenderStateEx, isAuxMouseEvent } from "./Utils";
+import { I18nLabel } from "../I18nLabel.js";
+import { Actions } from "../model/Actions.js";
+import { TabNode } from "../model/TabNode.js";
+import { TabSetNode } from "../model/TabSetNode.js";
+import { Rect } from "../Rect.js";
+import { IconFactory, IIcons, ILayoutCallbacks, TitleFactory } from "./Layout.js";
+import { ICloseType } from "../model/ICloseType.js";
+import { CLASSES } from "../Types.js";
+import { getRenderStateEx, isAuxMouseEvent } from "./Utils.js";
 
 /** @internal */
 export interface ITabButtonProps {

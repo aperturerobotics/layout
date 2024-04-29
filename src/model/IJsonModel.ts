@@ -1,4 +1,4 @@
-import { ICloseType } from "./ICloseType";
+import { ICloseType } from "./ICloseType.js";
 export type IBorderLocation = "top" | "bottom" | "left" | "right";
 export type ITabLocation = "top" | "bottom";
 export type IInsets = { top: number; right: number; bottom: number; left: number };

@@ -1,10 +1,10 @@
 import * as React from "react";
-import { TabNode } from "../model/TabNode";
-import { ILayoutCallbacks } from "./Layout";
-import { ErrorBoundary } from "./ErrorBoundary";
-import { I18nLabel } from "../I18nLabel";
+import { TabNode } from "../model/TabNode.js";
+import { ILayoutCallbacks } from "./Layout.js";
+import { ErrorBoundary } from "./ErrorBoundary.js";
+import { I18nLabel } from "../I18nLabel.js";
 import { Fragment } from "react";
-import { CLASSES } from "../Types";
+import { CLASSES } from "../Types.js";
 
 /** @internal */
 export interface IFloatingWindowTabProps {

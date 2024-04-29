@@ -1,4 +1,4 @@
-import { Orientation } from "./Orientation";
+import { Orientation } from "./Orientation.js";
 
 export class Rect {
     static empty() {

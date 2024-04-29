@@ -1,16 +1,16 @@
 import * as React from "react";
-import { DockLocation } from "../DockLocation";
-import { BorderNode } from "../model/BorderNode";
-import { TabNode } from "../model/TabNode";
-import { BorderButton } from "./BorderButton";
-import { IIcons, ILayoutCallbacks, ITabSetRenderValues, ITitleObject } from "./Layout";
-import { showPopup } from "../PopupMenu";
-import { Actions } from "../model/Actions";
-import { I18nLabel } from "../I18nLabel";
-import { useTabOverflow } from "./TabOverflowHook";
-import { Orientation } from "../Orientation";
-import { CLASSES } from "../Types";
-import { isAuxMouseEvent } from "./Utils";
+import { DockLocation } from "../DockLocation.js";
+import { BorderNode } from "../model/BorderNode.js";
+import { TabNode } from "../model/TabNode.js";
+import { BorderButton } from "./BorderButton.js";
+import { IIcons, ILayoutCallbacks, ITabSetRenderValues, ITitleObject } from "./Layout.js";
+import { showPopup } from "../PopupMenu.js";
+import { Actions } from "../model/Actions.js";
+import { I18nLabel } from "../I18nLabel.js";
+import { useTabOverflow } from "./TabOverflowHook.js";
+import { Orientation } from "../Orientation.js";
+import { CLASSES } from "../Types.js";
+import { isAuxMouseEvent } from "./Utils.js";
 
 /** @internal */
 export interface IBorderTabSetProps {

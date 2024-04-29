@@ -1,10 +1,10 @@
-import { DropInfo } from "../DropInfo";
-import { Orientation } from "../Orientation";
-import { Rect } from "../Rect";
-import { BorderNode } from "./BorderNode";
-import { IDraggable } from "./IDraggable";
-import { Model, ILayoutMetrics } from "./Model";
-import { Node } from "./Node";
+import { DropInfo } from "../DropInfo.js";
+import { Orientation } from "../Orientation.js";
+import { Rect } from "../Rect.js";
+import { BorderNode } from "./BorderNode.js";
+import { IDraggable } from "./IDraggable.js";
+import { Model, ILayoutMetrics } from "./Model.js";
+import { Node } from "./Node.js";
 
 export class BorderSet {
     /** @internal */

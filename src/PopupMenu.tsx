@@ -1,9 +1,9 @@
 import * as React from "react";
-import { DragDrop } from "./DragDrop";
-import { TabNode } from "./model/TabNode";
-import { CLASSES } from "./Types";
-import { IconFactory, ILayoutCallbacks, TitleFactory } from "./view/Layout";
-import { TabButtonStamp } from "./view/TabButtonStamp";
+import { DragDrop } from "./DragDrop.js";
+import { TabNode } from "./model/TabNode.js";
+import { CLASSES } from "./Types.js";
+import { IconFactory, ILayoutCallbacks, TitleFactory } from "./view/Layout.js";
+import { TabButtonStamp } from "./view/TabButtonStamp.js";
 
 /** @internal */
 export function showPopup(

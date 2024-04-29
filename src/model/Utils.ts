@@ -1,8 +1,8 @@
 import { ulid } from "ulidx";
-import { TabSetNode } from "./TabSetNode";
-import { BorderNode } from "./BorderNode";
-import { RowNode } from "./RowNode";
-import { TabNode } from "./TabNode";
+import { TabSetNode } from "./TabSetNode.js";
+import { BorderNode } from "./BorderNode.js";
+import { RowNode } from "./RowNode.js";
+import { TabNode } from "./TabNode.js";
 
 /** @internal */
 export function adjustSelectedIndexAfterFloat(node: TabNode) {

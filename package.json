@@ -27,11 +27,13 @@
         "docking library",
         "docking layout"
     ],
-    "main": "./dist/index.mjs",
-    "module": "./dist/index.mjs",
-    "types": "./dist/index.d.ts",
+    "type": "module",
     "exports": {
-        ".": "./dist/index.mjs",
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.mjs",
+            "types": "./dist/index.d.ts"
+        },
         "./style": "./style/",
         "./style/_base.scss": "./style/_base.scss",
         "./style/dark.css": "./style/dark.css",

@@ -1,7 +1,7 @@
-import { DockLocation } from "../DockLocation";
-import { DropInfo } from "../DropInfo";
-import { IDraggable } from "./IDraggable";
-import { Node } from "./Node";
+import { DockLocation } from "../DockLocation.js";
+import { DropInfo } from "../DropInfo.js";
+import { IDraggable } from "./IDraggable.js";
+import { Node } from "./Node.js";
 
 export interface IDropTarget {
     /** @internal */

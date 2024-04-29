@@ -1,11 +1,11 @@
-import { AttributeDefinitions } from "../AttributeDefinitions";
-import { DockLocation } from "../DockLocation";
-import { DropInfo } from "../DropInfo";
-import { Orientation } from "../Orientation";
-import { Rect } from "../Rect";
-import { IDraggable } from "./IDraggable";
-import { IJsonBorderNode, IJsonRowNode, IJsonTabNode, IJsonTabSetNode } from "./IJsonModel";
-import { Model, ILayoutMetrics } from "./Model";
+import { AttributeDefinitions } from "../AttributeDefinitions.js";
+import { DockLocation } from "../DockLocation.js";
+import { DropInfo } from "../DropInfo.js";
+import { Orientation } from "../Orientation.js";
+import { Rect } from "../Rect.js";
+import { IDraggable } from "./IDraggable.js";
+import { IJsonBorderNode, IJsonRowNode, IJsonTabNode, IJsonTabSetNode } from "./IJsonModel.js";
+import { Model, ILayoutMetrics } from "./Model.js";
 
 export abstract class Node {
     /** @internal */

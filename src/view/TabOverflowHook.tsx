@@ -1,9 +1,9 @@
 import * as React from "react";
-import { TabNode } from "../model/TabNode";
-import { Rect } from "../Rect";
-import { TabSetNode } from "../model/TabSetNode";
-import { BorderNode } from "../model/BorderNode";
-import { Orientation } from "../Orientation";
+import { TabNode } from "../model/TabNode.js";
+import { Rect } from "../Rect.js";
+import { TabSetNode } from "../model/TabSetNode.js";
+import { BorderNode } from "../model/BorderNode.js";
+import { Orientation } from "../Orientation.js";
 
 /** @internal */
 export const useTabOverflow = (

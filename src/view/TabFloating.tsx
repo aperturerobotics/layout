@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Actions } from "../model/Actions";
-import { TabNode } from "../model/TabNode";
-import { TabSetNode } from "../model/TabSetNode";
-import { CLASSES } from "../Types";
-import { ILayoutCallbacks } from "./Layout";
-import { I18nLabel } from "../I18nLabel";
-import { hideElement } from "./Utils";
-import { BorderNode } from "../model/BorderNode";
+import { Actions } from "../model/Actions.js";
+import { TabNode } from "../model/TabNode.js";
+import { TabSetNode } from "../model/TabSetNode.js";
+import { CLASSES } from "../Types.js";
+import { ILayoutCallbacks } from "./Layout.js";
+import { I18nLabel } from "../I18nLabel.js";
+import { hideElement } from "./Utils.js";
+import { BorderNode } from "../model/BorderNode.js";
 
 /** @internal */
 export interface ITabFloatingProps {

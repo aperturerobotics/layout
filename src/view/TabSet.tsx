@@ -1,15 +1,15 @@
 import * as React from "react";
-import { I18nLabel } from "../I18nLabel";
-import { Actions } from "../model/Actions";
-import { TabNode } from "../model/TabNode";
-import { TabSetNode } from "../model/TabSetNode";
-import { showPopup } from "../PopupMenu";
-import { IIcons, ILayoutCallbacks, ITabSetRenderValues, ITitleObject } from "./Layout";
-import { TabButton } from "./TabButton";
-import { useTabOverflow } from "./TabOverflowHook";
-import { Orientation } from "../Orientation";
-import { CLASSES } from "../Types";
-import { hideElement, isAuxMouseEvent } from "./Utils";
+import { I18nLabel } from "../I18nLabel.js";
+import { Actions } from "../model/Actions.js";
+import { TabNode } from "../model/TabNode.js";
+import { TabSetNode } from "../model/TabSetNode.js";
+import { showPopup } from "../PopupMenu.js";
+import { IIcons, ILayoutCallbacks, ITabSetRenderValues, ITitleObject } from "./Layout.js";
+import { TabButton } from "./TabButton.js";
+import { useTabOverflow } from "./TabOverflowHook.js";
+import { Orientation } from "../Orientation.js";
+import { CLASSES } from "../Types.js";
+import { hideElement, isAuxMouseEvent } from "./Utils.js";
 
 /** @internal */
 export interface ITabSetProps {

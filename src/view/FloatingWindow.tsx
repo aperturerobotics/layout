@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createPortal } from "react-dom";
-import { Rect } from "../Rect";
-import { CLASSES } from "../Types";
+import { Rect } from "../Rect.js";
+import { CLASSES } from "../Types.js";
 
 /** @internal */
 export interface IFloatingWindowProps {

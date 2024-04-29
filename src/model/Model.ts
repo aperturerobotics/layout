@@ -1,21 +1,21 @@
-import { Attribute } from "../Attribute";
-import { AttributeDefinitions } from "../AttributeDefinitions";
-import { DockLocation } from "../DockLocation";
-import { DropInfo } from "../DropInfo";
-import { Orientation } from "../Orientation";
-import { Rect } from "../Rect";
-import { Action } from "./Action";
-import { Actions } from "./Actions";
-import { BorderNode } from "./BorderNode";
-import { BorderSet } from "./BorderSet";
-import { IDraggable } from "./IDraggable";
-import { IDropTarget } from "./IDropTarget";
-import { IJsonModel, ITabSetAttributes } from "./IJsonModel";
-import { Node } from "./Node";
-import { RowNode } from "./RowNode";
-import { TabNode } from "./TabNode";
-import { TabSetNode } from "./TabSetNode";
-import { adjustSelectedIndexAfterDock, adjustSelectedIndexAfterFloat, randomUUID } from "./Utils";
+import { Attribute } from "../Attribute.js";
+import { AttributeDefinitions } from "../AttributeDefinitions.js";
+import { DockLocation } from "../DockLocation.js";
+import { DropInfo } from "../DropInfo.js";
+import { Orientation } from "../Orientation.js";
+import { Rect } from "../Rect.js";
+import { Action } from "./Action.js";
+import { Actions } from "./Actions.js";
+import { BorderNode } from "./BorderNode.js";
+import { BorderSet } from "./BorderSet.js";
+import { IDraggable } from "./IDraggable.js";
+import { IDropTarget } from "./IDropTarget.js";
+import { IJsonModel, ITabSetAttributes } from "./IJsonModel.js";
+import { Node } from "./Node.js";
+import { RowNode } from "./RowNode.js";
+import { TabNode } from "./TabNode.js";
+import { TabSetNode } from "./TabSetNode.js";
+import { adjustSelectedIndexAfterDock, adjustSelectedIndexAfterFloat, randomUUID } from "./Utils.js";
 
 /** @internal */
 export interface ILayoutMetrics {

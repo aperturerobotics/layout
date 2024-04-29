@@ -1,13 +1,13 @@
 import * as React from "react";
-import { DragDrop } from "../DragDrop";
-import { Actions } from "../model/Actions";
-import { BorderNode } from "../model/BorderNode";
-import { Node } from "../model/Node";
-import { RowNode } from "../model/RowNode";
-import { SplitterNode } from "../model/SplitterNode";
-import { Orientation } from "../Orientation";
-import { CLASSES } from "../Types";
-import { ILayoutCallbacks } from "./Layout";
+import { DragDrop } from "../DragDrop.js";
+import { Actions } from "../model/Actions.js";
+import { BorderNode } from "../model/BorderNode.js";
+import { Node } from "../model/Node.js";
+import { RowNode } from "../model/RowNode.js";
+import { SplitterNode } from "../model/SplitterNode.js";
+import { Orientation } from "../Orientation.js";
+import { CLASSES } from "../Types.js";
+import { ILayoutCallbacks } from "./Layout.js";
 
 /** @internal */
 export interface ISplitterProps {

@@ -1,8 +1,8 @@
 import * as React from "react";
-import { TabNode } from "../model/TabNode";
-import { IconFactory, ILayoutCallbacks, TitleFactory } from "./Layout";
-import { CLASSES } from "../Types";
-import { getRenderStateEx } from "./Utils";
+import { TabNode } from "../model/TabNode.js";
+import { IconFactory, ILayoutCallbacks, TitleFactory } from "./Layout.js";
+import { CLASSES } from "../Types.js";
+import { getRenderStateEx } from "./Utils.js";
 
 /** @internal */
 export interface ITabButtonStampProps {

@@ -1,14 +1,14 @@
 import * as React from "react";
 import { Fragment } from "react";
-import { Actions } from "../model/Actions";
-import { TabNode } from "../model/TabNode";
-import { TabSetNode } from "../model/TabSetNode";
-import { CLASSES } from "../Types";
-import { ILayoutCallbacks } from "./Layout";
-import { ErrorBoundary } from "./ErrorBoundary";
-import { I18nLabel } from "../I18nLabel";
-import { BorderNode } from "../model/BorderNode";
-import { hideElement } from "./Utils";
+import { Actions } from "../model/Actions.js";
+import { TabNode } from "../model/TabNode.js";
+import { TabSetNode } from "../model/TabSetNode.js";
+import { CLASSES } from "../Types.js";
+import { ILayoutCallbacks } from "./Layout.js";
+import { ErrorBoundary } from "./ErrorBoundary.js";
+import { I18nLabel } from "../I18nLabel.js";
+import { BorderNode } from "../model/BorderNode.js";
+import { hideElement } from "./Utils.js";
 
 /** @internal */
 export interface ITabProps {

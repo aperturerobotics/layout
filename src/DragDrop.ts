@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Rect } from "./Rect";
+import { Rect } from "./Rect.js";
 
 /** @internal */
 const canUseDOM = !!(typeof window !== "undefined" && window.document && window.document.createElement);

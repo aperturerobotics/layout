@@ -1,7 +1,7 @@
-import { AttributeDefinitions } from "../AttributeDefinitions";
-import { Orientation } from "../Orientation";
-import { Model } from "./Model";
-import { Node } from "./Node";
+import { AttributeDefinitions } from "../AttributeDefinitions.js";
+import { Orientation } from "../Orientation.js";
+import { Model } from "./Model.js";
+import { Node } from "./Node.js";
 
 export class SplitterNode extends Node {
     static readonly TYPE: string = "splitter";
