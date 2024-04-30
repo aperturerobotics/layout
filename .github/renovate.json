@@ -1,18 +1,16 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    ":semanticPrefixFixDepsChoreOthers",
-    ":ignoreModulesAndTests",
-    "group:all",
-    "workarounds:all"
-  ],
-  "branchConcurrentLimit": 0,
-  "ignorePaths": [
-    "hack"
-  ],
-  "packageRules": [{
-    "matchManagers": ["gomod"],
-    "matchDepTypes": ["replace"],
-    "enabled": false
-  }]
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [":semanticPrefixFixDepsChoreOthers", ":ignoreModulesAndTests", "group:all", "workarounds:all"],
+    "branchConcurrentLimit": 0,
+    "packageRules": [
+        {
+            "matchManagers": ["gomod"],
+            "matchDepTypes": ["replace"],
+            "enabled": false
+        },
+        {
+            "matchPackageNames": ["eslint"],
+            "allowedVersions": "<9.0.0"
+        }
+    ]
 }
