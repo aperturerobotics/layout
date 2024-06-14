@@ -67,6 +67,7 @@
         "build:style": "sass style/underline.scss style/underline.css && sass style/gray.scss style/gray.css && sass style/light.scss style/light.css && sass style/dark.scss style/dark.css",
         "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist/",
         "test": "tsc --project tsconfig.json --noEmit",
+        "lint": "npm run lint:js",
         "lint:js": "ESLINT_USE_FLAT_CONFIG=false eslint -c .eslintrc.cjs ./",
         "format": "prettier --write './style/*.scss' './{src,declarations}/**/(*.ts|*.tsx|*.html)' package.json",
         "release:version": "npm version patch -m \"release: v%s\" --no-git-tag-version",
