@@ -1,19 +1,11 @@
 import * as React from "react";
-import { DragDrop } from "./DragDrop.js";
-import { TabNode } from "./model/TabNode.js";
-import { CLASSES } from "./Types.js";
-import { IconFactory, ILayoutCallbacks, TitleFactory } from "./view/Layout.js";
-import { TabButtonStamp } from "./view/TabButtonStamp.js";
+import { TabNode } from "../model/TabNode";
+import { CLASSES } from "../Types";
+import { LayoutInternal } from "./Layout";
+import { TabButtonStamp } from "./TabButtonStamp";
 
 /** @internal */
-export function showPopup(
-    triggerElement: Element,
-    items: { index: number; node: TabNode }[],
-    onSelect: (item: { index: number; node: TabNode }) => void,
-    layout: ILayoutCallbacks,
-    iconFactory?: IconFactory,
-    titleFactory?: TitleFactory,
-) {
+export function showPopup(triggerElement: Element, items: { index: number; node: TabNode }[], onSelect: (item: { index: number; node: TabNode }) => void, layout: LayoutInternal) {
     const layoutDiv = layout.getRootDiv();
     const classNameMapper = layout.getClassName;
     const currentDocument = triggerElement.ownerDocument;
@@ -33,45 +25,35 @@ export function showPopup(
     } else {
         elm.style.bottom = layoutRect.bottom - triggerRect.bottom + "px";
     }
-    DragDrop.instance.addGlass(() => onHide());
-    DragDrop.instance.setGlassCursorOverride("default");
+
+    layout.showOverlay(true);
 
     if (layoutDiv) {
         layoutDiv.appendChild(elm);
     }
 
     const onHide = () => {
-        layout.hidePortal();
-        DragDrop.instance.hideGlass();
+        layout.hideControlInPortal();
+        layout.showOverlay(false);
         if (layoutDiv) {
             layoutDiv.removeChild(elm);
         }
-        elm.removeEventListener("mousedown", onElementMouseDown);
-        currentDocument.removeEventListener("mousedown", onDocMouseDown);
+        elm.removeEventListener("pointerdown", onElementPointerDown);
+        currentDocument.removeEventListener("pointerdown", onDocPointerDown);
     };
 
-    const onElementMouseDown = (event: Event) => {
+    const onElementPointerDown = (event: Event) => {
         event.stopPropagation();
     };
 
-    const onDocMouseDown = () => onHide();
+    const onDocPointerDown = (_event: Event) => {
+        onHide();
+    };
 
-    elm.addEventListener("mousedown", onElementMouseDown);
-    currentDocument.addEventListener("mousedown", onDocMouseDown);
+    elm.addEventListener("pointerdown", onElementPointerDown);
+    currentDocument.addEventListener("pointerdown", onDocPointerDown);
 
-    layout.showPortal(
-        <PopupMenu
-            currentDocument={currentDocument}
-            onSelect={onSelect}
-            onHide={onHide}
-            items={items}
-            classNameMapper={classNameMapper}
-            layout={layout}
-            iconFactory={iconFactory}
-            titleFactory={titleFactory}
-        />,
-        elm,
-    );
+    layout.showControlInPortal(<PopupMenu currentDocument={currentDocument} onSelect={onSelect} onHide={onHide} items={items} classNameMapper={classNameMapper} layout={layout} />, elm);
 }
 
 /** @internal */
@@ -81,19 +63,29 @@ interface IPopupMenuProps {
     onHide: () => void;
     onSelect: (item: { index: number; node: TabNode }) => void;
     classNameMapper: (defaultClassName: string) => string;
-    layout: ILayoutCallbacks;
-    iconFactory?: IconFactory;
-    titleFactory?: TitleFactory;
+    layout: LayoutInternal;
 }
 
 /** @internal */
 const PopupMenu = (props: IPopupMenuProps) => {
-    const { items, onHide, onSelect, classNameMapper, layout, iconFactory, titleFactory } = props;
+    const { items, onHide, onSelect, classNameMapper, layout } = props;
 
-    const onItemClick = (item: { index: number; node: TabNode }, event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const onItemClick = (item: { index: number; node: TabNode }, event: React.MouseEvent<HTMLElement, MouseEvent>) => {
         onSelect(item);
         onHide();
         event.stopPropagation();
+    };
+
+    const onDragStart = (event: React.DragEvent<HTMLElement>, node: TabNode) => {
+        event.stopPropagation(); // prevent starting a tabset drag as well
+        layout.setDragNode(event.nativeEvent, node as TabNode);
+        setTimeout(() => {
+            onHide();
+        }, 0);
+    };
+
+    const onDragEnd = (event: React.DragEvent<HTMLElement>) => {
+        layout.clearDragMain();
     };
 
     const itemElements = items.map((item, i) => (
@@ -102,13 +94,12 @@ const PopupMenu = (props: IPopupMenuProps) => {
             className={classNameMapper(CLASSES.FLEXLAYOUT__POPUP_MENU_ITEM)}
             data-layout-path={"/popup-menu/tb" + i}
             onClick={(event) => onItemClick(item, event)}
+            draggable={true}
+            onDragStart={(e) => onDragStart(e, item.node)}
+            onDragEnd={onDragEnd}
             title={item.node.getHelpText()}
         >
-            {item.node.getModel().isLegacyOverflowMenu() ? (
-                item.node._getNameForOverflowMenu()
-            ) : (
-                <TabButtonStamp node={item.node} layout={layout} iconFactory={iconFactory} titleFactory={titleFactory} />
-            )}
+            <TabButtonStamp node={item.node} layout={layout} />
         </div>
     ));
 

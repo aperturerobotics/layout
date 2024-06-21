@@ -60,3 +60,15 @@ export const RestoreIcon = () => {
         </svg>
     );
 };
+
+export const AsterickIcon = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" style={style} height="24px" viewBox="0 -960 960 960" width="24px">
+            <path
+                fill="var(--color-icon)"
+                stroke="var(--color-icon)"
+                d="M440-120v-264L254-197l-57-57 187-186H120v-80h264L197-706l57-57 186 187v-264h80v264l186-187 57 57-187 186h264v80H576l187 186-57 57-186-187v264h-80Z"
+            />
+        </svg>
+    );
+};

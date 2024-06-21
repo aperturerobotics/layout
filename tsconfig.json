@@ -1,13 +1,13 @@
 {
     "compilerOptions": {
-        "target": "ES2022",
-        "module": "Node16",
-        "moduleResolution": "Node16",
         "outDir": "./dist/",
         "sourceMap": true,
         "noImplicitAny": true,
+        "module": "ES2020",
+        "target": "ES6",
         "stripInternal": true,
         "alwaysStrict": true,
+        "moduleResolution": "node",
         "forceConsistentCasingInFileNames": true,
         "noImplicitReturns": true,
         "strict": true,
