@@ -10,13 +10,7 @@ export interface IOverlayProps {
 
 /** @internal */
 export const Overlay = (props: IOverlayProps) => {
-    const {layout, show} = props;
+    const { layout, show } = props;
 
-    return (
-        <div 
-            className={layout.getClassName(CLASSES.FLEXLAYOUT__LAYOUT_OVERLAY)}
-            style={{display: (show ? "flex" : "none")
-        }}
-        />
-    );
-}
+    return <div className={layout.getClassName(CLASSES.FLEXLAYOUT__LAYOUT_OVERLAY)} style={{ display: show ? "flex" : "none" }} />;
+};

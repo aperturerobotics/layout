@@ -23,14 +23,14 @@ export class Rect {
     }
 
     toJson() {
-        return {x: this.x, y: this.y, width: this.width, height: this.height};
+        return { x: this.x, y: this.y, width: this.width, height: this.height };
     }
 
     snap(round: number) {
         this.x = Math.round(this.x / round) * round;
         this.y = Math.round(this.y / round) * round;
         this.width = Math.round(this.width / round) * round;
-        this.height= Math.round(this.height / round) * round;
+        this.height = Math.round(this.height / round) * round;
     }
 
     static getBoundingClientRect(element: Element) {
@@ -54,12 +54,7 @@ export class Rect {
         const contentWidth = rect.width - borderLeftWidth - paddingLeft - paddingRight - borderRightWidth;
         const contentHeight = rect.height - borderTopWidth - paddingTop - paddingBottom - borderBottomWidth;
 
-        return new Rect(
-            rect.left + borderLeftWidth + paddingLeft,
-            rect.top + borderTopWidth + paddingTop,
-            contentWidth,
-            contentHeight,
-        );
+        return new Rect(rect.left + borderLeftWidth + paddingLeft, rect.top + borderTopWidth + paddingTop, contentWidth, contentHeight);
     }
 
     static fromDomRect(domRect: DOMRect) {
@@ -79,7 +74,7 @@ export class Rect {
     }
 
     equalSize(rect: Rect | null | undefined) {
-        return this.width === rect?.width && this.height === rect?.height
+        return this.width === rect?.width && this.height === rect?.height;
     }
 
     getBottom() {

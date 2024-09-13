@@ -17,7 +17,6 @@ $font-family: Roboto, Arial, sans-serif !default;
 
 .flexlayout {
     &__layout {
-        
         --color-text: #{$color_text};
         --color-background: transparent;
         --color-base: #{$color_base};
@@ -83,7 +82,7 @@ $font-family: Roboto, Arial, sans-serif !default;
 }
 
 @mixin tabset_mixin {
-    border-radius:10px;
+    border-radius: 10px;
 }
 
 @mixin tabset_tabbar_mixin {
@@ -126,11 +125,11 @@ $font-family: Roboto, Arial, sans-serif !default;
 }
 
 @mixin close_button_hovered_mixin {
-    background-color:var(--color-3);
+    background-color: var(--color-3);
 }
 
 @mixin toolbar_button_hovered_mixin {
-    background-color:var(--color-2);
+    background-color: var(--color-2);
 }
 
 @mixin border_mixin {
@@ -178,11 +177,11 @@ $font-family: Roboto, Arial, sans-serif !default;
 
 .flexlayout__tab_border {
     border-radius: 10px;
-    padding:3px;
+    padding: 3px;
 }
 
 .flexlayout__tabset_tabbar_outer_top {
-    border-bottom:unset;
+    border-bottom: unset;
 }
 
 .flexlayout__border_tab_contents {

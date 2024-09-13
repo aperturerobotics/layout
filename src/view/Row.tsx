@@ -30,7 +30,7 @@ export const Row = (props: IRowProps) => {
 
     for (const child of node.getChildren()) {
         if (i > 0) {
-            items.push(<Splitter key={"splitter" + i} layout={layout} node={node} index={i} horizontal={horizontal} />)
+            items.push(<Splitter key={"splitter" + i} layout={layout} node={node} index={i} horizontal={horizontal} />);
         }
         if (child instanceof RowNode) {
             items.push(<Row key={child.getId()} layout={layout} node={child} />);
@@ -41,7 +41,7 @@ export const Row = (props: IRowProps) => {
     }
 
     const style: Record<string, any> = {
-        flexGrow: Math.max(1, node.getWeight()*1000), // NOTE:  flex-grow cannot have values < 1 otherwise will not fill parent, need to normalize 
+        flexGrow: Math.max(1, node.getWeight() * 1000), // NOTE:  flex-grow cannot have values < 1 otherwise will not fill parent, need to normalize
         minWidth: node.getMinWidth(),
         minHeight: node.getMinHeight(),
         maxWidth: node.getMaxWidth(),
@@ -54,15 +54,9 @@ export const Row = (props: IRowProps) => {
         style.flexDirection = "column";
     }
 
-     return (
-        <div
-            ref={selfRef}
-            className={layout.getClassName(CLASSES.FLEXLAYOUT__ROW)}
-            style={style}
-            >
+    return (
+        <div ref={selfRef} className={layout.getClassName(CLASSES.FLEXLAYOUT__ROW)} style={style}>
             {items}
         </div>
     );
 };
-
-

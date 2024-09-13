@@ -28,7 +28,6 @@ export function BorderTab(props: IBorderTabProps) {
                 layout.redrawInternal("border content rect");
             }
         }
-
     });
 
     let horizontal = true;
@@ -45,26 +44,23 @@ export function BorderTab(props: IBorderTabProps) {
         horizontal = false;
     }
 
-    style.display = show ? "flex":"none";
+    style.display = show ? "flex" : "none";
 
     const className = layout.getClassName(CLASSES.FLEXLAYOUT__BORDER_TAB_CONTENTS);
 
     if (border.getLocation() === DockLocation.LEFT || border.getLocation() === DockLocation.TOP) {
         return (
             <>
-                <div ref={selfRef} style={style} className={className}>
-                </div>
-                {show && <Splitter layout={layout} node={border} index={0}  horizontal={horizontal} />}
+                <div ref={selfRef} style={style} className={className}></div>
+                {show && <Splitter layout={layout} node={border} index={0} horizontal={horizontal} />}
             </>
         );
     } else {
         return (
             <>
-                {show && <Splitter layout={layout} node={border} index={0}  horizontal={horizontal} />}
-                <div ref={selfRef} style={style}  className={className}>
-                </div>
+                {show && <Splitter layout={layout} node={border} index={0} horizontal={horizontal} />}
+                <div ref={selfRef} style={style} className={className}></div>
             </>
         );
-
     }
 }

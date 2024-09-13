@@ -60,5 +60,4 @@ export class Attribute {
     setPairedType(value: string) {
         this.pairedType = value;
     }
-
 }

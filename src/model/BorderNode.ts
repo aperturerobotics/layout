@@ -362,7 +362,7 @@ export class BorderNode extends Node implements IDropTarget {
         const maxSize = useMinSize ? this.getMaxSize() : 99999;
         const rootRow = this.model.getRoot(Model.MAIN_WINDOW_ID);
         const innerRect = rootRow.getRect();
-        const splitterSize = this.model.getSplitterSize()
+        const splitterSize = this.model.getSplitterSize();
         if (this.location === DockLocation.TOP) {
             pBounds[0] = this.tabHeaderRect!.getBottom() + minSize;
             const maxPos = this.tabHeaderRect!.getBottom() + maxSize;
@@ -412,40 +412,24 @@ export class BorderNode extends Node implements IDropTarget {
         const attributeDefinitions = new AttributeDefinitions();
         attributeDefinitions.add("type", BorderNode.TYPE, true).setType(Attribute.STRING).setFixed();
 
-        attributeDefinitions.add("selected", -1).setType(Attribute.NUMBER).setDescription(
-            `index of selected/visible tab in border; -1 means no tab selected`
-        );
-        attributeDefinitions.add("show", true).setType(Attribute.BOOLEAN).setDescription(
-            `show/hide this border`
-        );
-        attributeDefinitions.add("config", undefined).setType("any").setDescription(
-            `a place to hold json config used in your own code`
-        );
+        attributeDefinitions.add("selected", -1).setType(Attribute.NUMBER).setDescription(`index of selected/visible tab in border; -1 means no tab selected`);
+        attributeDefinitions.add("show", true).setType(Attribute.BOOLEAN).setDescription(`show/hide this border`);
+        attributeDefinitions.add("config", undefined).setType("any").setDescription(`a place to hold json config used in your own code`);
 
-        attributeDefinitions.addInherited("enableDrop", "borderEnableDrop").setType(Attribute.BOOLEAN).setDescription(
-            `whether tabs can be dropped into this border`
-        );
-        attributeDefinitions.addInherited("className", "borderClassName").setType(Attribute.STRING).setDescription(
-            `class applied to tab button`
-        );
-        attributeDefinitions.addInherited("autoSelectTabWhenOpen", "borderAutoSelectTabWhenOpen").setType(Attribute.BOOLEAN).setDescription(
-            `whether to select new/moved tabs in border when the border is already open`
-        );
-        attributeDefinitions.addInherited("autoSelectTabWhenClosed", "borderAutoSelectTabWhenClosed").setType(Attribute.BOOLEAN).setDescription(
-            `whether to select new/moved tabs in border when the border is currently closed`
-        );
-        attributeDefinitions.addInherited("size", "borderSize").setType(Attribute.NUMBER).setDescription(
-            `size of the tab area when selected`
-        );
-        attributeDefinitions.addInherited("minSize", "borderMinSize").setType(Attribute.NUMBER).setDescription(
-            `the minimum size of the tab area`
-        );
-        attributeDefinitions.addInherited("maxSize", "borderMaxSize").setType(Attribute.NUMBER).setDescription(
-            `the maximum size of the tab area`
-        );
-        attributeDefinitions.addInherited("enableAutoHide", "borderEnableAutoHide").setType(Attribute.BOOLEAN).setDescription(
-            `hide border if it has zero tabs`
-        );
+        attributeDefinitions.addInherited("enableDrop", "borderEnableDrop").setType(Attribute.BOOLEAN).setDescription(`whether tabs can be dropped into this border`);
+        attributeDefinitions.addInherited("className", "borderClassName").setType(Attribute.STRING).setDescription(`class applied to tab button`);
+        attributeDefinitions
+            .addInherited("autoSelectTabWhenOpen", "borderAutoSelectTabWhenOpen")
+            .setType(Attribute.BOOLEAN)
+            .setDescription(`whether to select new/moved tabs in border when the border is already open`);
+        attributeDefinitions
+            .addInherited("autoSelectTabWhenClosed", "borderAutoSelectTabWhenClosed")
+            .setType(Attribute.BOOLEAN)
+            .setDescription(`whether to select new/moved tabs in border when the border is currently closed`);
+        attributeDefinitions.addInherited("size", "borderSize").setType(Attribute.NUMBER).setDescription(`size of the tab area when selected`);
+        attributeDefinitions.addInherited("minSize", "borderMinSize").setType(Attribute.NUMBER).setDescription(`the minimum size of the tab area`);
+        attributeDefinitions.addInherited("maxSize", "borderMaxSize").setType(Attribute.NUMBER).setDescription(`the maximum size of the tab area`);
+        attributeDefinitions.addInherited("enableAutoHide", "borderEnableAutoHide").setType(Attribute.BOOLEAN).setDescription(`hide border if it has zero tabs`);
         return attributeDefinitions;
     }
 }

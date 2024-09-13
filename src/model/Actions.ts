@@ -110,11 +110,11 @@ export class Actions {
     /**
      * Adjust the weights of a row, used when the splitter is moved
      * @param nodeId the row node whose childrens weights are being adjusted
-     * @param weights an array of weights to be applied to the children 
+     * @param weights an array of weights to be applied to the children
      * @returns {Action} the action
      */
     static adjustWeights(nodeId: string, weights: number[]): Action {
-        return new Action(Actions.ADJUST_WEIGHTS, {nodeId, weights});
+        return new Action(Actions.ADJUST_WEIGHTS, { nodeId, weights });
     }
 
     static adjustBorderSplit(nodeId: string, pos: number): Action {
@@ -152,7 +152,7 @@ export class Actions {
     /**
      * Pops out the given tab node into a new browser window
      * @param nodeId the tab node to popout
-     * @returns 
+     * @returns
      */
     static popoutTab(nodeId: string): Action {
         return new Action(Actions.POPOUT_TAB, { node: nodeId });
@@ -161,7 +161,7 @@ export class Actions {
     /**
      * Pops out the given tab set node into a new browser window
      * @param nodeId the tab set node to popout
-     * @returns 
+     * @returns
      */
     static popoutTabset(nodeId: string): Action {
         return new Action(Actions.POPOUT_TABSET, { node: nodeId });
@@ -170,7 +170,7 @@ export class Actions {
     /**
      * Closes the popout window
      * @param windowId the id of the popout window to close
-     * @returns 
+     * @returns
      */
     static closeWindow(windowId: string): Action {
         return new Action(Actions.CLOSE_WINDOW, { windowId });
@@ -180,9 +180,9 @@ export class Actions {
      * Creates a new empty popout window with the given layout
      * @param layout the json layout for the new window
      * @param rect the window rectangle in screen coordinates
-     * @returns 
+     * @returns
      */
     static createWindow(layout: IJsonRowNode, rect: IJsonRect): Action {
-        return new Action(Actions.CREATE_WINDOW, { layout, rect});
+        return new Action(Actions.CREATE_WINDOW, { layout, rect });
     }
 }
