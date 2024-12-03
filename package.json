@@ -66,7 +66,9 @@
         "build:doc": "typedoc --out typedoc --exclude \"**/examples/**/*.tsx\" --excludeInternal --disableSources --excludePrivate --excludeProtected --readme none ./src",
         "build:style": "sass style/underline.scss style/underline.css && sass style/gray.scss style/gray.css && sass style/light.scss style/light.css && sass style/dark.scss style/dark.css",
         "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist/",
-        "test": "tsc --project tsconfig.json --noEmit",
+        "test": "npm run test:js",
+        "test:js": "vitest run && npm run typecheck",
+        "typecheck": "tsc --project tsconfig.json --noEmit",
         "lint": "eslint src/*",
         "format": "prettier --write './style/*.scss' './{src,declarations}/**/(*.ts|*.tsx|*.html)' package.json",
         "release:version": "npm version patch -m \"release: v%s\" --no-git-tag-version",
@@ -82,16 +84,21 @@
     "devDependencies": {
         "@eslint/eslintrc": "^3.2.0",
         "@eslint/js": "^9.16.0",
+        "@testing-library/dom": "^10.4.0",
+        "@testing-library/react": "^16.0.1",
+        "@testing-library/user-event": "^14.5.2",
         "@types/node": "^22.10.1",
         "@types/prismjs": "^1.26.0",
         "@types/react": "^18.2.31",
         "@types/react-dom": "^18.0.1",
         "@typescript-eslint/eslint-plugin": "^8.17.0",
         "@typescript-eslint/parser": "^8.17.0",
+        "@vitest/ui": "2.1.8",
         "esbuild": "^0.24.0",
         "eslint": "^9.16.0",
         "eslint-plugin-react": "^7.37.2",
         "globals": "^15.13.0",
+        "happy-dom": "^15.11.7",
         "prettier": "^3.0.0",
         "prismjs": "^1.28.0",
         "react": "^18.0.0",
@@ -99,6 +106,7 @@
         "rimraf": "^6.0.1",
         "sass": "^1.50.0",
         "typedoc": "^0.27.2",
-        "typescript": "^5.0.0"
+        "typescript": "^5.0.0",
+        "vitest": "^2.1.8"
     }
 }
