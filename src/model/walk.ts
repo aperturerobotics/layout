@@ -9,10 +9,10 @@ export type ModelVisitor = (node: JsonNode, parent: JsonNode | null) => boolean 
  * @param id The ID to find
  * @returns The found node or undefined if not found
  */
-export function findNodeById(model: IJsonModel, id: string): JsonNode | undefined {
+export function findJsonNodeById(model: IJsonModel, id: string): JsonNode | undefined {
     let result: JsonNode | undefined;
 
-    walkModel(model, (node) => {
+    walkJsonModel(model, (node) => {
         if ("id" in node && node.id === id) {
             result = node;
             return false; // stop walking
@@ -30,7 +30,7 @@ export function findNodeById(model: IJsonModel, id: string): JsonNode | undefine
  * @param visitor Callback called for each node in the tree. Return false to stop the traversal.
  *               The visitor receives the current node and its parent (null for top-level nodes).
  */
-export function walkModel(model: IJsonModel, visitor: ModelVisitor): void {
+export function walkJsonModel(model: IJsonModel, visitor: ModelVisitor): void {
     // Stack of nodes to visit and their parents
     const stack: Array<[IJsonBorderNode | IJsonRowNode | IJsonTabSetNode | IJsonTabNode, IJsonBorderNode | IJsonRowNode | IJsonTabSetNode | null]> = [];
 
