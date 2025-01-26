@@ -14,6 +14,7 @@ export * from "./model/RowNode";
 export * from "./model/TabNode";
 export * from "./model/TabSetNode";
 export * from "./model/LayoutWindow";
+export * from "./model/walk";
 
 export * from "./DockLocation";
 export * from "./DropInfo";
