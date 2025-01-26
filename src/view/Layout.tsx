@@ -87,7 +87,7 @@ export interface ILayoutProps {
  */
 export class Layout extends React.Component<ILayoutProps> {
     /** @internal */
-    private selfRef: React.RefObject<LayoutInternal>;
+    private selfRef: React.RefObject<LayoutInternal | null>;
     /** @internal */
     private revision: number; // so LayoutInternal knows this is a parent render (used for optimization)
 
@@ -192,10 +192,10 @@ interface ILayoutInternalState {
 export class LayoutInternal extends React.Component<ILayoutInternalProps, ILayoutInternalState> {
     public static dragState: DragState | undefined = undefined;
 
-    private selfRef: React.RefObject<HTMLDivElement>;
-    private moveablesRef: React.RefObject<HTMLDivElement>;
-    private findBorderBarSizeRef: React.RefObject<HTMLDivElement>;
-    private mainRef: React.RefObject<HTMLDivElement>;
+    private selfRef: React.RefObject<HTMLDivElement | null>;
+    private moveablesRef: React.RefObject<HTMLDivElement | null>;
+    private findBorderBarSizeRef: React.RefObject<HTMLDivElement | null>;
+    private mainRef: React.RefObject<HTMLDivElement | null>;
     private previousModel?: Model;
     private orderedIds: string[];
     private moveableElementMap = new Map<string, HTMLElement>();
@@ -262,7 +262,7 @@ export class LayoutInternal extends React.Component<ILayoutInternalProps, ILayou
         this.layoutWindow.window = this.currentWindow;
         this.layoutWindow.toScreenRectFunction = (r) => this.getScreenRect(r);
 
-        this.resizeObserver = new ResizeObserver((entries) => {
+        this.resizeObserver = new ResizeObserver((_entries) => {
             requestAnimationFrame(() => {
                 this.updateRect();
             });
@@ -741,16 +741,16 @@ export class LayoutInternal extends React.Component<ILayoutInternalProps, ILayou
         }
     };
 
-    redraw(type?: string) {
+    redraw(_type?: string) {
         // console.log("redraw", this.windowId, type);
-        this.mainLayout.setState((state, props) => {
+        this.mainLayout.setState((state, _props) => {
             return { forceRevision: state.forceRevision + 1 };
         });
     }
 
-    redrawInternal(type: string) {
+    redrawInternal(_type: string) {
         // console.log("redrawInternal", this.windowId, type);
-        this.mainLayout.setState((state, props) => {
+        this.mainLayout.setState((state, _props) => {
             return { layoutRevision: state.layoutRevision + 1 };
         });
     }
@@ -869,7 +869,7 @@ export class LayoutInternal extends React.Component<ILayoutInternalProps, ILayou
         this.doAction(Actions.closeWindow(windowLayout.windowId));
     };
 
-    onSetWindow = (windowLayout: LayoutWindow, window: Window) => {};
+    onSetWindow = (_windowLayout: LayoutWindow, _window: Window) => {};
 
     getScreenRect(inRect: Rect) {
         const rect = inRect.clone();
@@ -972,7 +972,7 @@ export class LayoutInternal extends React.Component<ILayoutInternalProps, ILayou
 
     // *************************** Start Drag Drop *************************************
 
-    addTabWithDragAndDrop(event: DragEvent, json: IJsonTabNode, onDrop?: (node?: Node, event?: React.DragEvent<HTMLElement>) => void) {
+    addTabWithDragAndDrop(_event: DragEvent, json: IJsonTabNode, onDrop?: (node?: Node, event?: React.DragEvent<HTMLElement>) => void) {
         const tempNode = TabNode.fromJson(json, this.props.model, false);
         LayoutInternal.dragState = new DragState(this.mainLayout, DragSource.Add, tempNode, json, onDrop);
     }
@@ -1039,7 +1039,7 @@ export class LayoutInternal extends React.Component<ILayoutInternalProps, ILayou
     };
 
     public setDragComponent(event: DragEvent, component: React.ReactNode, x: number, y: number) {
-        const dragElement: JSX.Element = (
+        const dragElement: React.ReactNode = (
             <div style={{ position: "unset" }} className={this.getClassName(CLASSES.FLEXLAYOUT__LAYOUT) + " " + this.getClassName(CLASSES.FLEXLAYOUT__DRAG_RECT)}>
                 {component}
             </div>
@@ -1188,7 +1188,7 @@ export class LayoutInternal extends React.Component<ILayoutInternalProps, ILayou
         }
     };
 
-    onDragLeave = (event: React.DragEvent<HTMLElement>) => {
+    onDragLeave = (_event: React.DragEvent<HTMLElement>) => {
         // console.log("onDragLeave", this.windowId, this.dragging);
         if (this.dragging) {
             if (this.windowId !== Model.MAIN_WINDOW_ID) {
