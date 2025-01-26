@@ -177,7 +177,7 @@ export class TabNode extends Node implements IDraggable {
     toJson(): IJsonTabNode {
         const json = {};
         TabNode.attributeDefinitions.toJson(json, this.attributes);
-        return json;
+        return json as IJsonTabNode;
     }
 
     /** @internal */

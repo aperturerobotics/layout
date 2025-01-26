@@ -483,7 +483,7 @@ export interface IRowAttributes {
     id?: string;
 
     /** The type of this node (always "row") */
-    type?: "row";
+    type: "row";
 
     /**
 	  relative weight for sizing of this row in parent row
@@ -641,7 +641,7 @@ export interface ITabSetAttributes {
     tabLocation?: ITabLocation;
 
     /** The type of this node (always "tabset") */
-    type?: "tabset";
+    type: "tabset";
 
     /**
 	  relative weight for sizing of this tabset in parent row
@@ -828,7 +828,7 @@ export interface ITabAttributes {
     tabsetClassName?: string;
 
     /** The type of this node (always "tab") */
-    type?: "tab";
+    type: "tab";
 }
 export interface IBorderAttributes {
     /**
@@ -909,5 +909,5 @@ export interface IBorderAttributes {
     size?: number;
 
     /** The type of this node (always "border") */
-    type?: "border";
+    type: "border";
 }
