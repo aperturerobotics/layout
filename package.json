@@ -66,6 +66,7 @@
         "build:doc": "typedoc --out typedoc --exclude \"**/examples/**/*.tsx\" --excludeInternal --disableSources --excludePrivate --excludeProtected --readme none ./src",
         "build:style": "sass style/underline.scss style/underline.css && sass style/gray.scss style/gray.css && sass style/light.scss style/light.css && sass style/dark.scss style/dark.css",
         "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist/",
+        "typecheck": "tsc --noEmit",
         "test": "tsc --project tsconfig.json --noEmit",
         "lint": "eslint src/*",
         "format": "prettier --write './style/*.scss' './{src,declarations}/**/(*.ts|*.tsx|*.html)' package.json",
