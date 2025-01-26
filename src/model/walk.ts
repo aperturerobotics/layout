@@ -13,7 +13,7 @@ export interface VisitorResult {
  * Function type for visiting nodes in the model tree
  * @param node The current node being visited
  * @param parent The parent of the current node, or null for top-level nodes
- * @returns 
+ * @returns
  * - void/true to continue normally
  * - false to stop traversal completely
  * - VisitorResult to control traversal or delete nodes
@@ -34,7 +34,7 @@ export function findJsonNodeById(model: IJsonModel, id: string): JsonNode | unde
             result = node;
             return { skipChildren: true }; // found it, no need to check children
         }
-        return true
+        return true;
     });
 
     return result;
@@ -71,17 +71,17 @@ export function walkJsonModel(model: IJsonModel, visitor: ModelVisitor): void {
 
         // Visit current node
         const result = visitor(node, parent);
-        
+
         // Handle different return types
         if (result === false) {
             break;
         }
 
-        const visitorResult = typeof result === 'object' ? result : undefined;
-        
+        const visitorResult = typeof result === "object" ? result : undefined;
+
         // Handle deletion if requested
         if (visitorResult?.delete && parent && "children" in parent) {
-            const index = parent.children.findIndex(child => child === node);
+            const index = parent.children.findIndex((child) => child === node);
             if (index !== -1) {
                 parent.children.splice(index, 1);
                 continue;
